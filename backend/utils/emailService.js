@@ -6,18 +6,18 @@ console.log("📧 [Email Config] EMAIL_PASS:", process.env.EMAIL_PASS ? `${proce
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false, // STARTTLS - tương thích tốt hơn trên cloud hosting
+    port: 465,
+    secure: true, // SSL/TLS
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
     },
-    tls: {
-        rejectUnauthorized: false // Cho phép self-signed cert trên Render
-    },
-    connectionTimeout: 15000,
-    greetingTimeout: 15000,
-    socketTimeout: 15000
+    // Chế độ debug để xem chi tiết lỗi trong logs
+    debug: true,
+    logger: true,
+    connectionTimeout: 20000,
+    greetingTimeout: 20000,
+    socketTimeout: 20000
 });
 
 // Xác thực kết nối SMTP khi khởi động
