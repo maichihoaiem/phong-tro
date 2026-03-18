@@ -32,29 +32,41 @@ const phongTroController = {
     async getById(req, res) {
         try {
             const id = req.params.id;
+            console.log(`[getById] Fetching data for room ID: ${id}`);
             const phong = await PhongTroModel.getById(id);
+            
             if (!phong) {
+                console.log(`[getById] Room not found: ${id}`);
                 return res.status(404).json({ success: false, message: "Khong tim thay phong!" });
             }
 
+            // Kiểm tra phân quyền: Nếu là chủ phòng thì cho phép xem mọi trạng thái
+            const isOwner = req.session.user && req.session.user.ID_TaiKhoan === phong.ID_TaiKhoan;
             const publicStatuses = ['', 'Còn trống', 'Đang trống'];
             const currentStatus = (phong.TrangThai || '').trim();
-            if (!publicStatuses.includes(currentStatus)) {
+
+            if (!isOwner && !publicStatuses.includes(currentStatus)) {
+                console.log(`[getById] Access denied for non-owner. Status: ${currentStatus}`);
                 return res.status(404).json({ success: false, message: "Bài đăng chưa được duyệt hoặc không còn hiển thị." });
             }
 
-            // Tang luot xem
-            await PhongTroModel.increaseView(id);
+            // Tang luot xem (chi tang neu khong phai chu phong xem)
+            if (!isOwner) {
+                await PhongTroModel.increaseView(id);
+            }
 
             // Lay hinh anh va tien ich
             const hinhAnh = await PhongTroModel.getImages(id);
             const tienIch = await PhongTroModel.getAmenities(id);
 
+            console.log(`[getById] Successfully fetched room ${id}. Images: ${hinhAnh.length}, Amenities: ${tienIch.length}`);
             res.json({ success: true, data: { ...phong, hinhAnh, tienIch } });
         } catch (err) {
+            console.error(`[getById] Error fetching room ${id}:`, err);
             res.status(500).json({ success: false, error: err.message });
         }
     },
+
 
     // Ham phu tro: Tim hoac tao moi ID_PhuongXa tu ten
     async resolveLocation(tenTinhThanh, tenQuanHuyen, tenPhuongXa) {
