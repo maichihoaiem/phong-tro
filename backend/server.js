@@ -65,9 +65,11 @@ app.use("/api/ai", require("./routes/aiRoutes"));
 
 // Ket noi DB va start server
 connectDB().then(() => {
-    app.listen(5000, () => {
-        console.log("Kết nối server thành công");
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Kết nối server thành công tại cổng ${PORT}`);
     });
 }).catch((err) => {
+
     console.error("Khong the khoi dong server:", err.message);
 });
