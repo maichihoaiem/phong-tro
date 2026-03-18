@@ -85,28 +85,6 @@ app.post("/api/upload", upload.array("images", 5), async (req, res) => {
     }
 });
 
-
-// === Test Email Endpoint (để debug trên Render) ===
-const { sendEmail: testSendEmail } = require("./utils/emailService");
-app.get("/api/test-email", async (req, res) => {
-    try {
-        console.log("🧪 [Test Email] Bắt đầu gửi email test...");
-        await testSendEmail(
-            process.env.EMAIL_USER, // Gửi về chính mình
-            "Test Email từ Render",
-            "<h2>✅ Email hoạt động!</h2><p>Nếu bạn thấy email này, nghĩa là cấu hình SMTP trên Render đã đúng!</p>"
-        );
-        res.json({ success: true, message: "Email test đã gửi thành công!" });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Gửi email thất bại!",
-            error: error.message,
-            code: error.code
-        });
-    }
-});
-
 // API Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/phong-tro", require("./routes/phongTroRoutes"));

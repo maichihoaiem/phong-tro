@@ -20,6 +20,21 @@ router.post("/forgot-password", authController.forgotPassword);
 router.post("/verify-otp", authController.verifyOTP);
 router.post("/reset-password", authController.resetPassword);
 
+// Test Email (để debug)
+const { sendEmail: testSendEmail } = require("../utils/emailService");
+router.get("/test-email", async (req, res) => {
+    try {
+        await testSendEmail(
+            process.env.EMAIL_USER,
+            "Test Email từ Render (Auth Route)",
+            "<h2>✅ Email hoạt động!</h2><p>Cấu hình SMTP đã đúng!</p>"
+        );
+        res.json({ success: true, message: "Email test đã gửi thành công!" });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 // Khóa/mở tài khoản (Admin)
 router.put("/users/:id/lock", requireRole(1), authController.lockOrUnlockUser);
 
