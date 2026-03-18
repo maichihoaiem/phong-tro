@@ -28,11 +28,9 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 // Serve folder anh (Dung chung 1 thu muc uploads)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Multer Configuration (Dùng cho Cloudinary)
+// Multer Configuration (Memory Storage - Upload thủ công lên Cloudinary)
 const multer = require("multer");
 const cloudinary = require('cloudinary').v2;
-
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -40,32 +38,53 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: 'phong-tro',
-        allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
-    },
-});
-
+// Dùng memoryStorage thay vì CloudinaryStorage để tránh xung đột thư viện
+const storage = multer.memoryStorage();
 const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB max
 
+// Hàm upload 1 file lên Cloudinary
+function uploadToCloudinary(fileBuffer, originalName) {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: 'phong-tro',
+                resource_type: 'image',
+                public_id: `${Date.now()}-${originalName.replace(/\.[^/.]+$/, "")}`,
+            },
+            (error, result) => {
+                if (error) {
+                    console.error("Cloudinary upload error:", error);
+                    reject(error);
+                } else {
+                    resolve(result.secure_url);
+                }
+            }
+        );
+        stream.end(fileBuffer);
+    });
+}
+
 // Upload API
-app.post("/api/upload", upload.array("images", 5), (req, res) => {
+app.post("/api/upload", upload.array("images", 5), async (req, res) => {
     try {
         if (!req.files || req.files.length === 0) {
             return res.status(400).json({ success: false, error: "Khong co file nao!" });
         }
-        // Cloudinary tra ve 'path' hoac 'secure_url'
-        const urls = req.files.map(f => f.path || f.secure_url);
-        console.log("Uploaded Cloudinary URLs:", urls);
-        res.json({ success: true, urls });
 
+        console.log(`[Upload] Received ${req.files.length} files. Uploading to Cloudinary...`);
+
+        // Upload từng file lên Cloudinary
+        const uploadPromises = req.files.map(f => uploadToCloudinary(f.buffer, f.originalname));
+        const urls = await Promise.all(uploadPromises);
+
+        console.log("[Upload] Cloudinary URLs:", urls);
+        res.json({ success: true, urls });
     } catch (error) {
-        console.error("Lỗi upload Cloudinary:", error);
+        console.error("[Upload] Error:", error);
         res.status(500).json({ success: false, error: error.message });
     }
 });
+
 
 
 // API Routes
