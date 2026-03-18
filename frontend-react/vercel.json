@@ -11,6 +11,10 @@
     {
       "source": "/images/(.*)",
       "destination": "https://phong-tro-v5qy.onrender.com/images/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

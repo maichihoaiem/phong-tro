@@ -59,6 +59,11 @@ function PostRoomPage({ user }) {
 
             if (isEditMode) {
                 const roomRes = await axios.get(`/api/phong-tro/${id}`);
+                if (!roomRes.data.success) {
+                    setError(roomRes.data.message || 'Không tìm thấy phòng hoặc bạn không có quyền chỉnh sửa.');
+                    setLoadingData(false);
+                    return;
+                }
                 if (roomRes.data.success) {
                     const room = roomRes.data.data;
                     setFormData({
