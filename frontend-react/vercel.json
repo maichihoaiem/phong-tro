@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://phong-tro-v5qy.onrender.com/api/$1"
+    },
+    {
+      "source": "/uploads/(.*)",
+      "destination": "https://phong-tro-v5qy.onrender.com/uploads/$1"
+    },
+    {
+      "source": "/images/(.*)",
+      "destination": "https://phong-tro-v5qy.onrender.com/images/$1"
+    }
+  ]
+}
