@@ -42,5 +42,13 @@ router.get("/danh-muc/tien-ich", phongTroController.getTienIch);
 
 router.get("/:id", phongTroController.getById);
 
+// API Yeu cau dang nhap va quyen Chu Tro (ID_VaiTro = 2)
+router.post("/", auth.requireLogin, auth.requireRole(2), phongTroController.create);
+router.put("/:id", auth.requireLogin, auth.requireRole(2), phongTroController.update);
+router.put("/:id/restore-status", auth.requireLogin, auth.requireRole(2), phongTroController.restoreStatus);
+router.delete("/:id", auth.requireLogin, auth.requireRole(2), phongTroController.delete);
+router.get("/chu-tro/danh-sach", auth.requireLogin, auth.requireRole(2), phongTroController.getMyRooms);
+
+
 
 module.exports = router;
