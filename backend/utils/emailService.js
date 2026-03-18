@@ -1,11 +1,22 @@
 const nodemailer = require("nodemailer");
 
+// Kiểm tra biến môi trường
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn("⚠️ Cảnh báo: EMAIL_USER hoặc EMAIL_PASS chưa được cấu hình trong biến môi trường.");
+}
+
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, // Use SSL
     auth: {
-        user: process.env.EMAIL_USER, // Lấy từ .env
-        pass: process.env.EMAIL_PASS  // Lấy từ .env (App Password)
-    }
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    },
+    // Bổ sung timeout để tránh treo app trên Render nếu connect chậm
+    connectionTimeout: 10000, // 10s
+    greetingTimeout: 10000,
+    socketTimeout: 10000
 });
 
 /**
@@ -23,13 +34,25 @@ const sendEmail = async (to, subject, html) => {
             html: html
         };
 
+        console.log(`📩 Đang gửi email tới: ${to}...`);
         const info = await transporter.sendMail(mailOptions);
-        console.log('✅ Email sent: ' + info.response);
+        console.log('✅ Email đã gửi thành công:', info.messageId);
         return info;
     } catch (error) {
-        console.error('❌ Error sending email:', error);
+        console.error('❌ Lỗi khi gửi email:');
+        console.error('- Thông báo:', error.message);
+        console.error('- Mã lỗi:', error.code);
+        console.error('- Lệnh:', error.command);
+        
+        if (error.code === 'EAUTH') {
+            console.error('👉 Lỗi xác thực: Vui lòng kiểm tra lại EMAIL_USER và EMAIL_PASS (App Password).');
+        } else if (error.code === 'ESOCKET') {
+            console.error('👉 Lỗi kết nối: Render có thể đang chặn port hoặc mạng không ổn định.');
+        }
+        
         throw error;
     }
 };
 
 module.exports = { sendEmail };
+
