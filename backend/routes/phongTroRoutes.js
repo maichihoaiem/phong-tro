@@ -39,6 +39,7 @@ router.get("/image/:idPhong", async (req, res) => {
 // API phu thuoc (Loai phong, Tien ich) - Dat TRUOC /:id de khong bi shadow
 router.get("/danh-muc/loai-phong", phongTroController.getLoaiPhong);
 router.get("/danh-muc/tien-ich", phongTroController.getTienIch);
+router.get("/chu-tro/danh-sach", auth.requireLogin, auth.requireRole(2), phongTroController.getMyRooms);
 
 router.get("/:id", phongTroController.getById);
 
@@ -47,7 +48,7 @@ router.post("/", auth.requireLogin, auth.requireRole(2), phongTroController.crea
 router.put("/:id", auth.requireLogin, auth.requireRole(2), phongTroController.update);
 router.put("/:id/restore-status", auth.requireLogin, auth.requireRole(2), phongTroController.restoreStatus);
 router.delete("/:id", auth.requireLogin, auth.requireRole(2), phongTroController.delete);
-router.get("/chu-tro/danh-sach", auth.requireLogin, auth.requireRole(2), phongTroController.getMyRooms);
+
 
 
 
