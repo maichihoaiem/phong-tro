@@ -131,6 +131,15 @@ function HomePage() {
                                 </div>
                             ))}
                         </div>
+
+                        <div style={{ textAlign: 'center', marginTop: '60px' }} className="fade-up">
+                            <Link to="/tim-phong" className="btn-premium btn-premium-primary" style={{
+                                padding: '16px 40px',
+                                fontSize: '1rem'
+                            }}>
+                                Khám phá thêm phòng khác <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
+                            </Link>
+                        </div>
                     </div>
 
                 ) : (
