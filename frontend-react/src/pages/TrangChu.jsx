@@ -130,6 +130,16 @@ function HomePage() {
                                     <RoomCard room={room} />
                                 </div>
                             ))}
+                            {/* Nút Xem thêm trên Mobile */}
+                            <div className="lg:hidden mobile-scroller-item-half h-full">
+                                <Link to="/tim-phong" className="see-more-card" style={{ minHeight: '340px' }}>
+                                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3 text-blue-600">
+                                        <i className="fas fa-arrow-right"></i>
+                                    </div>
+                                    <span className="font-bold text-sm">Xem tất cả</span>
+                                    <p className="text-[10px] text-gray-400 mt-1">Khám phá toàn bộ phòng</p>
+                                </Link>
+                            </div>
                         </div>
 
                         <div style={{ textAlign: 'center', marginTop: '60px' }} className="fade-up">

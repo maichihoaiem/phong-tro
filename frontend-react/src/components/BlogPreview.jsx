@@ -96,7 +96,7 @@ function BlogPreview() {
     const blogs = blogPosts.slice(0, 3);
 
     return (
-        <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 20px' }}>
+        <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '30px 20px 60px' }}>
             <div className="blog-header" style={{ 
                 display: 'flex', 
                 justifyContent: 'space-between', 

@@ -173,7 +173,7 @@ function RoomDetailPage({ user }) {
 
     return (
         <div className="flex flex-col font-sans">
-            <div className="container mx-auto max-w-5xl px-4 py-8 flex-grow">
+            <div className="container mx-auto max-w-5xl px-4 pt-8 pb-2 flex-grow">
                 {/* Breadcrumb */}
                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
                     <Link to="/" className="hover:text-blue-600 transition">Trang chủ</Link>
@@ -605,7 +605,7 @@ function RoomDetailPage({ user }) {
 
                 {/* Phòng cùng khu vực */}
                 {relatedRooms.length > 0 && (
-                    <div className="mt-16 border-t border-gray-100 pt-12">
+                    <div className="mt-8 border-t border-gray-100 pt-8">
                         <div className="flex justify-between items-end mb-6">
                             <div className="w-full">
                                 <h2 className="text-base lg:text-2xl font-bold text-gray-800 mb-1 flex items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis">
