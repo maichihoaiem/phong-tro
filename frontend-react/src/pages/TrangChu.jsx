@@ -65,7 +65,7 @@ function HomePage() {
             <Hero onSearch={handleSearch} />
 
             {/* Room Listing Section */}
-            <main className="main-content" style={{ maxWidth: '1240px', margin: '0 auto', padding: '40px 24px' }}>
+            <main className="main-content" style={{ maxWidth: '1240px', margin: '0 auto', padding: '20px 24px 60px' }}>
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',

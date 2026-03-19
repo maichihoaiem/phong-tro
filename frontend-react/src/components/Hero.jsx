@@ -144,8 +144,7 @@ function Hero({ onSearch }) {
                     </form>
                 </div>
 
-                {/* Ô tìm kiếm dạng ngang mới trên Mobile */}
-                <div className="lg:hidden w-full fade-up mt-1">
+                <div className="lg:hidden w-full fade-up mt-[-10px]">
                     <form onSubmit={handleSearch} className="flex flex-col gap-3">
                         <div className="flex bg-white rounded-2xl p-1 shadow-2xl border border-white/50">
                             <div className="flex-1 flex items-center px-3 border-r border-gray-100">
@@ -203,8 +202,8 @@ function Hero({ onSearch }) {
                 @media (max-width: 992px) {
                     .hero-section {
                         height: auto !important;
-                        min-height: 280px !important;
-                        padding: 24px 16px 16px !important;
+                        min-height: 220px !important;
+                        padding: 16px 16px 10px !important;
                     }
                     .hero-text h1 {
                         font-size: 1.8rem !important;
