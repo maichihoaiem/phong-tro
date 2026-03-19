@@ -394,10 +394,10 @@ function RoomDetailPage({ user }) {
                             <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                                 <i className="fas fa-map-marked-alt text-blue-500"></i> Vị trí chính xác
                             </h2>
-                            <div className="rounded-xl overflow-hidden border border-gray-100 -mx-1">
+                            <div className="h-[250px] lg:h-[400px] rounded-xl overflow-hidden border border-gray-100 -mx-1">
                                 <iframe
                                     width="100%"
-                                    height="400"
+                                    height="100%"
                                     frameBorder="0"
                                     scrolling="no"
                                     marginHeight="0"
@@ -606,16 +606,16 @@ function RoomDetailPage({ user }) {
                 {/* Phòng cùng khu vực */}
                 {relatedRooms.length > 0 && (
                     <div className="mt-16 border-t border-gray-100 pt-12">
-                        <div className="flex justify-between items-end mb-8">
-                            <div>
-                                <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
-                                    <i className="fas fa-map-marker-alt text-red-500"></i>
-                                    Phòng cùng khu vực {room.TenTinhThanh}
+                        <div className="flex justify-between items-end mb-6">
+                            <div className="w-full">
+                                <h2 className="text-base lg:text-2xl font-bold text-gray-800 mb-1 flex items-center gap-2 whitespace-nowrap overflow-hidden text-ellipsis">
+                                    <i className="fas fa-map-marker-alt text-red-500 flex-shrink-0"></i>
+                                    Phòng tương tự ở {room.TenTinhThanh}
                                 </h2>
-                                <p className="text-gray-500">Có thể bạn sẽ quan tâm đến các phòng trống khác tại khu vực này.</p>
+                                <p className="text-xs lg:text-base text-gray-500">Gợi ý các phòng trống khác tại khu vực này.</p>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-6">
                             {relatedRooms.map((r, idx) => (
                                 <RoomCard key={r.ID_Phong || idx} room={r} />
                             ))}
