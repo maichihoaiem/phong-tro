@@ -94,6 +94,13 @@ const phongTroController = {
     // Them phong (Chu tro)
     async create(req, res) {
         try {
+            console.log('[Create] Session:', JSON.stringify(req.session?.user || 'NO SESSION'));
+            console.log('[Create] Body:', JSON.stringify(req.body));
+
+            if (!req.session || !req.session.user) {
+                return res.status(401).json({ success: false, error: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' });
+            }
+
             let idPhuongXa = req.body.idPhuongXa || 1;
             if (req.body.tenTinhThanh) {
                 idPhuongXa = await phongTroController.resolveLocation(req.body.tenTinhThanh, req.body.tenQuanHuyen, req.body.tenPhuongXa);
@@ -112,7 +119,9 @@ const phongTroController = {
                 giaNuoc: req.body.giaNuoc
             };
 
+            console.log('[Create] Data to insert:', JSON.stringify(data));
             const idPhong = await PhongTroModel.create(data);
+            console.log('[Create] Created room ID:', idPhong);
 
             // Them tien ich
             if (req.body.tienIch && Array.isArray(req.body.tienIch)) {
@@ -130,6 +139,7 @@ const phongTroController = {
 
             res.json({ success: true, message: "Đăng phòng thành công! Bài đăng đang chờ admin duyệt.", idPhong });
         } catch (err) {
+            console.error('[Create] Error:', err);
             res.status(500).json({ success: false, error: err.message });
         }
     },
@@ -138,6 +148,13 @@ const phongTroController = {
     async update(req, res) {
         try {
             const id = req.params.id;
+            console.log('[Update] Session:', JSON.stringify(req.session?.user || 'NO SESSION'));
+            console.log('[Update] Room ID:', id, 'Body:', JSON.stringify(req.body));
+
+            if (!req.session || !req.session.user) {
+                return res.status(401).json({ success: false, error: 'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.' });
+            }
+
             let idPhuongXa = req.body.idPhuongXa || 1;
             if (req.body.tenTinhThanh) {
                 idPhuongXa = await phongTroController.resolveLocation(req.body.tenTinhThanh, req.body.tenQuanHuyen, req.body.tenPhuongXa);
@@ -156,6 +173,7 @@ const phongTroController = {
             };
 
             await PhongTroModel.update(id, data);
+            console.log('[Update] Room data updated successfully');
 
             // Cap nhat tien ich
             if (req.body.tienIch && Array.isArray(req.body.tienIch)) {
@@ -173,8 +191,10 @@ const phongTroController = {
                 }
             }
 
-            res.json({ success: true, message: "Cap nhat phong thanh cong!" });
+            console.log('[Update] Room updated completely');
+            res.json({ success: true, message: "Cập nhật phòng thành công!" });
         } catch (err) {
+            console.error('[Update] Error:', err);
             res.status(500).json({ success: false, error: err.message });
         }
     },

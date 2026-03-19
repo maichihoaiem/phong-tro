@@ -144,23 +144,33 @@ const PhongTroModel = {
 
     // Them phong tro (Chu tro)
     async create(data) {
+        const safeTieuDe = (data.tieuDe || '').replace(/'/g, "''");
+        const safeMoTa = (data.moTa || '').replace(/'/g, "''");
+        const safeDiaChi = (data.diaChi || '').replace(/'/g, "''");
+        const safeGiaDien = data.giaDien !== null && data.giaDien !== undefined && data.giaDien !== '' ? `N'${String(data.giaDien).replace(/'/g, "''")}'` : 'NULL';
+        const safeGiaNuoc = data.giaNuoc !== null && data.giaNuoc !== undefined && data.giaNuoc !== '' ? `N'${String(data.giaNuoc).replace(/'/g, "''")}'` : 'NULL';
         const result = await query(`
             INSERT INTO PhongTro (TieuDe, MoTa, Gia, DienTich, DiaChiChiTiet, ID_TaiKhoan, ID_LoaiPhong, ID_PhuongXa, TrangThai, GiaDien, GiaNuoc)
             OUTPUT INSERTED.ID_Phong
-            VALUES (N'${data.tieuDe}', N'${data.moTa}', ${data.gia}, ${data.dienTich}, N'${data.diaChi}', ${data.idTaiKhoan}, ${data.idLoaiPhong}, ${data.idPhuongXa}, N'Chờ duyệt', ${data.giaDien !== null && data.giaDien !== undefined ? `N'${String(data.giaDien).replace(/'/g, "''")}'` : 'NULL'}, ${data.giaNuoc !== null && data.giaNuoc !== undefined ? `N'${String(data.giaNuoc).replace(/'/g, "''")}'` : 'NULL'})
+            VALUES (N'${safeTieuDe}', N'${safeMoTa}', ${data.gia}, ${data.dienTich}, N'${safeDiaChi}', ${data.idTaiKhoan}, ${data.idLoaiPhong}, ${data.idPhuongXa}, N'Chờ duyệt', ${safeGiaDien}, ${safeGiaNuoc})
         `);
         return result[0].ID_Phong;
     },
 
     // Cap nhat phong tro
     async update(id, data) {
+        const safeTieuDe = (data.tieuDe || '').replace(/'/g, "''");
+        const safeMoTa = (data.moTa || '').replace(/'/g, "''");
+        const safeDiaChi = (data.diaChi || '').replace(/'/g, "''");
+        const safeGiaDien = data.giaDien !== null && data.giaDien !== undefined && data.giaDien !== '' ? `N'${String(data.giaDien).replace(/'/g, "''")}'` : 'NULL';
+        const safeGiaNuoc = data.giaNuoc !== null && data.giaNuoc !== undefined && data.giaNuoc !== '' ? `N'${String(data.giaNuoc).replace(/'/g, "''")}'` : 'NULL';
         await query(`
             UPDATE PhongTro SET 
-                TieuDe = N'${data.tieuDe}', MoTa = N'${data.moTa}', Gia = ${data.gia}, 
-                DienTich = ${data.dienTich}, DiaChiChiTiet = N'${data.diaChi}', 
+                TieuDe = N'${safeTieuDe}', MoTa = N'${safeMoTa}', Gia = ${data.gia}, 
+                DienTich = ${data.dienTich}, DiaChiChiTiet = N'${safeDiaChi}', 
                 ID_LoaiPhong = ${data.idLoaiPhong}, ID_PhuongXa = ${data.idPhuongXa},
-                GiaDien = ${data.giaDien !== null && data.giaDien !== undefined ? `N'${String(data.giaDien).replace(/'/g, "''")}'` : 'NULL'}, 
-                GiaNuoc = ${data.giaNuoc !== null && data.giaNuoc !== undefined ? `N'${String(data.giaNuoc).replace(/'/g, "''")}'` : 'NULL'}
+                GiaDien = ${safeGiaDien}, 
+                GiaNuoc = ${safeGiaNuoc}
             WHERE ID_Phong = ${id}
         `);
     },
