@@ -615,9 +615,11 @@ function RoomDetailPage({ user }) {
                                 <p className="text-xs lg:text-base text-gray-500">Gợi ý các phòng trống khác tại khu vực này.</p>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-6">
+                        <div className="mobile-horizontal-scroller gap-3 lg:gap-6">
                             {relatedRooms.map((r, idx) => (
-                                <RoomCard key={r.ID_Phong || idx} room={r} />
+                                <div key={r.ID_Phong || idx} className="mobile-scroller-item">
+                                    <RoomCard room={r} />
+                                </div>
                             ))}
                         </div>
                     </div>

@@ -54,6 +54,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* Scrollbar */
@@ -170,36 +171,36 @@ input, select, textarea {
   border-color: var(--primary);
   transform: translateY(-2px);
 }
-.blog-grid {
+/* ---- MOBILE HORIZONTAL SCROLLER (Blog & Related Rooms) ---- */
+.mobile-horizontal-scroller {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
 }
 
 @media (max-width: 1024px) {
-  .blog-grid {
+  .mobile-horizontal-scroller {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 640px) {
-  .blog-grid {
+  .mobile-horizontal-scroller {
     display: flex !important;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 16px !important;
-    padding-bottom: 24px; /* Space for scrollbar and shadow */
+    padding-bottom: 24px;
     margin: 0 -20px;
     padding-left: 20px;
     padding-right: 20px;
-    /* Hide scrollbar visually but keep functionality */
-    scrollbar-width: none; 
+    scrollbar-width: none;
     -ms-overflow-style: none;
   }
-  .blog-grid::-webkit-scrollbar {
+  .mobile-horizontal-scroller::-webkit-scrollbar {
     display: none;
   }
-  .blog-card-container {
+  .mobile-scroller-item {
     flex: 0 0 85%;
     scroll-snap-align: center;
   }

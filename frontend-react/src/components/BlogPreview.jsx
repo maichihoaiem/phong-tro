@@ -119,9 +119,9 @@ function BlogPreview() {
                 </Link>
             </div>
 
-            <div className="blog-grid" style={{ gap: '24px' }}>
+            <div className="mobile-horizontal-scroller" style={{ gap: '24px' }}>
                 {blogs.map((b, i) => (
-                    <div key={i} className="blog-card-container">
+                    <div key={i} className="mobile-scroller-item">
                         <BlogCard {...b} />
                     </div>
                 ))}

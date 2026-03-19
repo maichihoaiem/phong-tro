@@ -84,7 +84,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg)' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg)', overflowX: 'hidden' }}>
 
         <Header user={user} onLogout={handleLogout} />
 
