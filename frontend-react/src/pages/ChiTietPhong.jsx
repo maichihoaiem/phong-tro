@@ -369,7 +369,7 @@ function RoomDetailPage({ user }) {
                             <h2 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
                                 <i className="fas fa-align-left text-blue-500"></i> Mô tả chi tiết
                             </h2>
-                            <p className="text-gray-600 leading-relaxed whitespace-pre-line break-words">{room.MoTa || 'Chưa có mô tả.'}</p>
+                            <div className="text-gray-600 leading-relaxed whitespace-pre-wrap break-words">{room.MoTa || 'Chưa có mô tả.'}</div>
                         </div>
 
                         {/* Tiện ích */}

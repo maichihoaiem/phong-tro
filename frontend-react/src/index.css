@@ -191,9 +191,8 @@ input, select, textarea {
     scroll-snap-type: x mandatory;
     gap: 16px !important;
     padding-bottom: 24px;
-    margin: 0 -24px !important;
-    padding-left: 24px !important;
-    padding-right: 24px !important;
+    margin: 0 !important;
+    padding: 0 !important;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
