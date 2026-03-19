@@ -138,12 +138,22 @@ function HomePage() {
                     </div>
                 ) : rooms.length > 0 ? (
                     <div>
-                        <div className="home-rooms-grid">
+                        <div className="home-rooms-grid mobile-horizontal-scroller">
                             {rooms.map((room, index) => (
-                                <div key={room.ID_Phong} className="fade-up" style={{ animationDelay: `${(index % 3) * 0.1}s` }}>
+                                <div key={room.ID_Phong} className="fade-up mobile-scroller-item-half" style={{ animationDelay: `${(index % 3) * 0.1}s` }}>
                                     <RoomCard room={room} />
                                 </div>
                             ))}
+                            {/* Nút Xem thêm trên Mobile */}
+                            <div className="lg:hidden mobile-scroller-item-half fade-up" style={{ animationDelay: '0.6s' }}>
+                                <Link to="/tim-phong" className="see-more-card">
+                                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3 text-blue-600">
+                                        <i className="fas fa-plus"></i>
+                                    </div>
+                                    <span className="font-bold text-sm">Xem thêm</span>
+                                    <p className="text-[10px] text-gray-400 mt-1">Khám phá các phòng khác</p>
+                                </Link>
+                            </div>
                         </div>
 
                         <div style={{ textAlign: 'center', marginTop: '80px' }} className="fade-up">

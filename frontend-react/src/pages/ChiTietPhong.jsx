@@ -617,10 +617,20 @@ function RoomDetailPage({ user }) {
                         </div>
                         <div className="mobile-horizontal-scroller gap-3 lg:gap-6">
                             {relatedRooms.map((r, idx) => (
-                                <div key={r.ID_Phong || idx} className="mobile-scroller-item">
+                                <div key={r.ID_Phong || idx} className="mobile-scroller-item-half">
                                     <RoomCard room={r} />
                                 </div>
                             ))}
+                            {/* Nút Xem thêm trên Mobile */}
+                            <div className="lg:hidden mobile-scroller-item-half h-full">
+                                <Link to="/tim-phong" className="see-more-card">
+                                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mb-2 text-blue-600">
+                                        <i className="fas fa-plus"></i>
+                                    </div>
+                                    <span className="font-bold text-xs uppercase letter-spacing-[1px]">Xem thêm</span>
+                                    <p className="text-[10px] text-gray-400 mt-1">Nhiều phòng khác</p>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 )}
