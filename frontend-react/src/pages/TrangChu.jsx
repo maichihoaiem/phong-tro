@@ -130,6 +130,7 @@ function HomePage() {
                                     <RoomCard room={room} />
                                 </div>
                             ))}
+                        </div>
                     </div>
 
                 ) : (
