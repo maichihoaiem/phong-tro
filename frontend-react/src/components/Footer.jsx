@@ -27,10 +27,10 @@ function Footer() {
 
     return (
         <footer style={{ background: '#0F1C3F', marginTop: 12, color: 'white' }}>
-            <div style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 20px 40px' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '50px', marginBottom: '60px' }}>
+            <div className="footer-container" style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 20px 40px' }}>
+                <div className="footer-cols" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '50px', marginBottom: '60px' }}>
                     {/* Brand */}
-                    <div>
+                    <div className="footer-brand">
                         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: '24px' }}>
                             <div style={{ width: 34, height: 34, borderRadius: '6px', background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14 }}>
                                 <i className="fas fa-home"></i>
@@ -45,8 +45,9 @@ function Footer() {
                     </div>
 
                     {/* Link columns */}
-                    {cols.map((col, i) => (
-                        <div key={i}>
+                    <div className="footer-links-grid">
+                        {cols.map((col, i) => (
+                            <div key={i}>
                             <h4 style={{ fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>
                                 {col.title}
                             </h4>
@@ -75,12 +76,13 @@ function Footer() {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                    ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
                 {/* Contact bar */}
-                <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', paddingBottom: 24, borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                <div className="footer-contact-bar" style={{ display: 'flex', gap: 28, flexWrap: 'wrap', paddingBottom: 24, borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
                     {[
                         { icon: 'fa-phone', text: '0706863369' },
                         { icon: 'fa-envelope', text: 'ozic2464@gmail.com' },
@@ -100,8 +102,23 @@ function Footer() {
             </div>
 
             <style>{`
+                .footer-links-grid {
+                    display: contents; /* Keep original grid behavior on PC */
+                }
                 @media (max-width: 768px) {
-                    .footer-cols { grid-template-columns: 1fr !important; gap: 28px !important; }
+                    .footer-container { padding-top: 40px !important; }
+                    .footer-cols { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
+                    
+                    .footer-brand { text-align: center; display: flex; flex-direction: column; align-items: center; }
+                    .footer-brand p { margin: 0 auto 20px !important; }
+                    
+                    .footer-links-grid { 
+                        display: grid !important; 
+                        grid-template-columns: repeat(2, 1fr) !important; 
+                        gap: 20px !important; 
+                    }
+                    
+                    .footer-contact-bar { justify-content: center !important; text-align: center; gap: 16px !important; }
                 }
             `}</style>
         </footer>

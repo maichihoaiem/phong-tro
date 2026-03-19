@@ -418,7 +418,7 @@ function SearchPage({ user }) {
                             overflowY: 'auto',
                             height: '100%',
                             backgroundColor: 'var(--bg)'
-                        }} className="custom-scrollbar">
+                        }} className="custom-scrollbar results-main">
                         {/* Mobile filter panel integration if needed */}
                         {sidebarOpen && (
                             <div style={{ background: 'white', borderRadius: 16, padding: 24, border: '1px solid #E2EAF4', marginBottom: 24, boxShadow: '0 10px 25px rgba(0,0,0,0.05)' }} className="mobile-filter-panel">
@@ -473,11 +473,7 @@ function SearchPage({ user }) {
                                     </div>
 
                                     {/* Grid */}
-                                    <div style={{ 
-                                        display: 'grid', 
-                                        gridTemplateColumns: 'repeat(3, 1fr)', 
-                                        gap: '24px'
-                                    }}>
+                                    <div className="search-rooms-grid">
                                         {rooms.map(room => <RoomCard key={room.ID_Phong} room={room} />)}
                                     </div>
 
@@ -514,10 +510,21 @@ function SearchPage({ user }) {
             </div>
 
             <style>{`
+                .search-rooms-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 24px;
+                }
+
                 @media (max-width: 992px) {
                     .search-layout { grid-template-columns: 1fr !important; }
                     .search-sidebar { display: none !important; }
                     .filter-toggle { display: flex !important; }
+                    .results-main { padding: 16px 8px 60px !important; } /* reduced padding closer to edge */
+                    .search-rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+                }
+                @media (max-width: 640px) {
+                    .search-rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
                 }
                 @media (min-width: 993px) {
                     .filter-toggle { display: none !important; }

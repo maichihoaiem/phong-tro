@@ -35,7 +35,7 @@ const notifyLandlordNewBooking = async (bookingId) => {
                         <p>Vui lòng truy cập trang quản lý để kiểm tra và <b>Xác nhận</b> hoặc <b>Từ chối</b> yêu cầu này sớm nhất có thể.</p>
 
                         <div style="text-align: center; margin-top: 30px;">
-                            <a href="http://localhost:5173/quan-ly-dat-phong" style="background: #059669; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold;">XEM DANH SÁCH YÊU CẦU</a>
+                            <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/quan-ly-dat-phong" style="background: #059669; color: white; padding: 14px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">XEM DANH SÁCH YÊU CẦU</a>
                         </div>
                         
                         <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
@@ -284,7 +284,7 @@ const datPhongController = {
                                     </div>
 
                                     <div style="text-align: center; margin-top: 30px;">
-                                        <a href="http://localhost:5173/profile" style="background: #2563EB; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold;">CẬP NHẬT THÔNG TIN HOÀN TIỀN</a>
+                                        <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/profile" style="background: #2563EB; color: white; padding: 14px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">CẬP NHẬT THÔNG TIN HOÀN TIỀN</a>
                                     </div>
                                     
                                     <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">

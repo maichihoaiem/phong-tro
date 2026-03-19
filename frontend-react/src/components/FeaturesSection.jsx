@@ -7,9 +7,8 @@ const FeatureCard = ({ icon, title, desc, color }) => {
         <div 
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="premium-card"
+            className="premium-card feature-card-wrapper"
             style={{
-                padding: '40px 30px',
                 textAlign: 'center',
                 height: '100%',
                 display: 'flex',
@@ -18,23 +17,19 @@ const FeatureCard = ({ icon, title, desc, color }) => {
                 background: isHovered ? 'linear-gradient(to bottom, var(--surface), var(--surface-alt))' : 'var(--surface)'
             }}
         >
-            <div style={{
-                width: '56px',
-                height: '56px',
-                borderRadius: '16px',
+            <div className="feature-icon-wrapper" style={{
                 backgroundColor: `${color}12`,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                marginBottom: '24px',
                 transition: 'all 0.4s ease',
                 transform: isHovered ? 'rotate(10deg) scale(1.1)' : 'none',
                 boxShadow: isHovered ? `0 10px 20px ${color}20` : 'none'
             }}>
-                <i className={icon} style={{ fontSize: '1.4rem', color: color }}></i>
+                <i className={icon} style={{ color: color }}></i>
             </div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0F172A', marginBottom: '12px', letterSpacing: '-0.3px' }}>{title}</h3>
-            <p style={{ fontSize: '0.88rem', color: '#64748B', lineHeight: '1.6', margin: 0, fontWeight: 500 }}>{desc}</p>
+            <h3 className="feature-title" style={{ fontWeight: 800, color: '#0F172A', letterSpacing: '-0.3px' }}>{title}</h3>
+            <p className="feature-desc" style={{ color: '#64748B', margin: 0, fontWeight: 500 }}>{desc}</p>
         </div>
     );
 };
@@ -62,7 +57,7 @@ function FeaturesSection() {
     ];
 
     return (
-        <section style={{ maxWidth: '1240px', margin: '0 auto', padding: '40px 24px' }}>
+        <section className="features-section" style={{ maxWidth: '1240px', margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '24px' }} className="fade-up">
                 <span style={{ 
                     color: '#2563EB', 
@@ -85,17 +80,37 @@ function FeaturesSection() {
                 </h2>
             </div>
 
-            <div style={{ 
-                display: 'grid', 
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
-                gap: '40px' 
-            }}>
+            <div className="features-grid">
                 {features.map((f, i) => (
                     <div key={i} className="fade-up" style={{ animationDelay: `${i * 0.1}s` }}>
                         <FeatureCard {...f} />
                     </div>
                 ))}
             </div>
+            
+            <style>{`
+                .features-section { padding: 40px 24px; }
+                .features-grid {
+                    display: grid; 
+                    grid-template-columns: repeat(3, 1fr); 
+                    gap: 40px;
+                }
+                .feature-card-wrapper { padding: 40px 30px; }
+                .feature-icon-wrapper { width: 56px; height: 56px; border-radius: 16px; margin-bottom: 24px; }
+                .feature-icon-wrapper i { font-size: 1.4rem; }
+                .feature-title { font-size: 1.15rem; margin-bottom: 12px; }
+                .feature-desc { font-size: 0.88rem; line-height: 1.6; }
+                
+                @media (max-width: 768px) {
+                    .features-section { padding: 30px 12px !important; }
+                    .features-grid { gap: 12px; }
+                    .feature-card-wrapper { padding: 16px 8px !important; }
+                    .feature-icon-wrapper { width: 36px !important; height: 36px !important; border-radius: 10px !important; margin-bottom: 12px !important; }
+                    .feature-icon-wrapper i { font-size: 1rem !important; }
+                    .feature-title { font-size: 0.8rem !important; margin-bottom: 6px !important; }
+                    .feature-desc { font-size: 0.72rem !important; line-height: 1.4 !important; }
+                }
+            `}</style>
         </section>
     );
 }

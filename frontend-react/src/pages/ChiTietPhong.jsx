@@ -247,7 +247,83 @@ function RoomDetailPage({ user }) {
                             </div>
                         </div>
 
-                        {/* Mô tả */}
+                        {/* Thông tin chủ trọ (Mobile Only) */}
+                        <div className="lg:hidden bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                            <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <i className="fas fa-user-tie text-blue-500"></i> Thông tin chủ trọ
+                            </h3>
+                            <div className="space-y-3">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i className="fas fa-user text-blue-500"></i>
+                                    </div>
+                                    <div>
+                                        <p className="font-semibold text-gray-800">{room.TenChuTro}</p>
+                                        <p className="text-gray-400 text-xs">Chủ trọ</p>
+                                    </div>
+                                </div>
+                                {room.SDTChuTro && (
+                                    <a href={`tel:${room.SDTChuTro}`} className="flex items-center gap-3 bg-green-50 px-4 py-3 rounded-xl hover:bg-green-100 transition">
+                                        <i className="fas fa-phone text-green-500"></i>
+                                        <span className="text-green-700 font-medium">{room.SDTChuTro}</span>
+                                    </a>
+                                )}
+                                {room.EmailChuTro && (
+                                    <a href={`mailto:${room.EmailChuTro}`} className="flex items-center gap-3 bg-blue-50 px-4 py-3 rounded-xl hover:bg-blue-100 transition">
+                                        <i className="fas fa-envelope text-blue-500"></i>
+                                        <span className="text-blue-700 font-medium text-sm truncate">{room.EmailChuTro}</span>
+                                    </a>
+                                )}
+                                {room.SDTChuTro && (
+                                    <a
+                                        href={`https://zalo.me/${room.SDTChuTro}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-3 bg-[#0068ff] text-white px-4 py-3 rounded-xl hover:bg-[#0052cc] transition shadow-md group relative overflow-hidden"
+                                    >
+                                        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+                                        <i className="fas fa-comment-dots animate-bounce"></i>
+                                        <span className="font-bold">Chat Zalo ngay</span>
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Hành động (Mobile Only) */}
+                        <div className="lg:hidden bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-6">
+                            <div className="text-center mb-5">
+                                <div className="text-3xl font-bold text-blue-600 mb-1">
+                                    {new Intl.NumberFormat('vi-VN').format(room.Gia)} đ
+                                </div>
+                                <p className="text-gray-400 text-sm">/ tháng</p>
+                            </div>
+
+                            {user && user.ID_TaiKhoan === room.ID_TaiKhoan ? (
+                                <div className="w-full bg-gray-100 text-gray-500 py-3 rounded-xl font-medium text-center border-2 border-gray-200 mb-3 px-4 text-sm">
+                                    <i className="fas fa-info-circle mr-2"></i> Bạn là chủ của phòng trọ này
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={() => setShowBookingModal(true)}
+                                    className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg mb-3 flex items-center justify-center gap-2"
+                                >
+                                    <i className="fas fa-calendar-check"></i> Đặt phòng ngay
+                                </button>
+                            )}
+
+                            <button
+                                onClick={toggleFavorite}
+                                className={`w-full py-3 rounded-xl font-semibold transition border-2 flex items-center justify-center gap-2 ${isFavorited
+                                    ? 'bg-red-50 border-red-300 text-red-500 hover:bg-red-100'
+                                    : 'bg-white border-gray-200 text-gray-600 hover:border-red-300 hover:text-red-500'
+                                    }`}
+                            >
+                                <i className={`fas fa-heart ${isFavorited ? 'text-red-500' : ''}`}></i>
+                                {isFavorited ? 'Đã yêu thích' : 'Lưu yêu thích'}
+                            </button>
+                        </div>
+
+                        {/* Chi phí dịch vụ */}
                         {(room.GiaDien != null || room.GiaNuoc != null) && (
                             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 italic">
                                 <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2 not-italic">
@@ -342,8 +418,8 @@ function RoomDetailPage({ user }) {
 
                     {/* Cột phải: Sidebar */}
                     <div className="space-y-6">
-                        {/* Thông tin chủ trọ */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                        {/* Thông tin chủ trọ (Desktop Only) */}
+                        <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
                                 <i className="fas fa-user-tie text-blue-500"></i> Thông tin chủ trọ
                             </h3>
@@ -384,8 +460,8 @@ function RoomDetailPage({ user }) {
                             </div>
                         </div>
 
-                        {/* Hành động */}
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-20">
+                        {/* Hành động (Desktop Only) */}
+                        <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-20">
                             <div className="text-center mb-5">
                                 <div className="text-3xl font-bold text-blue-600 mb-1">
                                     {new Intl.NumberFormat('vi-VN').format(room.Gia)} đ

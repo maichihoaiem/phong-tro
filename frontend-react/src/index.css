@@ -184,7 +184,24 @@ input, select, textarea {
 
 @media (max-width: 640px) {
   .blog-grid {
-    grid-template-columns: repeat(1, 1fr);
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px !important;
+    padding-bottom: 24px; /* Space for scrollbar and shadow */
+    margin: 0 -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* Hide scrollbar visually but keep functionality */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  .blog-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .blog-card-container {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
   }
 }
 

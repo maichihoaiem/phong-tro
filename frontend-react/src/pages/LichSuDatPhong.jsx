@@ -124,9 +124,9 @@ function BookingHistoryPage() {
                 <div className="space-y-4">
                     {bookings.map(booking => (
                         <div key={booking.ID_DatPhong} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
-                            <div className="flex">
+                            <div className="flex flex-col sm:flex-row">
                                 {/* Ảnh */}
-                                <div className="w-48 h-40 flex-shrink-0 bg-gray-100">
+                                <div className="w-full sm:w-48 h-48 sm:h-40 flex-shrink-0 bg-gray-100">
                                     {booking.AnhPhong ? (
                                         <img
                                             src={getImageUrl(booking.AnhPhong)}
@@ -143,7 +143,7 @@ function BookingHistoryPage() {
 
                                 {/* Thông tin */}
                                 <div className="flex-1 p-5">
-                                    <div className="flex justify-between items-start mb-2">
+                                    <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0 mb-2">
                                         <div>
                                             <Link to={`/phong-tro/${booking.ID_Phong || booking.id_phong}`} className="font-bold text-lg text-gray-800 hover:text-blue-600 transition">
                                                 {booking.TieuDe || booking.tieude}
@@ -156,7 +156,7 @@ function BookingHistoryPage() {
                                         {getStatusBadge(booking.TrangThai || booking.trangthai, booking.TrangThaiThanhToan || booking.trangthaithanhtoan)}
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-4 mt-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
                                         <div>
                                             <p className="text-xs text-gray-400 mb-1">Hình thức & Số tiền</p>
                                             <p className="text-sm font-semibold text-gray-700">

@@ -41,14 +41,15 @@ const RoomCard = ({ room }) => {
             onClick={() => navigate(`/phong-tro/${room.ID_Phong}`)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="premium-card"
+            className="premium-card room-card-wrapper"
             style={{
                 cursor: 'pointer',
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
                 position: 'relative',
-                borderTop: `3px solid ${typeColor.color}` // Thu nhỏ dải màu một chút
+                borderTop: `3px solid ${typeColor.color}`,
+                minWidth: 0 // Prevent CSS Grid blowout
             }}
         >
             {/* Image Section */}
@@ -173,13 +174,13 @@ const RoomCard = ({ room }) => {
                     </span>
                 </div>
 
-                <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', borderTop: '1px solid #F1F5F9' }}>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-                        <span style={{ fontSize: '1rem', fontWeight: 900, color: '#2563EB', letterSpacing: '-0.5px' }}>
+                <div style={{ marginTop: 'auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', paddingTop: '10px', gap: '8px', borderTop: '1px solid #F1F5F9' }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '0.95rem', fontWeight: 900, color: '#2563EB', letterSpacing: '-0.5px' }} className="price-text">
                             {room.Gia ? new Intl.NumberFormat('vi-VN').format(room.Gia) + 'đ' : 'Liên hệ'}
                         </span>
                         {room.Gia && (
-                            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#94A3B8' }}>
+                            <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#94A3B8' }}>
                                 / tháng
                             </span>
                         )}
@@ -190,10 +191,10 @@ const RoomCard = ({ room }) => {
                         alignItems: 'center', 
                         gap: '6px', 
                         background: 'var(--surface-alt)', 
-                        padding: '6px 10px',
+                        padding: '4px 8px',
                         borderRadius: '8px',
                         color: '#475569',
-                        fontSize: '0.8rem',
+                        fontSize: '0.75rem',
                         fontWeight: 700
                     }}>
                         <i className="fas fa-expand-arrows-alt" style={{ color: '#3B82F6' }}></i>
@@ -202,17 +203,23 @@ const RoomCard = ({ room }) => {
                 </div>
 
                 {/* Hàng hiển thị thêm giá điện nước */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px', fontSize: '0.8rem', color: '#64748B', fontWeight: 500 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px', gap: '6px', fontSize: '0.75rem', color: '#64748B', fontWeight: 500 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <i className="fas fa-bolt" style={{ color: '#F59E0B' }}></i>
                         <span>{room.GiaDien ? new Intl.NumberFormat('vi-VN').format(room.GiaDien) + 'đ' : 'Miễn phí'}</span>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <i className="fas fa-tint" style={{ color: '#0EA5E9' }}></i>
                         <span>{room.GiaNuoc ? new Intl.NumberFormat('vi-VN').format(room.GiaNuoc) + 'đ' : 'Miễn phí'}</span>
                     </div>
                 </div>
             </div>
+            <style>{`
+                @media (max-width: 640px) {
+                    .price-text { font-size: 0.85rem !important; }
+                    .room-card-wrapper h3 { font-size: 0.9rem !important; }
+                }
+            `}</style>
         </div>
     );
 };

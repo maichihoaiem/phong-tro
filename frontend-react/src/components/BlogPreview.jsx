@@ -97,7 +97,7 @@ function BlogPreview() {
 
     return (
         <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '60px 20px' }}>
-            <div style={{ 
+            <div className="blog-header" style={{ 
                 display: 'flex', 
                 justifyContent: 'space-between', 
                 alignItems: 'baseline', 
@@ -112,24 +112,29 @@ function BlogPreview() {
                 <Link to="/blog" style={{ 
                     color: '#2563EB', 
                     fontWeight: 700, 
-                    fontSize: '1rem'
+                    fontSize: '1rem',
+                    whiteSpace: 'nowrap'
                 }}>
                     Xem tất cả bài viết <i className="fas fa-chevron-right" style={{ fontSize: '0.8rem' }}></i>
                 </Link>
             </div>
 
-            <div 
-                className="blog-grid"
-                style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(3, 1fr)', 
-                    gap: '24px' 
-                }}
-            >
+            <div className="blog-grid" style={{ gap: '24px' }}>
                 {blogs.map((b, i) => (
-                    <BlogCard key={i} {...b} />
+                    <div key={i} className="blog-card-container">
+                        <BlogCard {...b} />
+                    </div>
                 ))}
             </div>
+
+            <style>{`
+                @media (max-width: 640px) {
+                    .blog-header {
+                        flex-direction: column;
+                        gap: 16px;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

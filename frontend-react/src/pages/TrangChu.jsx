@@ -70,6 +70,8 @@ function HomePage() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'flex-end',
+                    flexWrap: 'wrap',
+                    gap: '16px',
                     marginBottom: '32px',
                 }} className="fade-up">
                     <div style={{ maxWidth: '600px' }}>
@@ -136,12 +138,7 @@ function HomePage() {
                     </div>
                 ) : rooms.length > 0 ? (
                     <div>
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                            gap: '32px',
-                            justifyContent: 'center'
-                        }}>
+                        <div className="home-rooms-grid">
                             {rooms.map((room, index) => (
                                 <div key={room.ID_Phong} className="fade-up" style={{ animationDelay: `${(index % 3) * 0.1}s` }}>
                                     <RoomCard room={room} />
@@ -208,6 +205,21 @@ function HomePage() {
             <div style={{ backgroundColor: 'var(--surface-alt)', borderTop: '1px solid #F1F5F9', paddingBottom: '100px' }}>
                 <BlogPreview />
             </div>
+
+            <style>{`
+                .home-rooms-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, minmax(0, 360px));
+                    gap: 32px;
+                    justify-content: center;
+                }
+                @media (max-width: 992px) {
+                    .home-rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+                }
+                @media (max-width: 640px) {
+                    .home-rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+                }
+            `}</style>
         </div>
     );
 }

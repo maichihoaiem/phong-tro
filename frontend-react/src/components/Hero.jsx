@@ -59,7 +59,7 @@ function Hero({ onSearch }) {
                 width: '100%'
             }}>
                 {/* Phần Text bên trái */}
-                <div style={{ flex: '1', textAlign: 'left' }} className="fade-up">
+                <div className="hero-text fade-up" style={{ flex: '1', textAlign: 'left' }}>
                     <h1 style={{
                         fontSize: 'clamp(2rem, 4vw, 3.2rem)',
                         fontWeight: 900,
@@ -94,7 +94,7 @@ function Hero({ onSearch }) {
                 </div>
 
                 {/* Khung tìm kiếm bên phải */}
-                <div className="glass-effect fade-up" style={{
+                <div className="hero-form glass-effect fade-up" style={{
                     flex: '0 0 380px',
                     padding: '30px',
                     borderRadius: '28px',
@@ -270,12 +270,13 @@ function Hero({ onSearch }) {
                     to { opacity: 1; transform: translateY(0); }
                 }
                 @media (max-width: 992px) {
-                    .container { flex-direction: column !important; text-align: center !important; }
-                    div[style*="textAlign: left"] { text-align: center !important; }
-                    div[style*="maxWidth: 550px"] { margin: 0 auto 32px !important; }
-                    div[style*="flex: 0 0 420px"] { flex: 1 !important; width: 100% !important; max-width: 500px !important; }
-                    div[style*="gap: 16px"] { justify-content: center !important; }
-                    section { height: auto !important; padding: 100px 20px !important; }
+                    .container { flex-direction: column !important; text-align: center !important; gap: 24px !important; }
+                    .hero-text { text-align: center !important; width: 100% !important; margin-bottom: 20px !important; }
+                    .hero-text h1 { font-size: 1.8rem !important; margin-bottom: 12px !important; }
+                    .hero-text p { font-size: 0.95rem !important; margin: 0 auto 16px !important; }
+                    .hero-form { flex: 1 !important; width: 100% !important; max-width: 100% !important; padding: 20px !important; }
+                    div[style*="gap: 16px"] { justify-content: center !important; gap: 12px !important; transform: scale(0.9); }
+                    section { height: auto !important; padding: 60px 16px 40px !important; }
                 }
             `}</style>
         </section>
