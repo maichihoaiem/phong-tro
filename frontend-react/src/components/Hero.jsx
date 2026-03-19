@@ -89,12 +89,8 @@ function Hero({ onSearch }) {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <i className="fas fa-check-circle" style={{ color: '#60A5FA' }}></i>
                             <span style={{ fontWeight: 600 }}>Tin đăng chính xác 100%</span>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Khung tìm kiếm bên phải */}
-                <div className="hero-form glass-effect fade-up" style={{
+                              {/* Khung tìm kiếm bên phải (Desktop) */}
+                <div className="hidden lg:block hero-form glass-effect fade-up" style={{
                     flex: '0 0 380px',
                     padding: '30px',
                     borderRadius: '28px',
@@ -102,46 +98,46 @@ function Hero({ onSearch }) {
                     border: '1px solid rgba(255, 255, 255, 0.5)',
                     boxShadow: '0 30px 60px rgba(15, 28, 63, 0.15)',
                     textAlign: 'left',
-                    background: 'rgba(255, 255, 255, 0.95)' // Slightly more opaque for contrast
+                    background: 'rgba(255, 255, 255, 0.95)'
                 }}>
                     <h3 style={{ 
-                        fontSize: '1rem', 
+                        fontSize: '1.25rem', 
                         fontWeight: 800, 
-                        marginBottom: '16px',
+                        marginBottom: '20px',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '8px',
+                        gap: '10px',
                         color: '#0F1C3F'
                     }}>
                         <i className="fas fa-search-location" style={{ color: '#2563EB' }}></i>
                         Tìm kiếm ngay
                     </h3>
                     
-                    <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                    <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                         <div>
-                            <label style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '6px', display: 'block', color: '#334155' }}>
+                            <label style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '10px', display: 'block', color: '#334155' }}>
                                 Tiêu đề
                             </label>
                             <div style={{ 
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 background: '#F8FAFF', 
-                                borderRadius: '12px',
-                                padding: '0 14px',
+                                borderRadius: '16px',
+                                padding: '0 18px',
                                 border: '1px solid #E2E8F0',
-                                height: '48px'
+                                height: '54px'
                             }}>
-                                <i className="fas fa-tag" style={{ color: '#3B82F6', marginRight: '10px', fontSize: '0.85rem' }}></i>
+                                <i className="fas fa-tag" style={{ color: '#3B82F6', marginRight: '14px' }}></i>
                                 <input
                                     type="text"
-                                    placeholder="Nhập tiêu đề..."
+                                    placeholder="Nhập tiêu đề tìm kiếm..."
                                     value={keyword}
                                     onChange={(e) => setKeyword(e.target.value)}
                                     style={{
                                         border: 'none',
                                         outline: 'none',
                                         width: '100%',
-                                        fontSize: '0.9rem',
+                                        fontSize: '0.95rem',
                                         color: '#0F1C3F',
                                         background: 'transparent',
                                         fontWeight: 600
@@ -151,23 +147,23 @@ function Hero({ onSearch }) {
                         </div>
 
                         <div>
-                            <label style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '6px', display: 'block', color: '#334155' }}>
+                            <label style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '10px', display: 'block', color: '#334155' }}>
                                 Loại hình phòng
                             </label>
                             <div style={{ 
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 background: '#F8FAFF', 
-                                borderRadius: '12px',
-                                padding: '0 14px',
+                                borderRadius: '16px',
+                                padding: '0 18px',
                                 border: '1px solid #E2E8F0',
                                 position: 'relative',
                                 cursor: 'pointer',
-                                height: '48px'
+                                height: '54px'
                             }} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                                <i className="fas fa-home" style={{ color: '#3B82F6', marginRight: '10px', fontSize: '0.85rem' }}></i>
+                                <i className="fas fa-home" style={{ color: '#3B82F6', marginRight: '14px' }}></i>
                                 <div style={{
-                                    fontSize: '0.9rem',
+                                    fontSize: '0.95rem',
                                     color: '#0F1C3F',
                                     fontWeight: 600,
                                     flex: 1,
@@ -177,83 +173,99 @@ function Hero({ onSearch }) {
                                 </div>
                                 <i className="fas fa-chevron-down" style={{
                                     color: '#94A3B8',
-                                    fontSize: '0.75rem',
+                                    fontSize: '0.8rem',
                                     transition: 'transform 0.3s ease',
                                     transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0)'
                                 }}></i>
 
-                                {/* Custom Dropdown List */}
                                 {isDropdownOpen && (
                                     <div style={{
                                         position: 'absolute',
-                                        top: 'calc(100% + 4px)',
+                                        top: 'calc(100% + 8px)',
                                         left: 0,
                                         right: 0,
                                         background: 'white',
-                                        borderRadius: '12px',
+                                        borderRadius: '16px',
                                         boxShadow: '0 10px 25px rgba(15, 28, 63, 0.15)',
                                         border: '1px solid #E2E8F0',
                                         zIndex: 1000,
                                         overflow: 'hidden',
-                                        padding: '4px',
-                                        animation: 'slideUp 0.3s ease'
+                                        padding: '8px'
                                     }}>
                                         <div 
                                             className="dropdown-item"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                setLoaiPhong('');
-                                                setIsDropdownOpen(false);
-                                            }}
-                                            style={{
-                                                padding: '10px 12px',
-                                                borderRadius: '8px',
-                                                fontSize: '0.85rem',
-                                                color: loaiPhong === '' ? '#2563EB' : '#475569',
-                                                fontWeight: loaiPhong === '' ? 700 : 500,
-                                                background: loaiPhong === '' ? '#F1F5F9' : 'transparent',
-                                                transition: 'all 0.2s',
-                                                cursor: 'pointer'
-                                            }}
-                                        >
-                                            Tất cả các loại
-                                        </div>
+                                            onClick={(e) => { e.stopPropagation(); setLoaiPhong(''); setIsDropdownOpen(false); }}
+                                            style={{ padding: '12px 16px', borderRadius: '10px', fontSize: '0.95rem', color: loaiPhong === '' ? '#2563EB' : '#475569', fontWeight: loaiPhong === '' ? 700 : 500, background: loaiPhong === '' ? '#F1F5F9' : 'transparent', transition: 'all 0.2s', cursor: 'pointer' }}
+                                        >Tất cả các loại</div>
                                         {loaiPhongList.map((lp) => (
                                             <div 
                                                 key={lp.ID_LoaiPhong}
                                                 className="dropdown-item"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setLoaiPhong(lp.ID_LoaiPhong);
-                                                    setIsDropdownOpen(false);
-                                                }}
-                                                style={{
-                                                    padding: '10px 12px',
-                                                    borderRadius: '8px',
-                                                    fontSize: '0.85rem',
-                                                    color: loaiPhong === lp.ID_LoaiPhong ? '#2563EB' : '#475569',
-                                                    fontWeight: loaiPhong === lp.ID_LoaiPhong ? 700 : 500,
-                                                    background: loaiPhong === lp.ID_LoaiPhong ? '#F1F5F9' : 'transparent',
-                                                    transition: 'all 0.2s',
-                                                    cursor: 'pointer'
-                                                }}
-                                            >
-                                                {lp.TenLoai}
-                                            </div>
+                                                onClick={(e) => { e.stopPropagation(); setLoaiPhong(lp.ID_LoaiPhong); setIsDropdownOpen(false); }}
+                                                style={{ padding: '12px 16px', borderRadius: '10px', fontSize: '0.95rem', color: loaiPhong === lp.ID_LoaiPhong ? '#2563EB' : '#475569', fontWeight: loaiPhong === lp.ID_LoaiPhong ? 700 : 500, background: loaiPhong === lp.ID_LoaiPhong ? '#F1F5F9' : 'transparent', transition: 'all 0.2s', cursor: 'pointer' }}
+                                            >{lp.TenLoai}</div>
                                         ))}
                                     </div>
                                 )}
                             </div>
                         </div>
 
-                        <button type="submit" className="btn-premium btn-premium-primary" style={{
-                            borderRadius: '12px',
-                            padding: '14px',
-                            fontSize: '1rem',
-                            marginTop: '4px',
-                            width: '100%'
-                        }}>
-                            Tìm kiếm ngay <i className="fas fa-arrow-right" style={{ marginLeft: '8px' }}></i>
+                        <button type="submit" className="btn-premium btn-premium-primary" style={{ borderRadius: '16px', padding: '18px', fontSize: '1.1rem', marginTop: '8px', width: '100%' }}>
+                            Tìm kiếm ngay <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
+                        </button>
+                    </form>
+                </div>
+
+                {/* Ô tìm kiếm dạng ngang mới trên Mobile */}
+                <div className="lg:hidden w-full fade-up">
+                    <form onSubmit={handleSearch} className="flex flex-col gap-3">
+                        <div className="flex bg-white rounded-2xl p-1 shadow-xl border border-white/50">
+                            <div className="flex-1 flex items-center px-3 border-r border-gray-100">
+                                <i className="fas fa-search text-blue-500 mr-2 text-sm"></i>
+                                <input
+                                    type="text"
+                                    placeholder="Tìm tên phòng..."
+                                    value={keyword}
+                                    onChange={(e) => setKeyword(e.target.value)}
+                                    className="w-full border-none outline-none text-sm font-semibold text-gray-800 bg-transparent placeholder-gray-400"
+                                />
+                            </div>
+                            
+                            <div className="relative flex items-center px-2 cursor-pointer" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                                <i className="fas fa-home text-gray-400 mr-1.5 text-xs"></i>
+                                <span className="text-xs font-bold text-gray-600 truncate max-w-[80px]">
+                                    {selectedLoai ? selectedLoai.TenLoai : "Loại hình"}
+                                </span>
+                                <i className="fas fa-chevron-down text-[10px] text-gray-300 ml-1"></i>
+
+                                {isDropdownOpen && (
+                                    <div className="absolute top-[calc(100%+12px)] right-0 w-[180px] bg-white rounded-xl shadow-2xl border border-gray-100 z-[2000] p-1.5 overflow-hidden">
+                                        <div 
+                                            className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 active:bg-blue-50 active:text-blue-600 transition-colors"
+                                            onClick={(e) => { e.stopPropagation(); setLoaiPhong(''); setIsDropdownOpen(false); }}
+                                        >Tất cả các loại</div>
+                                        {loaiPhongList.map((lp) => (
+                                            <div 
+                                                key={lp.ID_LoaiPhong}
+                                                className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 active:bg-blue-50 active:text-blue-600 transition-colors"
+                                                onClick={(e) => { e.stopPropagation(); setLoaiPhong(lp.ID_LoaiPhong); setIsDropdownOpen(false); }}
+                                            >{lp.TenLoai}</div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <button type="submit" className="bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+                                <i className="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                        <div className="flex justify-center gap-4 text-[10px] text-white/80 font-medium">
+                            <span><i className="fas fa-check text-blue-300 mr-1"></i>Chính chủ</span>
+                            <span><i className="fas fa-check text-blue-300 mr-1"></i>Giá rẻ</span>
+                            <span><i className="fas fa-check text-blue-300 mr-1"></i>An toàn</span>
+                        </div>
+                    </form>
+                </div>arginLeft: '8px' }}></i>
                         </button>
                     </form>
                 </div>
