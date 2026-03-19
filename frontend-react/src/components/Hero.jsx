@@ -125,9 +125,11 @@ function Hero({ onSearch }) {
                             <div style={{ 
                                 display: 'flex', 
                                 alignItems: 'center', 
-                                background: 'white', 
-                                border: '1px solid var(--border-strong)',
-                                boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)'
+                                background: '#F8FAFF', 
+                                borderRadius: '16px',
+                                padding: '0 18px',
+                                border: '1px solid #E2E8F0',
+                                height: '54px'
                             }}>
                                 <i className="fas fa-tag" style={{ color: '#3B82F6', marginRight: '14px' }}></i>
                                 <input
@@ -141,9 +143,8 @@ function Hero({ onSearch }) {
                                         width: '100%',
                                         fontSize: '0.95rem',
                                         color: '#0F1C3F',
-                                        padding: '14px 0',
                                         background: 'transparent',
-                                        fontWeight: 500
+                                        fontWeight: 600
                                     }}
                                 />
                             </div>

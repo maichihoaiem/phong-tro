@@ -110,16 +110,9 @@ function Header({ user, onLogout }) {
             <div style={{ maxWidth: 1200, margin: '0 auto', height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem' }}>
 
                 {/* Logo */}
-                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}>
-                    <div style={{
-                        width: 36, height: 36, borderRadius: '8px',
-                        background: '#2563EB',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: 'white', fontSize: 16
-                    }}>
-                        <i className="fas fa-home"></i>
-                    </div>
-                    <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#0F1C3F', letterSpacing: '-0.5px' }}>
+                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', flexShrink: 0 }}>
+                    <img src="/logo.png" alt="OZIC HOUSE Logo" style={{ height: '40px', width: 'auto', borderRadius: '8px' }} />
+                    <span style={{ fontWeight: 800, fontSize: '1.4rem', color: '#0F1C3F', letterSpacing: '-0.8px', display: 'flex', alignItems: 'center' }}>
                         OZIC<span style={{ color: '#2563EB' }}>HOUSE</span>
                     </span>
                 </Link>
