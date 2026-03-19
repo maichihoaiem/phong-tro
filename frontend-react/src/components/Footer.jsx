@@ -31,8 +31,10 @@ function Footer() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '50px', marginBottom: '60px' }}>
                     {/* Brand */}
                     <div>
-                        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', marginBottom: '24px' }}>
-                            <img src="/logo.png" alt="OZIC HOUSE Logo" style={{ height: '36px', width: 'auto', borderRadius: '6px' }} />
+                        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: '24px' }}>
+                            <div style={{ width: 34, height: 34, borderRadius: '6px', background: '#2563EB', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 14 }}>
+                                <i className="fas fa-home"></i>
+                            </div>
                             <span style={{ fontWeight: 800, fontSize: '1.2rem', color: 'white', letterSpacing: '-0.3px' }}>
                                 OZIC<span style={{ color: '#60A5FA' }}>HOUSE</span>
                             </span>
