@@ -5,6 +5,7 @@ function Hero({ onSearch }) {
     const [keyword, setKeyword] = useState('');
     const [loaiPhong, setLoaiPhong] = useState('');
     const [loaiPhongList, setLoaiPhongList] = useState([]);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     useEffect(() => {
         const fetchLoaiPhong = async () => {
@@ -17,27 +18,26 @@ function Hero({ onSearch }) {
     }, []);
 
     const handleSearch = (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         onSearch({ keyword, loaiPhong });
     };
 
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const selectedLoai = loaiPhongList.find(lp => lp.ID_LoaiPhong === loaiPhong);
 
     return (
         <section style={{
             position: 'relative',
-            height: '500px',
+            height: 'auto',
+            minHeight: '400px',
             display: 'flex',
             alignItems: 'center',
             backgroundImage: 'linear-gradient(135deg, rgba(15, 28, 63, 0.82) 0%, rgba(37, 99, 235, 0.4) 100%), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             color: 'white',
-            padding: '0 20px',
-            overflow: 'visible' // Đổi để dropdown không bị cắt
-        }}>
-            {/* Vòng tròn trang trí */}
+            padding: '60px 20px',
+            overflow: 'visible'
+        }} className="hero-section">
             <div style={{
                 position: 'absolute',
                 top: '-10%',
@@ -55,41 +55,32 @@ function Hero({ onSearch }) {
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'space-between',
+                flexWrap: 'wrap',
                 gap: '40px',
                 width: '100%'
             }}>
                 {/* Phần Text bên trái */}
-                <div className="hero-text fade-up" style={{ flex: '1', textAlign: 'left' }}>
-                    <h1 style={{
-                        fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-                        fontWeight: 900,
-                        marginBottom: '16px',
-                        lineHeight: 1.1,
-                        letterSpacing: '-1px',
-                        textShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                    }}>
+                <div className="hero-text fade-up" style={{ flex: '1', minWidth: '300px' }}>
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight tracking-tighter">
                         Tìm Kiếm <span style={{ color: '#60A5FA' }}>Phòng Trọ</span><br />
                         Đẳng Cấp & Tiện Nghi
                     </h1>
-                    <p style={{
-                        fontSize: '1.1rem',
-                        marginBottom: '24px',
-                        opacity: 0.95,
-                        fontWeight: 500,
-                        maxWidth: '520px',
-                        lineHeight: 1.6
-                    }}>
+                    <p className="text-sm md:text-lg mb-6 opacity-90 font-medium max-w-[520px] leading-relaxed">
                         Hệ thống quản lý và tìm kiếm phòng trọ hàng đầu. Trải nghiệm không gian sống lý tưởng cùng OZIC HOUSE.
                     </p>
-                    <div style={{ display: 'flex', gap: '16px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <i className="fas fa-check-circle" style={{ color: '#60A5FA' }}></i>
-                            <span style={{ fontWeight: 600 }}>Cập nhật mỗi ngày</span>
+                    <div className="flex flex-wrap gap-4 mb-8 lg:mb-0">
+                        <div className="flex items-center gap-2">
+                            <i className="fas fa-check-circle text-blue-400"></i>
+                            <span className="font-semibold text-sm">Cập nhật mỗi ngày</span>
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <i className="fas fa-check-circle" style={{ color: '#60A5FA' }}></i>
-                            <span style={{ fontWeight: 600 }}>Tin đăng chính xác 100%</span>
-                              {/* Khung tìm kiếm bên phải (Desktop) */}
+                        <div className="flex items-center gap-2">
+                            <i className="fas fa-check-circle text-blue-400"></i>
+                            <span className="font-semibold text-sm">Tin đăng chính xác 100%</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Khung tìm kiếm (Desktop) */}
                 <div className="hidden lg:block hero-form glass-effect fade-up" style={{
                     flex: '0 0 380px',
                     padding: '30px',
@@ -97,112 +88,49 @@ function Hero({ onSearch }) {
                     backdropFilter: 'blur(30px)',
                     border: '1px solid rgba(255, 255, 255, 0.5)',
                     boxShadow: '0 30px 60px rgba(15, 28, 63, 0.15)',
-                    textAlign: 'left',
                     background: 'rgba(255, 255, 255, 0.95)'
                 }}>
-                    <h3 style={{ 
-                        fontSize: '1.25rem', 
-                        fontWeight: 800, 
-                        marginBottom: '20px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '10px',
-                        color: '#0F1C3F'
-                    }}>
-                        <i className="fas fa-search-location" style={{ color: '#2563EB' }}></i>
+                    <h3 className="text-xl font-extrabold mb-5 flex items-center gap-2 text-[#0F1C3F]">
+                        <i className="fas fa-search-location text-blue-600"></i>
                         Tìm kiếm ngay
                     </h3>
                     
-                    <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <form onSubmit={handleSearch} className="flex flex-col gap-6">
                         <div>
-                            <label style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '10px', display: 'block', color: '#334155' }}>
-                                Tiêu đề
-                            </label>
-                            <div style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                background: '#F8FAFF', 
-                                borderRadius: '16px',
-                                padding: '0 18px',
-                                border: '1px solid #E2E8F0',
-                                height: '54px'
-                            }}>
-                                <i className="fas fa-tag" style={{ color: '#3B82F6', marginRight: '14px' }}></i>
+                            <label className="text-sm font-bold mb-2 block text-slate-700">Tiêu đề</label>
+                            <div className="flex items-center bg-[#F8FAFF] rounded-2xl px-4 border border-slate-200 h-[54px]">
+                                <i className="fas fa-tag text-blue-500 mr-3"></i>
                                 <input
                                     type="text"
                                     placeholder="Nhập tiêu đề tìm kiếm..."
                                     value={keyword}
                                     onChange={(e) => setKeyword(e.target.value)}
-                                    style={{
-                                        border: 'none',
-                                        outline: 'none',
-                                        width: '100%',
-                                        fontSize: '0.95rem',
-                                        color: '#0F1C3F',
-                                        background: 'transparent',
-                                        fontWeight: 600
-                                    }}
+                                    className="border-none outline-none w-full text-[0.95rem] text-[#0F1C3F] bg-transparent font-semibold"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '10px', display: 'block', color: '#334155' }}>
-                                Loại hình phòng
-                            </label>
-                            <div style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                background: '#F8FAFF', 
-                                borderRadius: '16px',
-                                padding: '0 18px',
-                                border: '1px solid #E2E8F0',
-                                position: 'relative',
-                                cursor: 'pointer',
-                                height: '54px'
-                            }} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                                <i className="fas fa-home" style={{ color: '#3B82F6', marginRight: '14px' }}></i>
-                                <div style={{
-                                    fontSize: '0.95rem',
-                                    color: '#0F1C3F',
-                                    fontWeight: 600,
-                                    flex: 1,
-                                    userSelect: 'none'
-                                }}>
+                            <label className="text-sm font-bold mb-2 block text-slate-700">Loại hình phòng</label>
+                            <div className="flex items-center bg-[#F8FAFF] rounded-2xl px-4 border border-slate-200 relative cursor-pointer h-[54px]" 
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                                <i className="fas fa-home text-blue-500 mr-3"></i>
+                                <div className="text-[0.95rem] text-[#0F1C3F] font-semibold flex-1 truncate">
                                     {selectedLoai ? selectedLoai.TenLoai : "Tất cả các loại"}
                                 </div>
-                                <i className="fas fa-chevron-down" style={{
-                                    color: '#94A3B8',
-                                    fontSize: '0.8rem',
-                                    transition: 'transform 0.3s ease',
-                                    transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0)'
-                                }}></i>
+                                <i className={`fas fa-chevron-down text-slate-400 text-xs transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}></i>
 
                                 {isDropdownOpen && (
-                                    <div style={{
-                                        position: 'absolute',
-                                        top: 'calc(100% + 8px)',
-                                        left: 0,
-                                        right: 0,
-                                        background: 'white',
-                                        borderRadius: '16px',
-                                        boxShadow: '0 10px 25px rgba(15, 28, 63, 0.15)',
-                                        border: '1px solid #E2E8F0',
-                                        zIndex: 1000,
-                                        overflow: 'hidden',
-                                        padding: '8px'
-                                    }}>
+                                    <div className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1000] overflow-hidden p-2">
                                         <div 
-                                            className="dropdown-item"
+                                            className={`px-4 py-3 rounded-xl text-sm transition-colors cursor-pointer ${loaiPhong === '' ? 'bg-slate-100 text-blue-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
                                             onClick={(e) => { e.stopPropagation(); setLoaiPhong(''); setIsDropdownOpen(false); }}
-                                            style={{ padding: '12px 16px', borderRadius: '10px', fontSize: '0.95rem', color: loaiPhong === '' ? '#2563EB' : '#475569', fontWeight: loaiPhong === '' ? 700 : 500, background: loaiPhong === '' ? '#F1F5F9' : 'transparent', transition: 'all 0.2s', cursor: 'pointer' }}
                                         >Tất cả các loại</div>
                                         {loaiPhongList.map((lp) => (
                                             <div 
                                                 key={lp.ID_LoaiPhong}
-                                                className="dropdown-item"
+                                                className={`px-4 py-3 rounded-xl text-sm transition-colors cursor-pointer ${loaiPhong === lp.ID_LoaiPhong ? 'bg-slate-100 text-blue-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
                                                 onClick={(e) => { e.stopPropagation(); setLoaiPhong(lp.ID_LoaiPhong); setIsDropdownOpen(false); }}
-                                                style={{ padding: '12px 16px', borderRadius: '10px', fontSize: '0.95rem', color: loaiPhong === lp.ID_LoaiPhong ? '#2563EB' : '#475569', fontWeight: loaiPhong === lp.ID_LoaiPhong ? 700 : 500, background: loaiPhong === lp.ID_LoaiPhong ? '#F1F5F9' : 'transparent', transition: 'all 0.2s', cursor: 'pointer' }}
                                             >{lp.TenLoai}</div>
                                         ))}
                                     </div>
@@ -210,16 +138,16 @@ function Hero({ onSearch }) {
                             </div>
                         </div>
 
-                        <button type="submit" className="btn-premium btn-premium-primary" style={{ borderRadius: '16px', padding: '18px', fontSize: '1.1rem', marginTop: '8px', width: '100%' }}>
-                            Tìm kiếm ngay <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
+                        <button type="submit" className="btn-premium btn-premium-primary rounded-2xl py-4.5 text-lg font-bold mt-2 shadow-lg hover:shadow-xl transition-all">
+                            Tìm kiếm ngay <i className="fas fa-arrow-right ml-2"></i>
                         </button>
                     </form>
                 </div>
 
                 {/* Ô tìm kiếm dạng ngang mới trên Mobile */}
-                <div className="lg:hidden w-full fade-up">
+                <div className="lg:hidden w-full fade-up mt-4">
                     <form onSubmit={handleSearch} className="flex flex-col gap-3">
-                        <div className="flex bg-white rounded-2xl p-1 shadow-xl border border-white/50">
+                        <div className="flex bg-white rounded-2xl p-1 shadow-2xl border border-white/50">
                             <div className="flex-1 flex items-center px-3 border-r border-gray-100">
                                 <i className="fas fa-search text-blue-500 mr-2 text-sm"></i>
                                 <input
@@ -233,7 +161,7 @@ function Hero({ onSearch }) {
                             
                             <div className="relative flex items-center px-2 cursor-pointer" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                                 <i className="fas fa-home text-gray-400 mr-1.5 text-xs"></i>
-                                <span className="text-xs font-bold text-gray-600 truncate max-w-[80px]">
+                                <span className="text-xs font-bold text-gray-600 truncate max-w-[70px]">
                                     {selectedLoai ? selectedLoai.TenLoai : "Loại hình"}
                                 </span>
                                 <i className="fas fa-chevron-down text-[10px] text-gray-300 ml-1"></i>
@@ -241,13 +169,13 @@ function Hero({ onSearch }) {
                                 {isDropdownOpen && (
                                     <div className="absolute top-[calc(100%+12px)] right-0 w-[180px] bg-white rounded-xl shadow-2xl border border-gray-100 z-[2000] p-1.5 overflow-hidden">
                                         <div 
-                                            className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 active:bg-blue-50 active:text-blue-600 transition-colors"
+                                            className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 transition-colors"
                                             onClick={(e) => { e.stopPropagation(); setLoaiPhong(''); setIsDropdownOpen(false); }}
                                         >Tất cả các loại</div>
                                         {loaiPhongList.map((lp) => (
                                             <div 
                                                 key={lp.ID_LoaiPhong}
-                                                className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 active:bg-blue-50 active:text-blue-600 transition-colors"
+                                                className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 transition-colors"
                                                 onClick={(e) => { e.stopPropagation(); setLoaiPhong(lp.ID_LoaiPhong); setIsDropdownOpen(false); }}
                                             >{lp.TenLoai}</div>
                                         ))}
@@ -259,36 +187,37 @@ function Hero({ onSearch }) {
                                 <i className="fas fa-arrow-right text-xs"></i>
                             </button>
                         </div>
-                        <div className="flex justify-center gap-4 text-[10px] text-white/80 font-medium">
-                            <span><i className="fas fa-check text-blue-300 mr-1"></i>Chính chủ</span>
-                            <span><i className="fas fa-check text-blue-300 mr-1"></i>Giá rẻ</span>
-                            <span><i className="fas fa-check text-blue-300 mr-1"></i>An toàn</span>
+                        <div className="flex justify-center gap-4 text-[10px] text-white/90 font-bold">
+                            <span><i className="fas fa-check text-blue-400 mr-1"></i>Chính chủ</span>
+                            <span><i className="fas fa-check text-blue-400 mr-1"></i>Giá rẻ</span>
+                            <span><i className="fas fa-check text-blue-400 mr-1"></i>An toàn</span>
                         </div>
-                    </form>
-                </div>arginLeft: '8px' }}></i>
-                        </button>
                     </form>
                 </div>
             </div>
 
             <style>{`
-                input::placeholder { color: #94A3B8; }
-                .dropdown-item:hover {
-                    background-color: #F8FAFF !important;
-                    color: #2563EB !important;
-                }
-                @keyframes slideUp {
-                    from { opacity: 0; transform: translateY(10px); }
-                    to { opacity: 1; transform: translateY(0); }
+                .hero-section {
+                    height: 500px !important;
                 }
                 @media (max-width: 992px) {
-                    .container { flex-direction: column !important; text-align: center !important; gap: 24px !important; }
-                    .hero-text { text-align: center !important; width: 100% !important; margin-bottom: 20px !important; }
-                    .hero-text h1 { font-size: 1.8rem !important; margin-bottom: 12px !important; }
-                    .hero-text p { font-size: 0.95rem !important; margin: 0 auto 16px !important; }
-                    .hero-form { flex: 1 !important; width: 100% !important; max-width: 100% !important; padding: 20px !important; }
-                    div[style*="gap: 16px"] { justify-content: center !important; gap: 12px !important; transform: scale(0.9); }
-                    section { height: auto !important; padding: 30px 16px 20px !important; }
+                    .hero-section {
+                        height: auto !important;
+                        padding: 30px 16px 20px !important;
+                    }
+                    .hero-text h1 {
+                        font-size: 1.8rem !important;
+                        text-align: center;
+                    }
+                    .hero-text p {
+                        font-size: 0.9rem !important;
+                        text-align: center;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                    .hero-text .flex {
+                        justify-content: center;
+                    }
                 }
             `}</style>
         </section>
