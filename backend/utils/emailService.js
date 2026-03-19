@@ -1,45 +1,50 @@
-const axios = require("axios");
+const { Resend } = require("resend");
 
-// Kiểm tra biến môi trường
-console.log("📧 [Email Config] BREVO_API_KEY:", process.env.BREVO_API_KEY ? "✅ ĐÃ CÓ" : "❌ CHƯA CÓ");
+// Khởi tạo Resend an toàn
+let resend;
+try {
+    if (process.env.RESEND_API_KEY) {
+        resend = new Resend(process.env.RESEND_API_KEY);
+    }
+} catch (e) {
+    console.error("❌ [Email Config] Lỗi khởi tạo Resend:", e.message);
+}
+
+console.log("📧 [Email Config] RESEND_API_KEY:", process.env.RESEND_API_KEY ? "✅ ĐÃ CÓ" : "❌ CHƯA CÓ");
 
 /**
- * Gửi email dùng chung qua Brevo HTTP API (Vượt qua firewall Render)
+ * Gửi email qua Resend API với tên miền ozichouse.click
  * @param {string} to Email người nhận
  * @param {string} subject Tiêu đề email
- * @param {string} html Nội dung email (dạng HTML)
+ * @param {string} html Nội dung email
  */
 const sendEmail = async (to, subject, html) => {
     try {
-        if (!process.env.BREVO_API_KEY) {
-            throw new Error("BREVO_API_KEY is missing in environment variables.");
+        if (!process.env.RESEND_API_KEY) {
+            throw new Error("RESEND_API_KEY is missing in environment variables.");
+        }
+        
+        if (!resend) {
+            resend = new Resend(process.env.RESEND_API_KEY);
         }
 
-        console.log(`📩 [Brevo] Đang gửi email tới: ${to}...`);
+        console.log(`📩 [Resend] Đang gửi email tới: ${to}...`);
 
-        const data = {
-            sender: { name: "OZIC HOUSE", email: "ozic2464@gmail.com" }, // Email đã đăng ký Brevo
-            to: [{ email: to }],
+        const { data, error } = await resend.emails.send({
+            from: "OZIC HOUSE <no-reply@ozichouse.click>",
+            to: [to],
             subject: subject,
-            htmlContent: html
-        };
-
-        const response = await axios.post("https://api.brevo.com/v3/smtp/email", data, {
-            headers: {
-                "api-key": process.env.BREVO_API_KEY,
-                "Content-Type": "application/json"
-            }
+            html: html,
         });
 
-        console.log("✅ [Brevo] Email gửi thành công! Message ID:", response.data.messageId);
-        return response.data;
-    } catch (error) {
-        console.error("❌ [Brevo] Lỗi khi gửi email:");
-        if (error.response) {
-            console.error("  - Chi tiết lỗi:", JSON.stringify(error.response.data, null, 2));
-        } else {
-            console.error("  - Thông báo:", error.message);
+        if (error) {
+            throw error;
         }
+
+        console.log("✅ [Resend] Email gửi thành công! ID:", data.id);
+        return data;
+    } catch (error) {
+        console.error("❌ [Resend] Lỗi khi gửi email:", error.message || error);
         throw error;
     }
 };
