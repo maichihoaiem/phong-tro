@@ -316,23 +316,25 @@ function Header({ user, onLogout }) {
                         </div>
                     ) : (
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <Link to="/dang-nhap" style={{ padding: '8px 16px', fontSize: '0.83rem', fontWeight: 700, color: '#6B7280', borderRadius: 10, textDecoration: 'none', transition: 'color 0.18s' }}
+                            <Link to="/dang-nhap" style={{ padding: '8px 12px', fontSize: '0.78rem', fontWeight: 700, color: '#6B7280', borderRadius: 10, textDecoration: 'none', transition: 'color 0.18s' }}
+                                className="whitespace-nowrap"
                                 onMouseEnter={e => e.currentTarget.style.color = '#2563EB'}
                                 onMouseLeave={e => e.currentTarget.style.color = '#6B7280'}
                             >
                                 Đăng nhập
                             </Link>
                             <Link to="/dang-ky" style={{
-                                padding: '9px 20px', fontSize: '0.83rem', fontWeight: 800,
+                                padding: '8px 14px', fontSize: '0.78rem', fontWeight: 800,
                                 background: 'linear-gradient(135deg, #2563EB, #0EA5E9)',
                                 color: 'white', borderRadius: 10, textDecoration: 'none',
                                 transition: 'all 0.22s', display: 'inline-block',
                                 boxShadow: '0 4px 14px rgba(37,99,235,0.35)',
                             }}
+                                className="whitespace-nowrap"
                                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(37,99,235,0.45)'; }}
                                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(37,99,235,0.35)'; }}
                             >
-                                Đăng ký ngay
+                                Đăng ký
                             </Link>
                         </div>
                     )}

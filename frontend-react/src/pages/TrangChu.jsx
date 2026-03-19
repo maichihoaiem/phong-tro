@@ -65,7 +65,7 @@ function HomePage() {
             <Hero onSearch={handleSearch} />
 
             {/* Room Listing Section */}
-            <main style={{ maxWidth: '1240px', margin: '0 auto', padding: '60px 24px' }}>
+            <main className="main-content" style={{ maxWidth: '1240px', margin: '0 auto', padding: '40px 24px' }}>
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -87,19 +87,12 @@ function HomePage() {
                         <h3 className="text-base lg:text-[1.75rem] font-extrabold text-[#0F1C3F] mb-3 tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
                             {searchActive ? 'Kết Quả Tìm Kiếm' : 'Mini House & Phòng Trọ Mới Nhất'}
                         </h3>
-                        <p style={{ color: '#64748B', fontSize: '0.95rem', lineHeight: 1.5, maxWidth: '500px' }}>
+                        <p className="hidden lg:block" style={{ color: '#64748B', fontSize: '0.95rem', lineHeight: 1.5, maxWidth: '500px' }}>
                             {searchActive
                                 ? `Chúng tôi đã tìm thấy ${total} không gian phù hợp với tiêu chí của bạn.`
                                 : 'Khám phá bộ sưu tập những không gian sống đẳng cấp, tiện nghi vừa được ra mắt.'}
                         </p>
                     </div>
-
-                    <Link to="/tim-phong" className="btn-premium btn-premium-outline" style={{
-                        padding: '12px 24px',
-                        fontSize: '0.95rem'
-                    }}>
-                        Xem tất cả <i className="fas fa-external-link-alt" style={{ fontSize: '0.8rem', marginLeft: '4px' }}></i>
-                    </Link>
                 </div>
 
                 {loading ? (
@@ -137,27 +130,8 @@ function HomePage() {
                                     <RoomCard room={room} />
                                 </div>
                             ))}
-                            {/* Nút Xem thêm trên Mobile */}
-                            <div className="lg:hidden mobile-scroller-item-half fade-up" style={{ animationDelay: '0.6s' }}>
-                                <Link to="/tim-phong" className="see-more-card">
-                                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3 text-blue-600">
-                                        <i className="fas fa-plus"></i>
-                                    </div>
-                                    <span className="font-bold text-sm">Xem thêm</span>
-                                    <p className="text-[10px] text-gray-400 mt-1">Khám phá các phòng khác</p>
-                                </Link>
-                            </div>
-                        </div>
-
-                        <div style={{ textAlign: 'center', marginTop: '80px' }} className="fade-up">
-                            <Link to="/tim-phong" className="btn-premium btn-premium-primary" style={{
-                                padding: '18px 48px',
-                                fontSize: '1.1rem'
-                            }}>
-                                Khám phá thêm phòng khác <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
-                            </Link>
-                        </div>
                     </div>
+
                 ) : (
                     <div style={{
                         textAlign: 'center',
