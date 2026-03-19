@@ -105,43 +105,43 @@ function Hero({ onSearch }) {
                     background: 'rgba(255, 255, 255, 0.95)' // Slightly more opaque for contrast
                 }}>
                     <h3 style={{ 
-                        fontSize: '1.25rem', 
+                        fontSize: '1rem', 
                         fontWeight: 800, 
-                        marginBottom: '20px',
+                        marginBottom: '16px',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '10px',
+                        gap: '8px',
                         color: '#0F1C3F'
                     }}>
                         <i className="fas fa-search-location" style={{ color: '#2563EB' }}></i>
                         Tìm kiếm ngay
                     </h3>
                     
-                    <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    <form onSubmit={handleSearch} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                         <div>
-                            <label style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '10px', display: 'block', color: '#334155' }}>
+                            <label style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '6px', display: 'block', color: '#334155' }}>
                                 Tiêu đề
                             </label>
                             <div style={{ 
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 background: '#F8FAFF', 
-                                borderRadius: '16px',
-                                padding: '0 18px',
+                                borderRadius: '12px',
+                                padding: '0 14px',
                                 border: '1px solid #E2E8F0',
-                                height: '54px'
+                                height: '48px'
                             }}>
-                                <i className="fas fa-tag" style={{ color: '#3B82F6', marginRight: '14px' }}></i>
+                                <i className="fas fa-tag" style={{ color: '#3B82F6', marginRight: '10px', fontSize: '0.85rem' }}></i>
                                 <input
                                     type="text"
-                                    placeholder="Nhập tiêu đề tìm kiếm..."
+                                    placeholder="Nhập tiêu đề..."
                                     value={keyword}
                                     onChange={(e) => setKeyword(e.target.value)}
                                     style={{
                                         border: 'none',
                                         outline: 'none',
                                         width: '100%',
-                                        fontSize: '0.95rem',
+                                        fontSize: '0.9rem',
                                         color: '#0F1C3F',
                                         background: 'transparent',
                                         fontWeight: 600
@@ -151,23 +151,23 @@ function Hero({ onSearch }) {
                         </div>
 
                         <div>
-                            <label style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '10px', display: 'block', color: '#334155' }}>
+                            <label style={{ fontSize: '0.8rem', fontWeight: 700, marginBottom: '6px', display: 'block', color: '#334155' }}>
                                 Loại hình phòng
                             </label>
                             <div style={{ 
                                 display: 'flex', 
                                 alignItems: 'center', 
                                 background: '#F8FAFF', 
-                                borderRadius: '16px',
-                                padding: '0 18px',
+                                borderRadius: '12px',
+                                padding: '0 14px',
                                 border: '1px solid #E2E8F0',
                                 position: 'relative',
                                 cursor: 'pointer',
-                                height: '54px'
+                                height: '48px'
                             }} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                                <i className="fas fa-home" style={{ color: '#3B82F6', marginRight: '14px' }}></i>
+                                <i className="fas fa-home" style={{ color: '#3B82F6', marginRight: '10px', fontSize: '0.85rem' }}></i>
                                 <div style={{
-                                    fontSize: '0.95rem',
+                                    fontSize: '0.9rem',
                                     color: '#0F1C3F',
                                     fontWeight: 600,
                                     flex: 1,
@@ -177,7 +177,7 @@ function Hero({ onSearch }) {
                                 </div>
                                 <i className="fas fa-chevron-down" style={{
                                     color: '#94A3B8',
-                                    fontSize: '0.8rem',
+                                    fontSize: '0.75rem',
                                     transition: 'transform 0.3s ease',
                                     transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0)'
                                 }}></i>
@@ -186,16 +186,16 @@ function Hero({ onSearch }) {
                                 {isDropdownOpen && (
                                     <div style={{
                                         position: 'absolute',
-                                        top: 'calc(100% + 8px)',
+                                        top: 'calc(100% + 4px)',
                                         left: 0,
                                         right: 0,
                                         background: 'white',
-                                        borderRadius: '16px',
+                                        borderRadius: '12px',
                                         boxShadow: '0 10px 25px rgba(15, 28, 63, 0.15)',
                                         border: '1px solid #E2E8F0',
                                         zIndex: 1000,
                                         overflow: 'hidden',
-                                        padding: '8px',
+                                        padding: '4px',
                                         animation: 'slideUp 0.3s ease'
                                     }}>
                                         <div 
@@ -206,9 +206,9 @@ function Hero({ onSearch }) {
                                                 setIsDropdownOpen(false);
                                             }}
                                             style={{
-                                                padding: '12px 16px',
-                                                borderRadius: '10px',
-                                                fontSize: '0.95rem',
+                                                padding: '10px 12px',
+                                                borderRadius: '8px',
+                                                fontSize: '0.85rem',
                                                 color: loaiPhong === '' ? '#2563EB' : '#475569',
                                                 fontWeight: loaiPhong === '' ? 700 : 500,
                                                 background: loaiPhong === '' ? '#F1F5F9' : 'transparent',
@@ -228,9 +228,9 @@ function Hero({ onSearch }) {
                                                     setIsDropdownOpen(false);
                                                 }}
                                                 style={{
-                                                    padding: '12px 16px',
-                                                    borderRadius: '10px',
-                                                    fontSize: '0.95rem',
+                                                    padding: '10px 12px',
+                                                    borderRadius: '8px',
+                                                    fontSize: '0.85rem',
                                                     color: loaiPhong === lp.ID_LoaiPhong ? '#2563EB' : '#475569',
                                                     fontWeight: loaiPhong === lp.ID_LoaiPhong ? 700 : 500,
                                                     background: loaiPhong === lp.ID_LoaiPhong ? '#F1F5F9' : 'transparent',
@@ -247,13 +247,13 @@ function Hero({ onSearch }) {
                         </div>
 
                         <button type="submit" className="btn-premium btn-premium-primary" style={{
-                            borderRadius: '16px',
-                            padding: '18px',
-                            fontSize: '1.1rem',
-                            marginTop: '8px',
+                            borderRadius: '12px',
+                            padding: '14px',
+                            fontSize: '1rem',
+                            marginTop: '4px',
                             width: '100%'
                         }}>
-                            Tìm kiếm ngay <i className="fas fa-arrow-right" style={{ marginLeft: '10px' }}></i>
+                            Tìm kiếm ngay <i className="fas fa-arrow-right" style={{ marginLeft: '8px' }}></i>
                         </button>
                     </form>
                 </div>
@@ -276,7 +276,7 @@ function Hero({ onSearch }) {
                     .hero-text p { font-size: 0.95rem !important; margin: 0 auto 16px !important; }
                     .hero-form { flex: 1 !important; width: 100% !important; max-width: 100% !important; padding: 20px !important; }
                     div[style*="gap: 16px"] { justify-content: center !important; gap: 12px !important; transform: scale(0.9); }
-                    section { height: auto !important; padding: 60px 16px 40px !important; }
+                    section { height: auto !important; padding: 30px 16px 20px !important; }
                 }
             `}</style>
         </section>

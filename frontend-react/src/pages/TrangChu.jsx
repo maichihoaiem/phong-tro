@@ -84,14 +84,7 @@ function HomePage() {
                             marginBottom: '8px',
                             display: 'block'
                         }}>Lựa Chọn Hàng Đầu</span>
-                        <h3 style={{
-                            fontSize: '1.75rem',
-                            fontWeight: 900,
-                            color: '#0F1C3F',
-                            marginBottom: '12px',
-                            letterSpacing: '-0.5px',
-                            lineHeight: 1.2
-                        }}>
+                        <h3 className="text-base lg:text-[1.75rem] font-extrabold text-[#0F1C3F] mb-3 tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
                             {searchActive ? 'Kết Quả Tìm Kiếm' : 'Mini House & Phòng Trọ Mới Nhất'}
                         </h3>
                         <p style={{ color: '#64748B', fontSize: '0.95rem', lineHeight: 1.5, maxWidth: '500px' }}>
