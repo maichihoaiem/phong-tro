@@ -10,17 +10,25 @@ const { connectDB } = require("./db");
 
 const app = express();
 
+// Quan trong: Trust proxy de session hoat dong dung khi chay sau Vercel/Render proxy
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session
+// Session - Cau hinh cho moi truong proxy (Vercel -> Render)
 app.use(session({
     secret: "phongtro_secret_key_2024",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 ngay
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 1 ngay
+        secure: process.env.NODE_ENV === 'production', // HTTPS only tren production
+        httpOnly: true,
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax' // 'none' cho cross-site proxy
+    }
 }));
 
 // Serve static files tu frontend
