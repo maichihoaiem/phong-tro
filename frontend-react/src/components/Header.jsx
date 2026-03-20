@@ -185,6 +185,12 @@ function Header({ user, onLogout }) {
                                 <i className="fas fa-bell" style={{ fontSize: '0.75rem' }}></i> Yêu cầu
                                 {hasNewRequests && <span className="notif-dot" style={{ top: 4, right: 4 }}></span>}
                             </Link>
+                            <Link to="/vi-tien" style={{ ...navLinkStyle(isActive('/vi-tien')), color: isActive('/vi-tien') ? '#059669' : '#6B7280' }}
+                                onMouseEnter={e => { e.currentTarget.style.color = '#059669'; e.currentTarget.style.background = '#ECFDF5'; }}
+                                onMouseLeave={e => { if (!isActive('/vi-tien')) { e.currentTarget.style.color = '#6B7280'; e.currentTarget.style.background = 'transparent'; } }}
+                            >
+                                <i className="fas fa-wallet" style={{ fontSize: '0.75rem' }}></i> Ví tiền
+                            </Link>
                         </>
                     )}
 
@@ -381,10 +387,11 @@ function Header({ user, onLogout }) {
                         <>
                             <div style={{ height: 1, background: '#F1F5FB', margin: '8px 0' }}></div>
                             <Link to="/quan-ly-phong" onClick={() => setIsMobileMenuOpen(false)} style={{ display: 'block', padding: '11px 14px', borderRadius: 12, marginBottom: 2, fontSize: '0.88rem', fontWeight: 700, textDecoration: 'none', color: '#2563EB' }}>Quản lý phòng</Link>
-                            <Link to="/yeu-cau-dat-phong" onClick={() => setIsMobileMenuOpen(false)} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '11px 14px', borderRadius: 12, fontSize: '0.88rem', fontWeight: 700, textDecoration: 'none', color: '#D97706' }}>
+                            <Link to="/yeu-cau-dat-phong" onClick={() => setIsMobileMenuOpen(false)} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '11px 14px', borderRadius: 12, marginBottom: 2, fontSize: '0.88rem', fontWeight: 700, textDecoration: 'none', color: '#D97706' }}>
                                 Yêu cầu đặt phòng
                                 {hasNewRequests && <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444' }}></span>}
                             </Link>
+                            <Link to="/vi-tien" onClick={() => setIsMobileMenuOpen(false)} style={{ display: 'block', padding: '11px 14px', borderRadius: 12, fontSize: '0.88rem', fontWeight: 700, textDecoration: 'none', color: '#059669' }}>Ví tiền của tôi</Link>
                         </>
                     )}
                     {user && user.ID_VaiTro === 3 && (

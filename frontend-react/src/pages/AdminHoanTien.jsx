@@ -56,8 +56,7 @@ function AdminHoanTien() {
 	const counts = useMemo(() => {
 		return {
 			all: refunds.length,
-			'Chờ hoàn tiền (Đã có STK)': refunds.filter(r => (r.TrangThaiThanhToan || '').trim() === 'Chờ hoàn tiền (Đã có STK)').length,
-			'Chờ hoàn tiền (Chưa có STK)': refunds.filter(r => (r.TrangThaiThanhToan || '').trim() === 'Chờ hoàn tiền (Chưa có STK)').length,
+			'Chờ hoàn tiền': refunds.filter(r => (r.TrangThaiThanhToan || '').trim() === 'Chờ hoàn tiền (Đã có STK)').length,
 			'Đã hoàn tiền': refunds.filter(r => (r.TrangThaiThanhToan || '').trim() === 'Đã hoàn tiền').length,
 		};
 	}, [refunds]);
@@ -65,7 +64,8 @@ function AdminHoanTien() {
 	const filteredData = useMemo(() => {
 		let data = [...refunds];
 		if (filter !== 'all') {
-			data = data.filter(r => (r.TrangThaiThanhToan || '').trim() === (filter || '').trim());
+			const targetStatus = filter === 'Chờ hoàn tiền' ? 'Chờ hoàn tiền (Đã có STK)' : filter;
+			data = data.filter(r => (r.TrangThaiThanhToan || '').trim() === (targetStatus || '').trim());
 		}
 		// Đảm bảo sắp xếp mới nhất lên đầu (Dựa trên ID_DatPhong)
 		return data.sort((a, b) => b.ID_DatPhong - a.ID_DatPhong);
@@ -131,8 +131,7 @@ function AdminHoanTien() {
 				<div className="flex bg-white p-1.5 rounded-2xl shadow-sm border border-gray-100 flex-wrap gap-2">
 					{[
 						{ key: 'all', label: 'Tất cả' },
-						{ key: 'Chờ hoàn tiền (Đã có STK)', label: 'Chờ hoàn tiền' },
-						{ key: 'Chờ hoàn tiền (Chưa có STK)', label: 'Chưa có STK' },
+						{ key: 'Chờ hoàn tiền', label: 'Chờ hoàn tiền' },
 						{ key: 'Đã hoàn tiền', label: 'Đã hoàn tiền' }
 					].map((f) => (
 						<button
@@ -170,10 +169,9 @@ function AdminHoanTien() {
 						<div key={req.ID_DatPhong} className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-50 overflow-hidden hover:scale-[1.02] transition-transform flex flex-col">
 							<div className={`p-1 text-center text-[10px] font-black uppercase tracking-widest ${
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' ? 'bg-yellow-400 text-white' : 
-								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Chưa có STK)' ? 'bg-orange-500 text-white' :
 								'bg-indigo-600 text-white'
 								}`}>
-								{req.TrangThaiThanhToan}
+								{req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' ? 'Chờ hoàn tiền' : req.TrangThaiThanhToan}
 							</div>
 
 							<div className="p-5 flex-grow">
