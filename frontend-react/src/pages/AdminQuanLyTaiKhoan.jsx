@@ -27,7 +27,9 @@ function AdminQuanLyTaiKhoan() {
 		setLoading(true);
 		try {
 			const res = await axios.get(`${API_URL}${name ? `?name=${encodeURIComponent(name)}` : ""}`, { withCredentials: true });
-			setUsers(res.data.data || []);
+			const allUsers = res.data.data || [];
+			const filtered = allUsers.filter(u => u.TenVaiTro === "Chủ trọ" || u.TenVaiTro === "Người thuê");
+			setUsers(filtered);
 		} catch (err) {
 			showToast("Lỗi tải danh sách tài khoản!", "error");
 		}
@@ -102,10 +104,10 @@ function AdminQuanLyTaiKhoan() {
 					style={{
 						background: user.TrangThai === 'locked'
 							? 'linear-gradient(135deg, #EF4444, #DC2626)'
-							: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`,
+							: 'linear-gradient(135deg, #2563EB, #0EA5E9)',
 						boxShadow: user.TrangThai === 'locked'
 							? '0 4px 14px rgba(239,68,68,0.3)'
-							: `0 4px 14px ${shadowColor}`
+							: '0 4px 14px rgba(37,99,235,0.25)'
 					}}
 				>
 					{user.TrangThai === 'locked' ? <i className="fas fa-lock text-xs"></i> : getInitials(user.HoTen)}
@@ -149,7 +151,7 @@ function AdminQuanLyTaiKhoan() {
 				) : (
 					<button
 						onClick={() => { setLockUser(user); setLockNote(""); setLockError(""); }}
-						className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-red-50 text-red-600 hover:bg-red-100 transition-all"
+						className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-600 hover:bg-rose-100 transition-all"
 					>
 						<i className="fas fa-lock"></i> Khóa
 					</button>
@@ -223,10 +225,11 @@ function AdminQuanLyTaiKhoan() {
 			{/* Header */}
 			<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6">
 				<div>
-					<h1 className="text-3xl lg:text-4xl font-black text-gray-900 mb-2">
-						Quản lý <span className="text-blue-600">Tài khoản</span>
+					<h1 className="text-3xl font-extrabold text-gray-900 mb-2 flex items-center gap-2">
+						<i className="fas fa-users" style={{ color: '#BE123C' }}></i>
+						Quản lý <span style={{ color: '#BE123C' }}>Tài Khoản</span>
 					</h1>
-					<p className="text-gray-400 font-medium">Quản lý tất cả tài khoản trên hệ thống OZIC HOUSE</p>
+					<p className="text-gray-400 font-medium italic">Quản lý và bảo mật tất cả tài khoản trên hệ thống</p>
 				</div>
 
 				{/* Stats */}
@@ -235,13 +238,13 @@ function AdminQuanLyTaiKhoan() {
 						<p className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Tổng</p>
 						<p className="text-2xl font-black text-gray-800">{users.length}</p>
 					</div>
-					<div className="bg-indigo-50 border border-indigo-100 rounded-2xl px-5 py-3">
-						<p className="text-[10px] font-black text-indigo-300 uppercase tracking-widest">Chủ trọ</p>
-						<p className="text-2xl font-black text-indigo-600">{chuTro.length}</p>
+					<div className="bg-white border border-gray-100 rounded-2xl px-5 py-3 shadow-sm">
+						<p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Chủ trọ</p>
+						<p className="text-2xl font-black text-slate-700">{chuTro.length}</p>
 					</div>
-					<div className="bg-cyan-50 border border-cyan-100 rounded-2xl px-5 py-3">
-						<p className="text-[10px] font-black text-cyan-300 uppercase tracking-widest">Người thuê</p>
-						<p className="text-2xl font-black text-cyan-600">{nguoiThue.length}</p>
+					<div className="bg-white border border-gray-100 rounded-2xl px-5 py-3 shadow-sm">
+						<p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Người thuê</p>
+						<p className="text-2xl font-black text-slate-700">{nguoiThue.length}</p>
 					</div>
 				</div>
 			</div>
@@ -261,7 +264,7 @@ function AdminQuanLyTaiKhoan() {
 					</div>
 					<button
 						type="submit"
-						className="px-6 py-3 bg-blue-600 text-white rounded-2xl font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 flex items-center gap-2"
+						className="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center gap-2"
 					>
 						<i className="fas fa-search"></i> Tìm
 					</button>
@@ -283,21 +286,21 @@ function AdminQuanLyTaiKhoan() {
 					title="Chủ trọ"
 					icon="fa-building"
 					users={chuTro}
-					gradientFrom="#6366F1"
-					gradientTo="#818CF8"
-					shadowColor="rgba(99,102,241,0.3)"
-					colorClass="indigo"
-					bgLight="bg-indigo-50/50 border border-indigo-100/50"
+					gradientFrom="#475569"
+					gradientTo="#64748B"
+					shadowColor="rgba(71,85,105,0.2)"
+					colorClass="slate"
+					bgLight="bg-slate-50/50 border border-slate-100/50"
 				/>
 				<UserColumn
 					title="Người thuê"
 					icon="fa-user-friends"
 					users={nguoiThue}
-					gradientFrom="#06B6D4"
-					gradientTo="#22D3EE"
-					shadowColor="rgba(6,182,212,0.3)"
-					colorClass="cyan"
-					bgLight="bg-cyan-50/50 border border-cyan-100/50"
+					gradientFrom="#64748B"
+					gradientTo="#475569"
+					shadowColor="rgba(100,116,139,0.2)"
+					colorClass="slate"
+					bgLight="bg-slate-50/50 border border-slate-100/50"
 				/>
 			</div>
 

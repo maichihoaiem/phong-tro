@@ -122,8 +122,9 @@ function AdminHoanTien() {
 
 			<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
 				<div>
-					<h1 className="text-4xl font-black text-gray-900 mb-2">
-						Quản lý <span className="text-purple-600">Hoàn tiền tự động</span>
+					<h1 className="text-3xl font-extrabold text-gray-900 mb-2 flex items-center gap-2">
+						<i className="fas fa-shield-alt" style={{ color: '#7C3AED' }}></i>
+						Quản lý <span style={{ color: '#7C3AED' }}>Hoàn Tiền Tự Động</span>
 					</h1>
 					<p className="text-gray-500 font-medium italic">Xử lý các khoản cọc cần hoàn trả do Chủ trọ từ chối</p>
 				</div>
@@ -170,7 +171,7 @@ function AdminHoanTien() {
 							<div className={`p-1 text-center text-[10px] font-black uppercase tracking-widest ${
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' ? 'bg-yellow-400 text-white' : 
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Chưa có STK)' ? 'bg-orange-500 text-white' :
-								'bg-green-500 text-white'
+								'bg-purple-600 text-white'
 								}`}>
 								{req.TrangThaiThanhToan}
 							</div>

@@ -50,8 +50,8 @@ function AdminThongKe() {
 
 	return (
 		<div className="container mx-auto px-4 py-8">
-			<h1 className="text-2xl font-bold text-gray-800 mb-8 flex items-center gap-2">
-				<i className="fas fa-chart-line text-blue-600"></i> Dashboard Thống kê Hệ thống
+			<h1 className="text-3xl font-extrabold text-gray-800 mb-8 flex items-center gap-2">
+				<i className="fas fa-chart-bar" style={{ color: '#2563EB' }}></i> Quản lý <span style={{ color: '#2563EB' }}>Thống Kê Hệ Thống</span>
 			</h1>
 
 			{/* KPI Cards */}
@@ -68,9 +68,9 @@ function AdminThongKe() {
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+				<div className="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
 					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-600 text-xl">
+						<div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-500 text-xl">
 							<i className="fas fa-calendar-check"></i>
 						</div>
 						<div>
@@ -82,14 +82,14 @@ function AdminThongKe() {
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+				<div className="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
 					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-xl">
+						<div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl">
 							<i className="fas fa-chart-pie"></i>
 						</div>
 						<div>
 							<p className="text-gray-400 text-sm font-medium">Tăng trưởng tháng</p>
-							<h3 className={`text-2xl font-bold ${growth >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+							<h3 className={`text-2xl font-bold ${growth >= 0 ? 'text-blue-600' : 'text-red-500'}`}>
 								{growth >= 0 ? '+' : ''}{growth.toFixed(1)}%
 							</h3>
 						</div>

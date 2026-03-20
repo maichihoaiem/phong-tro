@@ -110,7 +110,10 @@ function BookingRequestsPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-gray-800 mb-2">Yêu cầu đặt phòng</h1>
+                    <h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
+                        <i className="fas fa-bell" style={{ color: '#D97706' }}></i>
+                        Quản lý <span style={{ color: '#D97706' }}>Yêu Cầu Đặt Phòng</span>
+                    </h1>
                     <p className="text-gray-500">
                         Duyệt hoặc từ chối các yêu cầu đặt phòng từ người thuê
                         {pendingCount > 0 && (
@@ -135,8 +138,8 @@ function BookingRequestsPage() {
                         key={tab.key}
                         onClick={() => setFilter(tab.key)}
                         className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition border-2 ${filter === tab.key
-                            ? 'bg-blue-600 text-white border-blue-600'
-                            : 'bg-white text-gray-600 border-gray-200 hover:border-blue-300'
+                            ? 'bg-amber-600 text-white border-amber-600 shadow-lg shadow-amber-200'
+                            : 'bg-white text-gray-600 border-gray-200 hover:border-amber-300'
                             }`}
                     >
                         {tab.label} ({tab.count})

@@ -97,7 +97,10 @@ function AdminQuanLyBaiDang() {
 
 	return (
 		<div className="container mx-auto max-w-7xl px-4 py-8">
-			<h1 className="text-3xl font-extrabold text-gray-800 mb-2">Quản lý bài đăng phòng</h1>
+			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
+				<i className="fas fa-list-check" style={{ color: '#D97706' }}></i>
+				Quản lý <span style={{ color: '#D97706' }}>Bài Đăng Phòng</span>
+			</h1>
 			<p className="text-gray-500 mb-6">Admin duyệt bài đăng trước khi hiển thị công khai trên web</p>
 
 			{pendingCount > 0 && (
@@ -120,7 +123,7 @@ function AdminQuanLyBaiDang() {
 					<button
 						key={item.key}
 						onClick={() => setFilter(item.key)}
-						className={`px-4 py-2 rounded-xl text-sm font-semibold transition ${filter === item.key ? 'bg-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+						className={`px-4 py-2 rounded-xl text-sm font-semibold transition ${filter === item.key ? 'bg-amber-600 text-white shadow-lg shadow-amber-200' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}
 					>
 						{item.label}
 					</button>
@@ -131,7 +134,7 @@ function AdminQuanLyBaiDang() {
 				<div className="overflow-x-auto">
 					<table className="w-full text-left border-collapse">
 						<thead>
-							<tr className="bg-gray-50 text-gray-600 text-sm border-b border-gray-100">
+							<tr style={{ background: '#FFF7ED' }} className="text-amber-700 text-sm border-b border-amber-100">
 								<th className="p-4 font-semibold">Mã bài</th>
 								<th className="p-4 font-semibold">Tiêu đề</th>
 								<th className="p-4 font-semibold">Chủ trọ</th>

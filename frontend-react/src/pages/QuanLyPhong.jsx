@@ -148,7 +148,10 @@ function LandlordDashboard() {
 				{/* HEAD & TOP INFO */}
 				<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '40px', flexWrap: 'wrap', gap: '24px' }}>
 					<div>
-						<h1 style={{ fontSize: '2.2rem', fontWeight: 900, color: '#0F1C3F', margin: '0 0 8px 0', letterSpacing: '-1px' }}>Dashboard Chủ trọ</h1>
+						<h1 style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F1C3F', margin: '0 0 8px 0', letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+							<i className="fas fa-tasks" style={{ color: '#2563EB' }}></i>
+							Quản lý <span style={{ color: '#2563EB' }}>Phòng</span>
+						</h1>
 						<p style={{ color: '#64748B', fontWeight: 500, margin: 0 }}>Chào mừng bạn quay lại! Dưới đây là tình hình kinh doanh của bạn hôm nay.</p>
 					</div>
 					<div style={{ display: 'flex', gap: '16px' }}>

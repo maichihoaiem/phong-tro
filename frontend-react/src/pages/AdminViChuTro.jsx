@@ -37,7 +37,10 @@ function AdminViChuTro() {
 
 	return (
 		<div className="container mx-auto max-w-6xl px-4 py-8">
-			<h1 className="text-3xl font-extrabold text-gray-800 mb-2">Quản lý Ví Chủ Trọ</h1>
+			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
+				<i className="fas fa-piggy-bank" style={{ color: '#059669' }}></i>
+				Quản lý <span style={{ color: '#059669' }}>Ví Chủ Trọ</span>
+			</h1>
 			<p className="text-gray-500 mb-8">Danh sách tất cả cọc của chủ trọ đang được hệ thống giữ hộ</p>
 
 			<div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl p-6 shadow-lg flex items-center gap-4 text-white mb-8">
@@ -54,7 +57,7 @@ function AdminViChuTro() {
 				<div className="overflow-x-auto">
 					<table className="w-full text-left border-collapse">
 						<thead>
-							<tr className="bg-gray-50 text-gray-600 text-sm border-b border-gray-100">
+							<tr style={{ background: '#F0FDF4' }} className="text-green-700 text-sm border-b border-green-100">
 								<th className="p-4 font-semibold">ID</th>
 								<th className="p-4 font-semibold">Tên Chủ Trọ</th>
 								<th className="p-4 font-semibold">SĐT / Email</th>

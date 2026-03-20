@@ -67,7 +67,10 @@ function ViTien() {
 				<Link to="/quan-ly-phong" className="text-blue-600 hover:underline mb-4 inline-block">
 					<i className="fas fa-arrow-left mr-2"></i> Quay lại quản lý
 				</Link>
-				<h1 className="text-3xl font-bold text-gray-800">Ví tiền chủ trọ</h1>
+				<h1 className="text-3xl font-extrabold text-gray-800 flex items-center gap-2">
+					<i className="fas fa-wallet" style={{ color: '#2563EB' }}></i>
+					Quản lý <span style={{ color: '#2563EB' }}>Ví Tiền Chủ Trọ</span>
+				</h1>
 				<p className="text-gray-500">Quản lý doanh thu và rút tiền cọc</p>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -102,7 +105,7 @@ function ViTien() {
 						</div>
 						<div className="overflow-x-auto">
 							<table className="w-full text-left">
-								<thead className="bg-gray-50 text-gray-400 text-xs uppercase">
+								<thead style={{ background: '#EFF6FF' }} className="text-blue-600 text-xs uppercase">
 									<tr>
 										<th className="px-6 py-4">Ngày</th>
 										<th className="px-6 py-4">Nội dung</th>
@@ -147,7 +150,7 @@ function ViTien() {
 						</div>
 						<div className="overflow-x-auto">
 							<table className="w-full text-left">
-								<thead className="bg-gray-50 text-gray-400 text-xs uppercase">
+								<thead style={{ background: '#F5F3FF' }} className="text-purple-600 text-xs uppercase">
 									<tr>
 										<th className="px-6 py-4">Ngày</th>
 										<th className="px-6 py-4">Ngân hàng</th>
