@@ -106,19 +106,24 @@ function Footer() {
                     display: contents; /* Keep original grid behavior on PC */
                 }
                 @media (max-width: 768px) {
-                    .footer-container { padding-top: 40px !important; }
-                    .footer-cols { grid-template-columns: 1fr !important; gap: 40px !important; margin-bottom: 40px !important; }
+                    .footer-container { padding: 30px 20px 20px !important; }
+                    .footer-cols { grid-template-columns: 1fr !important; gap: 30px !important; margin-bottom: 30px !important; }
                     
-                    .footer-brand { text-align: center; display: flex; flex-direction: column; align-items: center; }
-                    .footer-brand p { margin: 0 auto 20px !important; }
+                    .footer-brand { text-align: center; display: flex; flex-direction: column; align-items: center; margin-bottom: 10px !important; }
+                    .footer-brand p { display: none !important; } /* Hide description on mobile for compact look */
+                    .footer-brand a { margin-bottom: 0px !important; }
                     
                     .footer-links-grid { 
                         display: grid !important; 
                         grid-template-columns: repeat(2, 1fr) !important; 
                         gap: 20px !important; 
                     }
+                    .footer-links-grid h4 { font-size: 0.65rem !important; margin-bottom: 12px !important; }
+                    .footer-links-grid ul li { margin-bottom: 8px !important; }
+                    .footer-links-grid ul li a { font-size: 0.78rem !important; }
                     
-                    .footer-contact-bar { justify-content: center !important; text-align: center; gap: 16px !important; }
+                    .footer-contact-bar { justify-content: center !important; text-align: center; gap: 12px !important; padding-bottom: 16px !important; }
+                    .footer-contact-bar div { font-size: 0.74rem !important; }
                 }
             `}</style>
         </footer>
