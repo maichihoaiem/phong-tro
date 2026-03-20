@@ -14,11 +14,13 @@ const AIChatbot = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isAutoPromptTyping, setIsAutoPromptTyping] = useState(false);
     const [hasLocationPromptSent, setHasLocationPromptSent] = useState(false);
-    const [showGreetingBubble, setShowGreetingBubble] = useState(true);
+    const [showGreetingBubble, setShowGreetingBubble] = useState(() => {
+        return localStorage.getItem('ozic_chatbot_greeting_hidden') !== 'true';
+    });
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
-        if (showGreetingBubble) return;
+        if (showGreetingBubble || localStorage.getItem('ozic_chatbot_greeting_hidden') === 'true') return;
 
         const timer = setTimeout(() => {
             setShowGreetingBubble(true);
@@ -202,7 +204,10 @@ const AIChatbot = () => {
                         <div className="absolute -bottom-2 right-7 w-4 h-4 bg-white border-r border-b border-gray-100 rotate-45"></div>
                         <div className="absolute -bottom-5 right-[34px] w-1 h-4 bg-white border-x border-gray-100 rounded-full"></div>
                         <button
-                            onClick={() => setShowGreetingBubble(false)}
+                            onClick={() => {
+                                setShowGreetingBubble(false);
+                                localStorage.setItem('ozic_chatbot_greeting_hidden', 'true');
+                            }}
                             className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gray-800 text-white flex items-center justify-center shadow hover:bg-gray-700 transition-colors"
                             aria-label="Đóng lời chào"
                         >
@@ -239,7 +244,15 @@ const AIChatbot = () => {
                             </p>
                         </div>
                     </div>
-                    <button onClick={() => { setIsOpen(false); setShowGreetingBubble(true); }} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                    <button 
+                        onClick={() => { 
+                            setIsOpen(false); 
+                            if (localStorage.getItem('ozic_chatbot_greeting_hidden') !== 'true') {
+                                setShowGreetingBubble(true);
+                            }
+                        }} 
+                        className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                    >
                         <HiX className="text-xl" />
                     </button>
                 </div>
