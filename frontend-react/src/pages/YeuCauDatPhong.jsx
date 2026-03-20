@@ -258,13 +258,13 @@ function BookingRequestsPage() {
 
                             {/* Actions */}
                             {(req.TrangThai === 'Chờ xác nhận' || req.TrangThai === 'Chờ thanh toán' || !req.TrangThai) && (
-                                <div className="flex flex-col gap-3 mt-4">
+                                <div className="flex flex-col sm:flex-row gap-3 mt-4">
                                     <button
                                         onClick={() => handleUpdateStatus(req.ID_DatPhong, 'Đã đặt')}
                                         disabled={actionLoading === req.ID_DatPhong || (req.TrangThaiThanhToan || '').trim() !== 'Đã thanh toán'}
-                                        className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition disabled:opacity-50 text-sm shadow-md"
+                                        className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-blue-50 text-blue-600 border border-blue-100 font-bold hover:bg-blue-600 hover:text-white transition-all duration-200 disabled:opacity-50 text-sm shadow-sm"
                                     >
-                                        {actionLoading === req.ID_DatPhong ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-check"></i>}
+                                        {actionLoading === req.ID_DatPhong ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-check text-[10px]"></i>}
                                         {(req.TrangThaiThanhToan || '').trim() !== 'Đã thanh toán' ? 'Chờ khách chuyển khoản cọc...' : 'ĐỒNG Ý (Nhận cọc & Cho thuê)'}
                                     </button>
                                     <button
@@ -274,9 +274,9 @@ function BookingRequestsPage() {
                                              }
                                         }}
                                         disabled={actionLoading === req.ID_DatPhong}
-                                        className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white border-2 border-red-300 text-red-500 font-bold hover:bg-red-50 transition disabled:opacity-50 text-sm"
+                                        className="flex-1 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-rose-50 text-rose-600 border border-rose-100 font-bold hover:bg-rose-600 hover:text-white transition-all duration-200 disabled:opacity-50 text-sm shadow-sm"
                                     >
-                                        {actionLoading === req.ID_DatPhong ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-times"></i>}
+                                        {actionLoading === req.ID_DatPhong ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-times text-[10px]"></i>}
                                         TỪ CHỐI (Không cho thuê)
                                     </button>
                                 </div>

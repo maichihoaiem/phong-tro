@@ -275,16 +275,16 @@ function AdminRutTien() {
 												<button 
 													onClick={() => handleApprove(w.ID_RutTien)}
 													disabled={processingId === w.ID_RutTien}
-													className="bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition disabled:opacity-50"
+													className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 												>
-													<i className="fas fa-check mr-1"></i> Duyệt
+													<i className="fas fa-check text-[10px]"></i> Duyệt
 												</button>
 												<button 
 													onClick={() => openRejectModal(w)}
 													disabled={processingId === w.ID_RutTien}
-													className="bg-gray-200 hover:bg-red-100 text-gray-700 hover:text-red-600 px-3 py-1.5 rounded-lg text-xs font-bold transition disabled:opacity-50"
+													className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 												>
-													<i className="fas fa-times mr-1"></i> Từ chối
+													<i className="fas fa-times text-[10px]"></i> Từ chối
 												</button>
 											</div>
 										)}

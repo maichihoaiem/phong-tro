@@ -234,16 +234,16 @@ function AdminHoanTien() {
 									<>
 										<button
 											onClick={() => setShowQR(req.ID_DatPhong)}
-											className="flex-1 bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition flex items-center justify-center gap-2 shadow-lg shadow-blue-100"
+											className="flex-1 flex items-center justify-center gap-2 bg-blue-50 text-blue-600 border border-blue-100 font-bold py-3 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-200 shadow-sm"
 										>
-											<i className="fas fa-qrcode"></i> Hiện mã QR
+											<i className="fas fa-qrcode text-[10px]"></i> Hiện mã QR
 										</button>
 										<button
 											onClick={() => handleConfirmRefunded(req.ID_DatPhong)}
 											disabled={actionLoading === req.ID_DatPhong}
-											className="flex-1 bg-green-600 text-white font-bold py-3 rounded-xl hover:bg-green-700 transition flex items-center justify-center gap-2 shadow-lg shadow-green-100"
+											className="flex-1 flex items-center justify-center gap-2 bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold py-3 rounded-full hover:bg-emerald-600 hover:text-white transition-all duration-200 shadow-sm disabled:opacity-50"
 										>
-											{actionLoading === req.ID_DatPhong ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-check-double"></i>}
+											{actionLoading === req.ID_DatPhong ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-check-double text-[10px]"></i>}
 											{actionLoading === req.ID_DatPhong ? 'Đang xử lý...' : 'Xác nhận Đã hoàn tiền'}
 										</button>
 									</>

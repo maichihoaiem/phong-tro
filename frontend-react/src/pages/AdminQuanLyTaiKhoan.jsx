@@ -133,27 +133,27 @@ function AdminQuanLyTaiKhoan() {
 			<div className="flex gap-2 mt-4 pt-3 border-t border-gray-50">
 				<button
 					onClick={() => setViewUser(user)}
-					className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-blue-50 text-blue-600 hover:bg-blue-100 transition-all"
+					className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-100 hover:bg-blue-500 hover:text-white transition-all duration-200"
 				>
-					<i className="fas fa-eye"></i> Xem thông tin
+					<i className="fas fa-eye text-[10px]"></i> Xem thông tin
 				</button>
 				{user.TrangThai === 'locked' ? (
 					<button
 						onClick={() => handleUnlock(user)}
 						disabled={actionLoading === user.ID_TaiKhoan}
-						className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all disabled:opacity-50"
+						className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white transition-all duration-200 disabled:opacity-50"
 					>
 						{actionLoading === user.ID_TaiKhoan
 							? <><i className="fas fa-spinner fa-spin"></i> Đang xử lý</>
-							: <><i className="fas fa-unlock"></i> Mở khóa</>
+							: <><i className="fas fa-unlock text-[10px]"></i> Mở khóa</>
 						}
 					</button>
 				) : (
 					<button
 						onClick={() => { setLockUser(user); setLockNote(""); setLockError(""); }}
-						className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-600 hover:bg-rose-100 transition-all"
+						className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-500 hover:text-white transition-all duration-200"
 					>
-						<i className="fas fa-lock"></i> Khóa
+						<i className="fas fa-lock text-[10px]"></i> Khóa
 					</button>
 				)}
 			</div>

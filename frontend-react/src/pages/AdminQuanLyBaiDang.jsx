@@ -173,7 +173,7 @@ function AdminQuanLyBaiDang() {
 										<div className="flex flex-wrap justify-center gap-2">
 											<button
 												onClick={() => setPreviewPost(post)}
-												className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-600 border border-blue-100 hover:bg-blue-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200"
+												className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-600 border border-blue-100 hover:bg-blue-500 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200"
 											>
 												<i className="fas fa-eye text-[10px]"></i>
 												Xem nhanh
@@ -184,7 +184,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'duyet', 'Duyệt')}
 														disabled={processingId === post.ID_Phong}
-														className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-check text-[10px]"></i>
 														Duyệt
@@ -192,7 +192,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'tu-choi', 'Từ chối')}
 														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã gỡ'}
-														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-ban text-[10px]"></i>
 														Từ chối
@@ -205,7 +205,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'an', 'Ẩn')}
 														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã ẩn'}
-														className="inline-flex items-center gap-1.5 bg-amber-50 text-amber-600 border border-amber-100 hover:bg-amber-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-amber-50 text-amber-600 border border-amber-100 hover:bg-amber-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-eye-slash text-[10px]"></i>
 														Ẩn
@@ -213,7 +213,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'tu-choi', 'Gỡ bài')}
 														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã gỡ'}
-														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-trash-alt text-[10px]"></i>
 														Gỡ bài
@@ -226,7 +226,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'bo-an', 'Bỏ ẩn')}
 														disabled={processingId === post.ID_Phong}
-														className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-eye text-[10px]"></i>
 														Bỏ ẩn
@@ -234,7 +234,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'tu-choi', 'Gỡ bài')}
 														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã gỡ'}
-														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-trash-alt text-[10px]"></i>
 														Gỡ bài

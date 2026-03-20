@@ -353,14 +353,35 @@ function RoomCard({ room, handleRestoreStatus, handleDelete, getImageUrl }) {
 				</div>
 
 				{/* Thanh hành động */}
-				<div style={{ display: 'flex', gap: '6px', borderTop: '1px solid #F8FAFF', paddingTop: '12px' }}>
+				<div className="flex gap-2 border-t border-gray-50 pt-3 mt-auto">
 					{(room.TrangThai?.toLowerCase() || '') === 'đã cho thuê' ? (
-						<button onClick={() => handleRestoreStatus(room.ID_Phong, room.TieuDe)} style={{ flex: 1, border: 'none', background: '#F0FDF4', color: '#16A34A', padding: '6px', borderRadius: '8px', cursor: 'pointer', fontSize: '0.85rem', fontWeight: 700 }} title="Khôi phục trạng thái trống"><i className="fas fa-undo"></i> Mở lại</button>
+						<button 
+							onClick={() => handleRestoreStatus(room.ID_Phong, room.TieuDe)} 
+							className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white transition-all duration-200 cursor-pointer"
+							title="Khôi phục trạng thái trống"
+						>
+							<i className="fas fa-undo text-[10px]"></i> Mở lại
+						</button>
 					) : (
-						<Link to={`/sua-phong/${room.ID_Phong}`} style={{ flex: 1, textDecoration: 'none', textAlign: 'center', background: '#EFF6FF', color: '#2563EB', padding: '6px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700 }}><i className="fas fa-edit"></i> Sửa</Link>
+						<Link 
+							to={`/sua-phong/${room.ID_Phong}`} 
+							className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-blue-50 text-blue-600 border border-blue-100 hover:bg-blue-600 hover:text-white transition-all duration-200 text-decoration-none"
+						>
+							<i className="fas fa-edit text-[10px]"></i> Sửa
+						</Link>
 					)}
-					<Link to={`/phong-tro/${room.ID_Phong}`} style={{ flex: 1, textDecoration: 'none', textAlign: 'center', background: '#F8FAFF', color: '#64748B', padding: '6px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 700 }}><i className="fas fa-eye"></i> Xem</Link>
-					<button onClick={() => handleDelete(room.ID_Phong, room.TieuDe)} style={{ width: '36px', border: 'none', background: '#FEF2F2', color: '#EF4444', height: '34px', borderRadius: '8px', cursor: 'pointer' }}><i className="fas fa-trash"></i></button>
+					<Link 
+						to={`/phong-tro/${room.ID_Phong}`} 
+						className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-50 text-gray-600 border border-gray-100 hover:bg-gray-600 hover:text-white transition-all duration-200 text-decoration-none"
+					>
+						<i className="fas fa-eye text-[10px]"></i> Xem
+					</Link>
+					<button 
+						onClick={() => handleDelete(room.ID_Phong, room.TieuDe)} 
+						className="w-9 h-8 flex items-center justify-center rounded-full bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white transition-all duration-200 cursor-pointer"
+					>
+						<i className="fas fa-trash text-[10px]"></i>
+					</button>
 				</div>
 			</div>
 		</div>
