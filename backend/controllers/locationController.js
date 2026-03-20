@@ -1,44 +1,72 @@
 // =============================================
-// Controller: Location
+// Controller: Location (ĐỌC DỮ LIỆU LOCAL - KHÔNG PHỤ THUỘC API BÊN NGOÀI)
 // =============================================
-const LocationModel = require("../models/LocationModel");
+const path = require('path');
+const fs = require('fs');
+
+// Đọc file dữ liệu tĩnh 1 lần khi khởi động server
+let provincesData = [];
+try {
+    const rawData = fs.readFileSync(path.join(__dirname, '..', 'data', 'vietnam-provinces.json'), 'utf8');
+    provincesData = JSON.parse(rawData);
+    console.log(`[Location] Đã tải ${provincesData.length} tỉnh/thành từ file local.`);
+} catch (err) {
+    console.error('[Location] Lỗi đọc file vietnam-provinces.json:', err.message);
+}
 
 const locationController = {
-    // Lay tat ca tinh thanh
+    // Lấy tất cả tỉnh thành
     async getTinhThanh(req, res) {
         try {
-            const axios = require('axios');
-            const response = await axios.get('https://provinces.open-api.vn/api/p/', { timeout: 5000 });
-            res.json({ success: true, data: response.data });
+            const result = provincesData.map(p => ({
+                code: p.Id,
+                name: p.Name
+            }));
+            res.json({ success: true, data: result });
         } catch (err) {
-            console.error('Loi khi goi provinces API (Tinh Thanh):', err.message);
-            res.json({ success: true, data: [], message: 'Khong the tai danh sach tinh thanh tu server vung.' });
+            console.error('Lỗi getTinhThanh:', err.message);
+            res.json({ success: true, data: [] });
         }
     },
 
-    // Lay quan huyen theo tinh thanh
+    // Lấy quận huyện theo tỉnh thành
     async getQuanHuyen(req, res) {
         try {
             const idTinhThanh = req.params.idTinhThanh;
-            const axios = require('axios');
-            const response = await axios.get(`https://provinces.open-api.vn/api/p/${idTinhThanh}?depth=2`, { timeout: 5000 });
-            res.json({ success: true, data: response.data.districts });
+            const province = provincesData.find(p => p.Id === idTinhThanh);
+            if (!province) {
+                return res.json({ success: true, data: [] });
+            }
+            const result = province.Districts.map(d => ({
+                code: d.Id,
+                name: d.Name
+            }));
+            res.json({ success: true, data: result });
         } catch (err) {
-            console.error('Loi khi goi provinces API (Quan Huyen):', err.message);
-            res.json({ success: true, data: [], message: 'Khong thể tải danh sách quan huyen.' });
+            console.error('Lỗi getQuanHuyen:', err.message);
+            res.json({ success: true, data: [] });
         }
     },
 
-    // Lay phuong xa theo quan huyen
+    // Lấy phường xã theo quận huyện
     async getPhuongXa(req, res) {
         try {
             const idQuanHuyen = req.params.idQuanHuyen;
-            const axios = require('axios');
-            const response = await axios.get(`https://provinces.open-api.vn/api/d/${idQuanHuyen}?depth=2`, { timeout: 5000 });
-            res.json({ success: true, data: response.data.wards });
+            let wards = [];
+            for (const province of provincesData) {
+                const district = province.Districts.find(d => d.Id === idQuanHuyen);
+                if (district) {
+                    wards = district.Wards.map(w => ({
+                        code: w.Id,
+                        name: w.Name
+                    }));
+                    break;
+                }
+            }
+            res.json({ success: true, data: wards });
         } catch (err) {
-            console.error('Loi khi goi provinces API (Phuong Xa):', err.message);
-            res.json({ success: true, data: [], message: 'Khong thể tải danh sách phuong xa.' });
+            console.error('Lỗi getPhuongXa:', err.message);
+            res.json({ success: true, data: [] });
         }
     }
 };
