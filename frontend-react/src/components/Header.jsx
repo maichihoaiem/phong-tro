@@ -142,21 +142,21 @@ function Header({ user, onLogout }) {
                         <>
                             <div style={{ width: 1, height: 18, background: '#F1F5F9', margin: '0 8px' }}></div>
                             {[
-                                { to: '/admin/hoan-tien', label: 'Hoàn tiền', icon: 'fa-shield-alt', dot: hasPendingRefunds, color: '#4F46E5' },
-                                { to: '/admin/rut-tien', label: 'Rút tiền', icon: 'fa-money-check-alt', dot: hasPendingWithdrawals, color: '#4F46E5' },
-                                { to: '/admin/quan-ly-bai-dang', label: 'Bài đăng', icon: 'fa-list-check', dot: hasPendingRoomPosts, color: '#4F46E5' },
-                                { to: '/admin/quan-ly-tai-khoan', label: 'Tài khoản', icon: 'fa-users', dot: false, color: '#4F46E5' },
-                                { to: '/admin/thong-ke', label: 'Thống kê', icon: 'fa-chart-bar', dot: false, color: '#4F46E5' },
-                                { to: '/admin/vi-chu-tro', label: 'Ví Chủ trọ', icon: 'fa-piggy-bank', dot: false, color: '#4F46E5' },
+                                { to: '/admin/hoan-tien', label: 'Hoàn tiền', icon: 'fa-shield-alt', dot: hasPendingRefunds, color: '#7C3AED' },
+                                { to: '/admin/rut-tien', label: 'Rút tiền', icon: 'fa-money-check-alt', dot: hasPendingWithdrawals, color: '#0891B2' },
+                                { to: '/admin/quan-ly-bai-dang', label: 'Bài đăng', icon: 'fa-list-check', dot: hasPendingRoomPosts, color: '#D97706' },
+                                { to: '/admin/quan-ly-tai-khoan', label: 'Tài khoản', icon: 'fa-users', dot: false, color: '#EF4444' },
+                                { to: '/admin/thong-ke', label: 'Thống kê', icon: 'fa-chart-bar', dot: false, color: '#2563EB' },
+                                { to: '/admin/vi-chu-tro', label: 'Ví Chủ trọ', icon: 'fa-piggy-bank', dot: false, color: '#059669' },
                             ].map(item => (
                                 <Link key={item.to} to={item.to} style={{
                                     position: 'relative', display: 'flex', alignItems: 'center', gap: 5,
                                     padding: '7px 11px', borderRadius: 10, fontSize: '0.8rem', fontWeight: 700,
-                                    color: isActive(item.to) ? '#4F46E5' : '#64748B',
+                                    color: isActive(item.to) ? item.color : '#64748B',
                                     background: isActive(item.to) ? '#F5F3FF' : 'transparent',
                                     textDecoration: 'none', transition: 'all 0.18s',
                                 }}
-                                    onMouseEnter={e => { e.currentTarget.style.color = '#4F46E5'; e.currentTarget.style.background = '#F5F3FF'; }}
+                                    onMouseEnter={e => { e.currentTarget.style.color = item.color; e.currentTarget.style.background = '#F5F3FF'; }}
                                     onMouseLeave={e => { if (!isActive(item.to)) { e.currentTarget.style.color = '#64748B'; e.currentTarget.style.background = 'transparent'; } }}
                                 >
                                     <i className={`fas ${item.icon}`} style={{ fontSize: '0.72rem' }}></i>

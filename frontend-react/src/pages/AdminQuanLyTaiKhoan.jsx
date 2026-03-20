@@ -104,10 +104,10 @@ function AdminQuanLyTaiKhoan() {
 					style={{
 						background: user.TrangThai === 'locked'
 							? 'linear-gradient(135deg, #EF4444, #DC2626)'
-							: 'linear-gradient(135deg, #1E293B, #475569)',
+							: 'linear-gradient(135deg, #4F46E5, #3B82F6)',
 						boxShadow: user.TrangThai === 'locked'
 							? '0 4px 14px rgba(239,68,68,0.3)'
-							: '0 4px 14px rgba(30,41,59,0.25)'
+							: '0 4px 14px rgba(79,70,229,0.25)'
 					}}
 				>
 					{user.TrangThai === 'locked' ? <i className="fas fa-lock text-xs"></i> : getInitials(user.HoTen)}
@@ -133,7 +133,7 @@ function AdminQuanLyTaiKhoan() {
 			<div className="flex gap-2 mt-4 pt-3 border-t border-gray-50">
 				<button
 					onClick={() => setViewUser(user)}
-					className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-slate-50 text-slate-600 border border-slate-100 hover:bg-slate-500 hover:text-white transition-all duration-200"
+					className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-500 hover:text-white transition-all duration-200"
 				>
 					<i className="fas fa-eye text-[10px]"></i> Xem thông tin
 				</button>
@@ -226,8 +226,8 @@ function AdminQuanLyTaiKhoan() {
 			<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6">
 				<div>
 					<h1 className="text-3xl font-extrabold text-gray-900 mb-2 flex items-center gap-2">
-						<i className="fas fa-users" style={{ color: '#1E293B' }}></i>
-						Quản lý <span style={{ color: '#1E293B' }}>Tài Khoản</span>
+						<i className="fas fa-users" style={{ color: '#4F46E5' }}></i>
+						Quản lý <span style={{ color: '#4F46E5' }}>Tài Khoản</span>
 					</h1>
 					<p className="text-gray-400 font-medium italic">Quản lý và bảo mật tất cả tài khoản trên hệ thống</p>
 				</div>
@@ -259,12 +259,12 @@ function AdminQuanLyTaiKhoan() {
 							placeholder="Tìm kiếm theo tên..."
 							value={search}
 							onChange={(e) => setSearch(e.target.value)}
-							className="w-full pl-11 pr-4 py-3 bg-white border border-gray-100 rounded-2xl text-sm font-medium focus:outline-none focus:border-slate-300 focus:ring-4 focus:ring-slate-50 transition-all shadow-sm"
+							className="w-full pl-11 pr-4 py-3 bg-white border border-gray-100 rounded-2xl text-sm font-medium focus:outline-none focus:border-indigo-300 focus:ring-4 focus:ring-indigo-50 transition-all shadow-sm"
 						/>
 					</div>
 					<button
 						type="submit"
-						className="px-6 py-3 bg-slate-800 text-white rounded-2xl font-bold text-sm hover:bg-slate-900 transition-all shadow-lg shadow-slate-200 flex items-center gap-2"
+						className="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold text-sm hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center gap-2"
 					>
 						<i className="fas fa-search"></i> Tìm
 					</button>
@@ -286,21 +286,21 @@ function AdminQuanLyTaiKhoan() {
 					title="Chủ trọ"
 					icon="fa-building"
 					users={chuTro}
-					gradientFrom="#475569"
-					gradientTo="#64748B"
-					shadowColor="rgba(71,85,105,0.2)"
-					colorClass="slate"
-					bgLight="bg-slate-50/50 border border-slate-100/50"
+					gradientFrom="#4F46E5"
+					gradientTo="#6366F1"
+					shadowColor="rgba(79,70,229,0.2)"
+					colorClass="indigo"
+					bgLight="bg-indigo-50/50 border border-indigo-100/50"
 				/>
 				<UserColumn
 					title="Người thuê"
 					icon="fa-user-friends"
 					users={nguoiThue}
-					gradientFrom="#64748B"
-					gradientTo="#475569"
-					shadowColor="rgba(100,116,139,0.2)"
-					colorClass="slate"
-					bgLight="bg-slate-50/50 border border-slate-100/50"
+					gradientFrom="#6366F1"
+					gradientTo="#4F46E5"
+					shadowColor="rgba(99,102,241,0.2)"
+					colorClass="indigo"
+					bgLight="bg-indigo-50/50 border border-indigo-100/50"
 				/>
 			</div>
 
