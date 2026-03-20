@@ -83,7 +83,17 @@ function AdminQuanLyBaiDang() {
 		return posts;
 	}, [posts, filter]);
 
-	const pendingCount = useMemo(() => posts.filter((p) => p.TrangThai === 'Chờ duyệt').length, [posts]);
+	const counts = useMemo(() => {
+		return {
+			all: posts.length,
+			pending: posts.filter((p) => p.TrangThai === 'Chờ duyệt').length,
+			approved: posts.filter((p) => !p.TrangThai || p.TrangThai === 'Còn trống' || p.TrangThai === 'Đang trống').length,
+			hidden: posts.filter((p) => p.TrangThai === 'Đã ẩn').length,
+			removed: posts.filter((p) => p.TrangThai === 'Đã gỡ').length,
+		};
+	}, [posts]);
+
+	const pendingCount = counts.pending;
 	const visiblePosts = useMemo(() => (showAllPosts ? filteredPosts : filteredPosts.slice(0, 10)), [filteredPosts, showAllPosts]);
 	const hasMoreThanTen = filteredPosts.length > 10;
 
@@ -123,9 +133,12 @@ function AdminQuanLyBaiDang() {
 					<button
 						key={item.key}
 						onClick={() => setFilter(item.key)}
-						className={`px-4 py-2 rounded-xl text-sm font-semibold transition ${filter === item.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+						className={`px-4 py-2 rounded-xl text-sm font-semibold transition flex items-center gap-2 ${filter === item.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}
 					>
 						{item.label}
+						<span className={`px-2 py-0.5 rounded-lg text-[10px] ${filter === item.key ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>
+							{counts[item.key] || 0}
+						</span>
 					</button>
 				))}
 			</div>
@@ -205,7 +218,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'an', 'Ẩn')}
 														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã ẩn'}
-														className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-orange-50 text-orange-600 border border-orange-100 hover:bg-orange-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-eye-slash text-[10px]"></i>
 														Ẩn

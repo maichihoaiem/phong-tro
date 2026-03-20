@@ -4,34 +4,14 @@ import axios from 'axios';
 
 function StatCard({ icon, label, val, color, bgColor }) {
 	return (
-		<div style={{
-			background: 'white',
-			padding: '24px',
-			borderRadius: '24px',
-			border: '1px solid #F1F5F9',
-			boxShadow: '0 4px 20px -5px rgba(15, 28, 63, 0.05)',
-			display: 'flex',
-			alignItems: 'center',
-			gap: '20px',
-			transition: 'transform 0.3s ease',
-		}} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-		   onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
-			<div style={{
-				width: '60px',
-				height: '60px',
-				borderRadius: '18px',
-				backgroundColor: bgColor,
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-				fontSize: '1.5rem',
-				color: color
-			}}>
+		<div className="bg-white rounded-2xl md:rounded-[24px] border border-slate-100 p-4 md:p-6 shadow-sm flex items-center gap-3 md:gap-5 transition-transform hover:-translate-y-1">
+			<div className="w-10 h-10 md:w-[60px] md:h-[60px] rounded-xl md:rounded-[18px] flex items-center justify-center text-lg md:text-[1.5rem]" 
+				 style={{ backgroundColor: bgColor, color: color }}>
 				<i className={icon}></i>
 			</div>
 			<div>
-				<p style={{ margin: 0, fontSize: '0.9rem', color: '#64748B', fontWeight: 600 }}>{label}</p>
-				<p style={{ margin: 0, fontSize: '1.8rem', fontWeight: 900, color: '#0F1C3F' }}>{val}</p>
+				<p className="m-0 text-[10px] md:text-[0.9rem] text-slate-500 font-semibold uppercase md:capitalize">{label}</p>
+				<p className="m-0 text-xl md:text-[1.8rem] font-black text-slate-900">{val}</p>
 			</div>
 		</div>
 	);
@@ -42,6 +22,7 @@ function LandlordDashboard() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [balance, setBalance] = useState(0);
+	const [activeTab, setActiveTab] = useState('available'); // 'available' or 'rented'
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -142,86 +123,88 @@ function LandlordDashboard() {
 	}
 
 	return (
-		<div style={{ backgroundColor: '#F8FAFF', minHeight: '100vh', padding: '40px 24px' }}>
-			<div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+		<div className="bg-[#F8FAFF] min-h-screen px-4 py-6 md:p-10">
+			<div className="max-w-[1400px] mx-auto">
                 
 				{/* HEAD & TOP INFO */}
-				<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '40px', flexWrap: 'wrap', gap: '24px' }}>
+				<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 md:mb-10 gap-6">
 					<div>
-						<h1 style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F1C3F', margin: '0 0 8px 0', letterSpacing: '-0.5px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-							<i className="fas fa-tasks" style={{ color: '#2563EB' }}></i>
-							Quản lý <span style={{ color: '#2563EB' }}>Phòng</span>
+						<h1 className="text-2xl md:text-3xl font-black text-slate-900 mb-2 flex items-center gap-3">
+							<i className="fas fa-tasks text-blue-600"></i>
+							Quản lý <span className="text-blue-600">Phòng</span>
 						</h1>
-						<p style={{ color: '#64748B', fontWeight: 500, margin: 0 }}>Chào mừng bạn quay lại! Dưới đây là tình hình kinh doanh của bạn hôm nay.</p>
+						<p className="text-slate-500 font-medium text-sm md:text-base">Chào mừng bạn quay lại! Dưới đây là tình hình kinh doanh của bạn hôm nay.</p>
 					</div>
-					<div style={{ display: 'flex', gap: '16px' }}>
-						<Link to="/vi-tien" style={{
-							background: 'white',
-							padding: '12px 24px',
-							borderRadius: '16px',
-							display: 'flex',
-							alignItems: 'center',
-							gap: '12px',
-							textDecoration: 'none',
-							border: '1px solid #E2E8F0',
-							transition: 'all 0.3s'
-						}} onMouseEnter={e => e.currentTarget.style.borderColor = '#2563EB'}
-						   onMouseLeave={e => e.currentTarget.style.borderColor = '#E2E8F0'}>
-							<div style={{ width: '40px', height: '40px', borderRadius: '12px', backgroundColor: '#EFF6FF', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB' }}>
+					<div className="flex flex-wrap gap-3 w-full lg:w-auto">
+						<Link to="/vi-tien" className="flex-1 lg:flex-none bg-white p-3 md:px-6 md:py-3 rounded-2xl flex items-center gap-3 border border-slate-100 hover:border-blue-600 transition-all text-decoration-none shadow-sm">
+							<div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
 								<i className="fas fa-wallet"></i>
 							</div>
 							<div>
-								<p style={{ margin: 0, fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase' }}>Ví của bạn</p>
-								<p style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: '#0F1C3F' }}>{new Intl.NumberFormat('vi-VN').format(balance)} đ</p>
+								<p className="m-0 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ví của bạn</p>
+								<p className="m-0 text-base md:text-lg font-black text-slate-900">{new Intl.NumberFormat('vi-VN').format(balance)} đ</p>
 							</div>
 						</Link>
-						<Link to="/dang-phong" style={{
-							background: '#2563EB',
-							color: 'white',
-							padding: '14px 28px',
-							borderRadius: '16px',
-							fontWeight: 800,
-							display: 'flex',
-							alignItems: 'center',
-							gap: '10px',
-							textDecoration: 'none',
-							boxShadow: '0 10px 25px -5px rgba(37, 99, 235, 0.4)',
-							transition: 'transform 0.3s'
-						}} onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-3px)'}
-						   onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
-							<i className="fas fa-plus"></i> Đăng phòng mới
+						<Link to="/dang-phong" className="flex-1 lg:flex-none bg-blue-600 text-white p-3 md:px-7 md:py-3.5 rounded-2xl font-black flex items-center justify-center gap-2 shadow-lg shadow-blue-200 hover:-translate-y-1 transition-all text-decoration-none">
+							<i className="fas fa-plus"></i> <span className="text-sm md:text-base">Đăng phòng</span>
 						</Link>
 					</div>
 				</div>
 
 				{/* STATS GRID */}
-				<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '48px' }}>
-					<StatCard icon="fas fa-home" label="Tổng số phòng" val={stats.total} color="#2563EB" bgColor="#EFF6FF" />
-					<StatCard icon="fas fa-check-circle" label="Phòng đang trống" val={stats.available} color="#10B981" bgColor="#ECFDF5" />
-					<StatCard icon="fas fa-clock" label="Sắp thuê (Đã cọc)" val={stats.deposited} color="#8B5CF6" bgColor="#F5F3FF" />
-					<StatCard icon="fas fa-user-check" label="Đã cho thuê" val={stats.rented} color="#F59E0B" bgColor="#FFFBEB" />
-					<StatCard icon="fas fa-eye" label="Tổng lượt xem" val={stats.views} color="#64748B" bgColor="#F8FAFF" />
+				<div className="grid grid-cols-6 lg:grid-cols-5 gap-2 md:gap-5 mb-10 md:mb-12">
+					<div className="col-span-2 lg:col-span-1">
+						<StatCard icon="fas fa-home" label="Tổng phòng" val={stats.total} color="#2563EB" bgColor="#EFF6FF" />
+					</div>
+					<div className="col-span-2 lg:col-span-1">
+						<StatCard icon="fas fa-check-circle" label="Còn trống" val={stats.available} color="#10B981" bgColor="#ECFDF5" />
+					</div>
+					<div className="col-span-2 lg:col-span-1">
+						<StatCard icon="fas fa-clock" label="Đã cọc" val={stats.deposited} color="#8B5CF6" bgColor="#F5F3FF" />
+					</div>
+					<div className="col-span-3 lg:col-span-1">
+						<StatCard icon="fas fa-user-check" label="Đã thuê" val={stats.rented} color="#F59E0B" bgColor="#FFFBEB" />
+					</div>
+					<div className="col-span-3 lg:col-span-1">
+						<StatCard icon="fas fa-eye" label="Lượt xem" val={stats.views} color="#64748B" bgColor="#F8FAFF" />
+					</div>
+				</div>
+
+				{/* MOBILE TABS (Only on mobile) */}
+				<div className="flex lg:hidden bg-slate-100 p-1.5 rounded-2xl mb-6">
+					<button 
+						onClick={() => setActiveTab('available')}
+						className={`flex-1 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'available' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}
+					>
+						Phòng còn trống ({stats.available + stats.deposited})
+					</button>
+					<button 
+						onClick={() => setActiveTab('rented')}
+						className={`flex-1 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'rented' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}
+					>
+						Đã cho thuê ({stats.rented})
+					</button>
 				</div>
 
 				{/* MANAGEMENT AREA - 2 COLUMNS LAYOUT */}
-				<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '32px' }}>
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     
 					{/* LEFT COLUMN: AVAILABLE ROOMS */}
-					<div style={{ background: 'white', borderRadius: '32px', padding: '24px', boxShadow: '0 10px 40px -10px rgba(15, 28, 63, 0.05)', border: '1px solid #F1F5F9' }}>
-						<div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #F8FAFF' }}>
-							<div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#ECFDF5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10B981' }}>
+					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'available' ? 'hidden lg:block' : ''}`}>
+						<div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
+							<div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-500">
 								<i className="fas fa-check-circle"></i>
 							</div>
-							<h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F1C3F', margin: 0 }}>Phòng còn trống</h2>
-							<span style={{ marginLeft: 'auto', backgroundColor: '#ECFDF5', color: '#059669', padding: '4px 12px', borderRadius: '100px', fontSize: '0.85rem', fontWeight: 800 }}>{stats.available}</span>
+							<h2 className="text-xl font-black text-slate-800 m-0">Phòng còn trống</h2>
+							<span className="ml-auto bg-emerald-50 text-emerald-600 px-3 py-1 rounded-full text-xs font-black">{stats.available + stats.deposited}</span>
 						</div>
 
-						<div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+						<div className="flex flex-col gap-5">
 							{rooms.filter(r => {
 								const status = (r.TrangThai || '').trim().toLowerCase();
 								return status === 'còn trống' || status === 'đang trống' || status === '' || status === 'đã cọc';
 							}).length === 0 ? (
-								<div style={{ padding: '40px 0', textAlign: 'center', color: '#94A3B8' }}>Không có phòng còn trống</div>
+								<div className="py-10 text-center text-slate-400 font-medium italic">Không có phòng còn trống</div>
 							) : (
 								rooms.filter(r => {
 									const status = (r.TrangThai || '').trim().toLowerCase();
@@ -234,18 +217,18 @@ function LandlordDashboard() {
 					</div>
 
 					{/* RIGHT COLUMN: RENTED ROOMS */}
-					<div style={{ background: 'white', borderRadius: '32px', padding: '24px', boxShadow: '0 10px 40px -10px rgba(15, 28, 63, 0.05)', border: '1px solid #F1F5F9' }}>
-						<div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid #F8FAFF' }}>
-							<div style={{ width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#FFFBEB', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#F59E0B' }}>
+					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'rented' ? 'hidden lg:block' : ''}`}>
+						<div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
+							<div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500">
 								<i className="fas fa-user-check"></i>
 							</div>
-							<h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0F1C3F', margin: 0 }}>Phòng đã thuê</h2>
-							<span style={{ marginLeft: 'auto', backgroundColor: '#FFFBEB', color: '#D97706', padding: '4px 12px', borderRadius: '100px', fontSize: '0.85rem', fontWeight: 800 }}>{stats.rented}</span>
+							<h2 className="text-xl font-black text-slate-800 m-0">Phòng đã thuê</h2>
+							<span className="ml-auto bg-amber-50 text-amber-600 px-3 py-1 rounded-full text-xs font-black">{stats.rented}</span>
 						</div>
 
-						<div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+						<div className="flex flex-col gap-5">
 							{rooms.filter(r => (r.TrangThai?.toLowerCase() || '') === 'đã cho thuê').length === 0 ? (
-								<div style={{ padding: '40px 0', textAlign: 'center', color: '#94A3B8' }}>Chưa có phòng đã thuê</div>
+								<div className="py-10 text-center text-slate-400 font-medium italic">Chưa có phòng đã thuê</div>
 							) : (
 								rooms.filter(r => (r.TrangThai?.toLowerCase() || '') === 'đã cho thuê').map(room => (
 									<RoomCard key={room.ID_Phong} room={room} handleRestoreStatus={handleRestoreStatus} handleDelete={handleDelete} getImageUrl={getImageUrl} />
@@ -274,81 +257,39 @@ function RoomCard({ room, handleRestoreStatus, handleDelete, getImageUrl }) {
 	const typeColor = getRoomTypeColor(room.TenLoaiPhong || room.TenLoai);
 
 	return (
-		<div style={{
-			border: '1px solid #F1F5F9',
-			borderRadius: '20px',
-			overflow: 'hidden',
-			backgroundColor: 'white',
-			transition: 'all 0.3s',
-			display: 'flex'
-		}} onMouseEnter={e => {
-			e.currentTarget.style.borderColor = '#2563EB';
-			e.currentTarget.style.boxShadow = '0 15px 30px -10px rgba(15, 28, 63, 0.08)';
-		}} onMouseLeave={e => {
-			e.currentTarget.style.borderColor = '#F1F5F9';
-			e.currentTarget.style.boxShadow = 'none';
-		}}>
+		<div className="bg-white border border-slate-100 rounded-2xl overflow-hidden transition-all hover:border-blue-600 hover:shadow-xl hover:shadow-blue-50/50 flex flex-col sm:flex-row">
 			{/* Ảnh thu nhỏ */}
-			<div style={{ width: '180px', minHeight: '140px', position: 'relative', flexShrink: 0 }}>
+			<div className="w-full sm:w-[180px] h-48 sm:h-auto relative flex-shrink-0">
 				<img 
 					src={getImageUrl(room.AnhDaiDien) || "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?fit=crop&w=400&q=80"} 
-					style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+					className="w-full h-full object-cover"
 					alt={room.TieuDe} 
 				/>
 			</div>
 
 			{/* Nội dung bên phải */}
-			<div style={{ padding: '16px', flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+			<div className="p-4 flex-grow flex flex-col justify-between">
 				<div>
-					<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-						<span style={{ 
-							fontSize: '0.7rem', 
-							fontWeight: 700, 
-							color: typeColor.color, 
-							backgroundColor: typeColor.bg, 
-							padding: '2px 8px', 
-							borderRadius: '6px',
-							textTransform: 'uppercase',
-							letterSpacing: '0.3px'
-						}}>
+					<div className="flex justify-between items-start mb-1.5 gap-2">
+						<span className="text-[10px] font-bold px-2 py-0.5 rounded-lg uppercase tracking-wider"
+							  style={{ color: typeColor.color, backgroundColor: typeColor.bg }}>
 							{room.TenLoaiPhong || room.TenLoai || 'Phòng cho thuê'}
 						</span>
 						{(room.TrangThai || '').toLowerCase() === 'đã cọc' && (
-							<span style={{ 
-								fontSize: '0.7rem', 
-								fontWeight: 800, 
-								color: '#7C3AED', 
-								backgroundColor: '#F5F3FF', 
-								padding: '2px 8px', 
-								borderRadius: '6px',
-								textTransform: 'uppercase',
-								border: '1px solid #DDD6FE',
-								marginLeft: '8px'
-							}}>
-								<i className="fas fa-clock mr-1"></i> Đã cọc (Chờ duyệt)
+							<span className="text-[10px] font-black text-purple-600 bg-purple-50 px-2 py-0.5 rounded-lg uppercase border border-purple-100 flex items-center gap-1">
+								<i className="fas fa-clock"></i> Cọc
 							</span>
 						)}
 					</div>
-					<h4 style={{ margin: '0 0 8px 0', fontSize: '0.95rem', fontWeight: 800, color: '#0F1C3F', lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{room.TieuDe}</h4>
+					<h4 className="m-0 mb-2 text-sm md:text-base font-black text-slate-900 leading-snug line-clamp-2">{room.TieuDe}</h4>
 					{(room.TrangThai || '').toLowerCase() === 'đã cọc' && (
-						<Link to="/yeu-cau-dat-phong" style={{ 
-							display: 'inline-block',
-							fontSize: '0.75rem',
-							fontWeight: 700,
-							color: '#7C3AED',
-							textDecoration: 'none',
-							marginBottom: '8px',
-							backgroundColor: '#F5F3FF',
-							padding: '4px 10px',
-							borderRadius: '8px',
-							border: '1px solid #DDD6FE'
-						}}>
-							 Đi tới Duyệt cọc →
+						<Link to="/yeu-cau-dat-phong" className="inline-block text-[11px] font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-100 hover:bg-purple-600 hover:text-white transition-all mb-2 text-decoration-none">
+							 Duyệt cọc →
 						</Link>
 					)}
-					<div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-						<span style={{ color: '#2563EB', fontWeight: 900, fontSize: '1.2rem' }}>{new Intl.NumberFormat('vi-VN').format(room.Gia)} đ</span>
-						<span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#94A3B8' }}>/ tháng</span>
+					<div className="flex items-baseline gap-1">
+						<span className="text-blue-600 font-black text-lg">{new Intl.NumberFormat('vi-VN').format(room.Gia)} đ</span>
+						<span className="text-[10px] font-bold text-slate-400">/ tháng</span>
 					</div>
 				</div>
 
