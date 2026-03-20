@@ -108,18 +108,18 @@ app.get("/api/ping", (req, res) => {
     res.json({ success: true, message: "Pong! Server is alive.", timestamp: new Date() });
 });
 
-// Ket noi DB va start server
+// SỬA LỖI 502: Khởi động server ngay lập tức, không đợi kết nối DB hoàn tất
 const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`🚀 Server đang chạy tại cổng ${PORT}`);
+    console.log(`👉 Kiểm tra Ping: http://localhost:${PORT}/api/ping`);
+});
 
+// Kết nối Database trong nền
 connectDB()
     .then(() => {
         console.log("✅ Database connected successfully.");
     })
     .catch((err) => {
         console.error("⚠️ Database connection failed:", err.message);
-    })
-    .finally(() => {
-        app.listen(PORT, () => {
-            console.log(`🚀 Server đang chạy tại cổng ${PORT}`);
-        });
     });
