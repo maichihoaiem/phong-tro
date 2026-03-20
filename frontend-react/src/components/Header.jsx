@@ -66,6 +66,7 @@ function Header({ user, onLogout }) {
     useEffect(() => { setIsMobileMenuOpen(false); setShowDropdown(false); }, [location]);
 
     const handleLogout = async () => {
+        if (!window.confirm("Bạn có chắc chắn muốn đăng xuất khỏi hệ thống không?")) return;
         if (onLogout) await onLogout();
         setShowDropdown(false);
         navigate('/');

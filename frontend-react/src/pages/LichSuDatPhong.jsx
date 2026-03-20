@@ -42,7 +42,7 @@ function BookingHistoryPage() {
     const handleProvideRefundInfo = async (idDatPhong) => {
         console.log("SUBMITTING REFUND FOR ID:", idDatPhong);
         const form = refundForms[idDatPhong];
-        if (!form || !form.stk || !form.nganHang || !form.chuTk) {
+        if (!form || !form.stk?.trim() || !form.nganHang?.trim() || !form.chuTk?.trim()) {
             alert("Vui lòng nhập đầy đủ thông tin ngân hàng!");
             return;
         }
@@ -181,6 +181,7 @@ function BookingHistoryPage() {
                                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                                         <select
                                                             className="px-3 py-4 border rounded-xl text-base md:text-sm bg-white transition-all w-full"
+                                                            required
                                                             value={refundForms[booking.ID_DatPhong || booking.id_datphong]?.nganHang || ''}
                                                             onChange={(e) => setRefundForms({ ...refundForms, [booking.ID_DatPhong || booking.id_datphong]: { ...refundForms[booking.ID_DatPhong || booking.id_datphong], nganHang: e.target.value } })}
                                                         >
@@ -192,12 +193,14 @@ function BookingHistoryPage() {
                                                         <input
                                                             type="text" placeholder="Số tài khoản"
                                                             className="px-3 py-2 border rounded-lg text-sm"
+                                                            required
                                                             value={refundForms[booking.ID_DatPhong || booking.id_datphong]?.stk || ''}
                                                             onChange={(e) => setRefundForms({ ...refundForms, [booking.ID_DatPhong || booking.id_datphong]: { ...refundForms[booking.ID_DatPhong || booking.id_datphong], stk: e.target.value } })}
                                                         />
                                                         <input
                                                             type="text" placeholder="Tên chủ tài khoản"
                                                             className="px-3 py-2 border rounded-lg text-sm"
+                                                            required
                                                             value={refundForms[booking.ID_DatPhong || booking.id_datphong]?.chuTk || ''}
                                                             onChange={(e) => setRefundForms({ ...refundForms, [booking.ID_DatPhong || booking.id_datphong]: { ...refundForms[booking.ID_DatPhong || booking.id_datphong], chuTk: e.target.value.toUpperCase() } })}
                                                         />

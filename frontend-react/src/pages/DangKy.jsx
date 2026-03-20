@@ -14,7 +14,10 @@ function DangKy({ onLogin }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault(); setError('');
-		if (!form.hoTen || !form.email || !form.matKhau) { setError('Vui lòng nhập đầy đủ họ tên, email và mật khẩu!'); return; }
+		if (!form.hoTen?.trim() || !form.email?.trim() || !form.matKhau?.trim() || !form.soDienThoai?.trim()) { 
+			setError('Vui lòng nhập đầy đủ tất cả các thông tin yêu cầu!'); 
+			return; 
+		}
 		if (form.matKhau.length < 6) { setError('Mật khẩu phải có ít nhất 6 ký tự!'); return; }
 		if (form.matKhau !== form.xacNhanMatKhau) { setError('Mật khẩu xác nhận không khớp!'); return; }
 		setLoading(true);
@@ -37,7 +40,7 @@ function DangKy({ onLogin }) {
 	const fields = [
 		{ name: 'hoTen', type: 'text', label: 'Họ và tên *', icon: 'fa-user', placeholder: 'Nhập họ và tên' },
 		{ name: 'email', type: 'email', label: 'Email *', icon: 'fa-envelope', placeholder: 'your@email.com' },
-		{ name: 'soDienThoai', type: 'tel', label: 'Số điện thoại', icon: 'fa-phone', placeholder: 'Tùy chọn' },
+		{ name: 'soDienThoai', type: 'tel', label: 'Số điện thoại *', icon: 'fa-phone', placeholder: 'Nhập số điện thoại' },
 	];
 
 	return (
@@ -100,6 +103,7 @@ function DangKy({ onLogin }) {
 										<i className={`fas ${f.icon}`} style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: focusedField === f.name ? '#2563EB' : '#9CA3AF', fontSize: '0.78rem', transition: 'color 0.2s' }}></i>
 										<input type={f.type} name={f.name} value={form[f.name]} onChange={handleChange} placeholder={f.placeholder}
 											onFocus={() => setFocusedField(f.name)} onBlur={() => setFocusedField(null)}
+											required
 											style={inputStyle(f.name)} />
 									</div>
 								</div>
@@ -113,6 +117,7 @@ function DangKy({ onLogin }) {
 										<i className="fas fa-lock" style={{ position: 'absolute', left: 13, top: '50%', transform: 'translateY(-50%)', color: focusedField === f.name ? '#2563EB' : '#9CA3AF', fontSize: '0.78rem', transition: 'color 0.2s' }}></i>
 										<input type={showPassword ? 'text' : 'password'} name={f.name} value={form[f.name]} onChange={handleChange} placeholder={f.placeholder}
 											onFocus={() => setFocusedField(f.name)} onBlur={() => setFocusedField(null)}
+											required
 											style={{ ...inputStyle(f.name), paddingRight: 40 }} />
 										{f.name === 'matKhau' && (
 											<button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: 11, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#9CA3AF', cursor: 'pointer', fontSize: '0.8rem', padding: 3 }}>

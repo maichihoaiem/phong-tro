@@ -61,8 +61,8 @@ function TaiKhoan({ user, onUpdateUser }) {
 	const handleUpdateInfo = async (e) => {
 		e.preventDefault();
 		setInfoMsg({ type: '', text: '' });
-		if (!infoForm.hoTen.trim()) {
-			setInfoMsg({ type: 'error', text: 'Họ tên không được để trống!' });
+		if (!infoForm.hoTen?.trim() || !infoForm.soDienThoai?.trim() || !infoForm.soTaiKhoan?.trim() || !infoForm.tenNganHang?.trim() || !infoForm.chuTaiKhoan?.trim()) {
+			setInfoMsg({ type: 'error', text: 'Vui lòng nhập đầy đủ tất cả các thông tin!' });
 			return;
 		}
 		setInfoLoading(true);
@@ -174,24 +174,24 @@ function TaiKhoan({ user, onUpdateUser }) {
 					{activeTab === 'info' && (
 						<form onSubmit={handleUpdateInfo} className="space-y-6">
 							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Họ và tên</label>
-								<input type="text" name="hoTen" value={infoForm.hoTen} onChange={e => setInfoForm({ ...infoForm, hoTen: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+								<label className="block text-xs font-bold text-gray-500 mb-2">Họ và tên *</label>
+								<input type="text" name="hoTen" required value={infoForm.hoTen} onChange={e => setInfoForm({ ...infoForm, hoTen: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
 							</div>
 							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Số điện thoại</label>
-								<input type="text" name="soDienThoai" value={infoForm.soDienThoai} onChange={e => setInfoForm({ ...infoForm, soDienThoai: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+								<label className="block text-xs font-bold text-gray-500 mb-2">Số điện thoại *</label>
+								<input type="text" name="soDienThoai" required value={infoForm.soDienThoai} onChange={e => setInfoForm({ ...infoForm, soDienThoai: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
 							</div>
 							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Số tài khoản</label>
-								<input type="text" name="soTaiKhoan" value={infoForm.soTaiKhoan} onChange={e => setInfoForm({ ...infoForm, soTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+								<label className="block text-xs font-bold text-gray-500 mb-2">Số tài khoản *</label>
+								<input type="text" name="soTaiKhoan" required value={infoForm.soTaiKhoan} onChange={e => setInfoForm({ ...infoForm, soTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
 							</div>
 							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Tên ngân hàng</label>
-								<input type="text" name="tenNganHang" value={infoForm.tenNganHang} onChange={e => setInfoForm({ ...infoForm, tenNganHang: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+								<label className="block text-xs font-bold text-gray-500 mb-2">Tên ngân hàng *</label>
+								<input type="text" name="tenNganHang" required value={infoForm.tenNganHang} onChange={e => setInfoForm({ ...infoForm, tenNganHang: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
 							</div>
 							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Chủ tài khoản</label>
-								<input type="text" name="chuTaiKhoan" value={infoForm.chuTaiKhoan} onChange={e => setInfoForm({ ...infoForm, chuTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+								<label className="block text-xs font-bold text-gray-500 mb-2">Chủ tài khoản *</label>
+								<input type="text" name="chuTaiKhoan" required value={infoForm.chuTaiKhoan} onChange={e => setInfoForm({ ...infoForm, chuTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
 							</div>
 							{infoMsg.text && (
 								<div className={`p-3 rounded-xl text-sm font-bold ${infoMsg.type === 'success' ? 'bg-green-50 text-green-600 border border-green-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>{infoMsg.text}</div>
