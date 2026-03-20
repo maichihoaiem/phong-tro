@@ -210,7 +210,7 @@ function AdminRutTien() {
 					</h1>
 					<p className="text-gray-500 font-medium italic">Kiểm duyệt và chuyển khoản cho các chủ trọ yêu cầu thanh toán</p>
 				</div>
-				<div className="flex bg-white p-1.5 rounded-2xl shadow-sm border border-gray-100 flex-wrap gap-2">
+				<div className="flex bg-white p-1 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto pb-1 scrollbar-hide flex-nowrap gap-1">
 					{[
 						{ key: 'all', label: 'Tất cả' },
 						{ key: 'Chờ duyệt', label: 'Chờ duyệt' },
@@ -220,10 +220,10 @@ function AdminRutTien() {
 						<button
 							key={f.key}
 							onClick={() => setFilter(f.key)}
-							className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${filter === f.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'text-gray-500 hover:bg-gray-50'}`}
+							className={`px-2 py-1.5 md:px-4 md:py-2 rounded-xl text-[10px] md:text-sm font-bold transition-all flex items-center gap-1 whitespace-nowrap ${filter === f.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'text-gray-500 hover:bg-gray-50'}`}
 						>
 							{f.label}
-							<span className={`px-2 py-0.5 rounded-lg text-[10px] ${filter === f.key ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>
+							<span className={`px-1.5 py-0.5 rounded-lg text-[9px] ${filter === f.key ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>
 								{counts[f.key] || 0}
 							</span>
 						</button>
@@ -298,12 +298,12 @@ function AdminRutTien() {
 										)}
 									</td>
 									<td className="p-4">
-										{w.TrangThai === 'Chờ duyệt' && <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Chờ duyệt</span>}
-										{w.TrangThai === 'Đã duyệt' && <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Đã duyệt</span>}
+										{w.TrangThai === 'Chờ duyệt' && <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-[10px] font-bold">Chờ duyệt</span>}
+										{w.TrangThai === 'Đã duyệt' && <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-[10px] font-bold">Đã duyệt</span>}
 										{w.TrangThai === 'Từ chối' && (
 											<div>
-												<span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold">Từ chối</span>
-												{w.GhiChuAdmin && <p className="text-xs text-red-500 mt-1 italic">LBN: {w.GhiChuAdmin}</p>}
+												<span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-[10px] font-bold">Từ chối</span>
+												{w.GhiChuAdmin && <p className="text-[10px] text-red-500 mt-1 italic leading-tight">LBN: {w.GhiChuAdmin}</p>}
 											</div>
 										)}
 									</td>

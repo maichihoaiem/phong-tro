@@ -57,27 +57,27 @@ function BookingRequestsPage() {
         switch (status) {
             case 'Đã duyệt':
             case 'Đã đặt':
-                statusEl = <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-check mr-1"></i>Đã duyệt</span>;
+                statusEl = <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-bold"><i className="fas fa-check mr-1"></i>Đã duyệt</span>;
                 break;
             case 'Đã từ chối':
             case 'Từ chối':
-                statusEl = <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-times mr-1"></i>Đã từ chối</span>;
+                statusEl = <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-[10px] font-bold"><i className="fas fa-times mr-1"></i>Đã từ chối</span>;
                 break;
             default:
-                statusEl = <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-clock mr-1"></i>Chờ duyệt</span>;
+                statusEl = <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-[10px] font-bold"><i className="fas fa-clock mr-1"></i>Chờ duyệt</span>;
         }
 
         let paymentEl;
         if (paymentStatus === 'Đã thanh toán') {
-            paymentEl = <span className="ml-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-dollar-sign mr-1"></i>Đã thanh toán</span>;
+            paymentEl = <span className="ml-1 bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-[10px] font-bold"><i className="fas fa-dollar-sign mr-1"></i>Đã thanh toán</span>;
         } else if (paymentStatus === 'Chờ hoàn tiền') {
-            paymentEl = <span className="ml-2 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-undo mr-1"></i>Chờ hoàn tiền</span>;
+            paymentEl = <span className="ml-1 bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-[10px] font-bold"><i className="fas fa-undo mr-1"></i>Chờ hoàn tiền</span>;
         } else if (paymentStatus === 'Đang khiếu nại') {
-            paymentEl = <span className="ml-2 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold animate-pulse"><i className="fas fa-exclamation-triangle mr-1"></i>Đang khiếu nại</span>;
+            paymentEl = <span className="ml-1 bg-red-500 text-white px-2 py-0.5 rounded-full text-[10px] font-bold animate-pulse"><i className="fas fa-exclamation-triangle mr-1"></i>Đang khiếu nại</span>;
         } else if (paymentStatus === 'Đã hoàn tiền') {
-            paymentEl = <span className="ml-2 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-check-circle mr-1"></i>Đã hoàn tiền</span>;
+            paymentEl = <span className="ml-1 bg-green-500 text-white px-2 py-0.5 rounded-full text-[10px] font-bold"><i className="fas fa-check-circle mr-1"></i>Đã hoàn tiền</span>;
         } else {
-            paymentEl = <span className="ml-2 bg-gray-100 text-gray-500 px-3 py-1 rounded-full text-xs font-bold">Chưa thanh toán</span>;
+            paymentEl = <span className="ml-1 bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-[10px] font-bold">Chưa thanh toán</span>;
         }
 
         return <div className="flex flex-nowrap gap-1 whitespace-nowrap">{statusEl}{paymentEl}</div>;
@@ -111,8 +111,8 @@ function BookingRequestsPage() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                 <div>
                     <h1 className="text-xl md:text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2 whitespace-nowrap">
-                        <i className="fas fa-bell text-amber-600"></i>
-                        Quản lý <span className="text-amber-600">Yêu Cầu Đặt Phòng</span>
+                        <i className="fas fa-bell text-indigo-600"></i>
+                        Quản lý <span className="text-indigo-600">Yêu Cầu Đặt Phòng</span>
                     </h1>
                     <p className="text-gray-500">
                         Duyệt hoặc từ chối các yêu cầu đặt phòng từ người thuê
@@ -137,9 +137,9 @@ function BookingRequestsPage() {
                     <button
                         key={tab.key}
                         onClick={() => setFilter(tab.key)}
-                        className={`px-3 py-2 md:px-5 md:py-2.5 rounded-xl text-[11px] md:text-sm font-bold transition border-2 whitespace-nowrap ${filter === tab.key
-                            ? 'bg-amber-600 text-white border-amber-600 shadow-lg shadow-amber-200'
-                            : 'bg-white text-gray-600 border-gray-200 hover:border-amber-300'
+                        className={`px-2 py-1.5 md:px-5 md:py-2.5 rounded-xl text-[10px] md:text-sm font-bold transition border-2 whitespace-nowrap ${filter === tab.key
+                            ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-200'
+                            : 'bg-white text-gray-600 border-gray-200 hover:border-indigo-300'
                             }`}
                     >
                         {tab.label} ({tab.count})
@@ -159,7 +159,7 @@ function BookingRequestsPage() {
             ) : (
                 <div className="space-y-4">
                     {filteredRequests.map(req => (
-                        <div key={req.ID_DatPhong} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 hover:shadow-md transition-shadow">
+                        <div key={req.ID_DatPhong} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 md:p-6 hover:shadow-md transition-shadow">
                             <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                                 {/* Thông tin */}
                                 <div className="flex-grow">
