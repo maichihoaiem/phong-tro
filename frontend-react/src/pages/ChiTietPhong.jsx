@@ -371,8 +371,12 @@ function RoomDetailPage({ user }) {
                                 <i className="fas fa-align-left text-blue-500"></i> Mô tả chi tiết
                             </h2>
                             <div className={`relative transition-all duration-500 overflow-hidden ${!isDescriptionExpanded ? 'max-h-[200px] md:max-h-none' : 'max-h-[5000px]'}`}>
-                                <div className="text-gray-600 leading-relaxed whitespace-pre-wrap break-words">
-                                    {room.MoTa || 'Chưa có mô tả.'}
+                                <div className="text-gray-600 leading-loose break-words">
+                                    {room.MoTa ? room.MoTa.split('\n').map((line, i) => (
+                                        <p key={i} className={line.trim() === '' ? 'h-4' : 'mb-3 md:mb-4'}>
+                                            {line}
+                                        </p>
+                                    )) : 'Chưa có mô tả.'}
                                 </div>
                                 
                                 {/* Gradient Overlay khi thu gọn trên mobile */}
