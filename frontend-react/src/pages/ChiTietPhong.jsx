@@ -444,10 +444,10 @@ function RoomDetailPage({ user }) {
                         </div>
                     </div>
 
-                    {/* Cột phải: Sidebar */}
-                    <div className="space-y-6">
-                        {/* Thông tin chủ trọ (Desktop/Tablet Only) */}
-                        <div className="hidden md:block bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                    {/* Cột phải: Sidebar — toàn bộ cột sticky */}
+                    <div className="hidden md:block md:sticky md:top-24 space-y-6">
+                        {/* Thông tin chủ trọ */}
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
                                 <i className="fas fa-user-tie text-blue-500"></i> Thông tin chủ trọ
                             </h3>
@@ -488,9 +488,8 @@ function RoomDetailPage({ user }) {
                             </div>
                         </div>
 
-                        {/* Hành động (Desktop/Tablet Only) - Sticky Wrapper */}
-                        <div className="hidden md:block sticky top-24 z-10 self-start">
-                            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                        {/* Giá + Đặt phòng */}
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                             <div className="text-center mb-5">
                                 <div className="text-3xl font-bold text-blue-600 mb-1">
                                     {new Intl.NumberFormat('vi-VN').format(room.Gia)} đ
