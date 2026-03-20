@@ -523,7 +523,6 @@ function RoomDetailPage({ user }) {
                         </div>
                     </div>
                 </div>
-            </div>
 
                 {/* Modal Đặt phòng */}
                 {showBookingModal && (
