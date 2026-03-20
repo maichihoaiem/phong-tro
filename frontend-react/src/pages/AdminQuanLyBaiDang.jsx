@@ -98,8 +98,8 @@ function AdminQuanLyBaiDang() {
 	return (
 		<div className="container mx-auto max-w-7xl px-4 py-8">
 			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
-				<i className="fas fa-list-check" style={{ color: '#D97706' }}></i>
-				Quản lý <span style={{ color: '#D97706' }}>Bài Đăng Phòng</span>
+				<i className="fas fa-list-check" style={{ color: '#4F46E5' }}></i>
+				Quản lý <span style={{ color: '#4F46E5' }}>Bài Đăng Phòng</span>
 			</h1>
 			<p className="text-gray-500 mb-6">Admin duyệt bài đăng trước khi hiển thị công khai trên web</p>
 
@@ -123,7 +123,7 @@ function AdminQuanLyBaiDang() {
 					<button
 						key={item.key}
 						onClick={() => setFilter(item.key)}
-						className={`px-4 py-2 rounded-xl text-sm font-semibold transition ${filter === item.key ? 'bg-amber-600 text-white shadow-lg shadow-amber-200' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}
+						className={`px-4 py-2 rounded-xl text-sm font-semibold transition ${filter === item.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}
 					>
 						{item.label}
 					</button>
@@ -134,7 +134,7 @@ function AdminQuanLyBaiDang() {
 				<div className="overflow-x-auto">
 					<table className="w-full text-left border-collapse">
 						<thead>
-							<tr style={{ background: '#FFF7ED' }} className="text-amber-700 text-sm border-b border-amber-100">
+							<tr style={{ background: '#F5F3FF' }} className="text-indigo-700 text-sm border-b border-indigo-100">
 								<th className="p-4 font-semibold">Mã bài</th>
 								<th className="p-4 font-semibold">Tiêu đề</th>
 								<th className="p-4 font-semibold">Chủ trọ</th>
@@ -205,7 +205,7 @@ function AdminQuanLyBaiDang() {
 													<button
 														onClick={() => updateStatus(post, 'an', 'Ẩn')}
 														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã ẩn'}
-														className="inline-flex items-center gap-1.5 bg-amber-50 text-amber-600 border border-amber-100 hover:bg-amber-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
+														className="inline-flex items-center gap-1.5 bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-eye-slash text-[10px]"></i>
 														Ẩn

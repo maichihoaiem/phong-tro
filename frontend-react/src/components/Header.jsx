@@ -85,8 +85,8 @@ function Header({ user, onLogout }) {
         display: 'flex', alignItems: 'center', gap: 6,
         padding: '7px 13px', borderRadius: 10,
         fontSize: '0.83rem', fontWeight: 600,
-        color: active ? '#2563EB' : '#4B5563',
-        background: active ? '#EFF6FF' : 'transparent',
+        color: active ? '#4F46E5' : '#4B5563',
+        background: active ? '#F5F3FF' : 'transparent',
         textDecoration: 'none', transition: 'all 0.18s',
         position: 'relative',
     });
@@ -101,21 +101,21 @@ function Header({ user, onLogout }) {
     return (
         <header style={{
             position: 'sticky', top: 0, zIndex: 100,
-            background: '#f8faff',
+            background: '#ffffff',
             backdropFilter: 'blur(10px)',
-            borderBottom: '2px solid var(--primary-100)',
-            boxShadow: scrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.05)' : 'none',
+            borderBottom: '1px solid #F1F5F9',
+            boxShadow: scrolled ? '0 10px 15px -3px rgba(0, 0, 0, 0.04)' : 'none',
             transition: 'all 0.3s ease',
         }} className="header-main">
             <div className="header-container">
 
                 {/* Logo */}
                 <Link to="/" className="header-logo">
-                    <div className="logo-icon">
+                    <div className="logo-icon" style={{ background: 'linear-gradient(135deg, #4F46E5, #3B82F6)' }}>
                         <i className="fas fa-home"></i>
                     </div>
                     <span className="logo-text">
-                        OZIC<span style={{ color: '#2563EB' }}>HOUSE</span>
+                        OZIC<span style={{ color: '#4F46E5' }}>HOUSE</span>
                     </span>
                 </Link>
 
@@ -129,7 +129,7 @@ function Header({ user, onLogout }) {
                         .map(link => (
                             <Link key={link.path} to={link.path}
                                 style={navLinkStyle(isActive(link.path))}
-                                onMouseEnter={e => { if (!isActive(link.path)) { e.currentTarget.style.color = '#2563EB'; e.currentTarget.style.background = '#F0F7FF'; } }}
+                                onMouseEnter={e => { if (!isActive(link.path)) { e.currentTarget.style.color = '#4F46E5'; e.currentTarget.style.background = '#F5F3FF'; } }}
                                 onMouseLeave={e => { if (!isActive(link.path)) { e.currentTarget.style.color = '#4B5563'; e.currentTarget.style.background = 'transparent'; } }}
                             >
                                 <i className={`fas ${link.icon}`} style={{ fontSize: '0.75rem', opacity: 0.8 }}></i>
@@ -140,24 +140,24 @@ function Header({ user, onLogout }) {
                     {/* Admin links */}
                     {user && user.ID_VaiTro === 1 && (
                         <>
-                            <div style={{ width: 1, height: 18, background: '#E2EAF4', margin: '0 8px' }}></div>
+                            <div style={{ width: 1, height: 18, background: '#F1F5F9', margin: '0 8px' }}></div>
                             {[
-                                { to: '/admin/hoan-tien', label: 'Hoàn tiền', icon: 'fa-shield-alt', dot: hasPendingRefunds, color: '#7C3AED' },
-                                { to: '/admin/rut-tien', label: 'Rút tiền', icon: 'fa-money-check-alt', dot: hasPendingWithdrawals, color: '#0891B2' },
-                                { to: '/admin/quan-ly-bai-dang', label: 'Bài đăng', icon: 'fa-list-check', dot: hasPendingRoomPosts, color: '#D97706' },
-                                { to: '/admin/quan-ly-tai-khoan', label: 'Tài khoản', icon: 'fa-users', dot: false, color: '#EF4444' },
-                                { to: '/admin/thong-ke', label: 'Thống kê', icon: 'fa-chart-bar', dot: false, color: '#2563EB' },
-                                { to: '/admin/vi-chu-tro', label: 'Ví Chủ trọ', icon: 'fa-piggy-bank', dot: false, color: '#059669' },
+                                { to: '/admin/hoan-tien', label: 'Hoàn tiền', icon: 'fa-shield-alt', dot: hasPendingRefunds, color: '#4F46E5' },
+                                { to: '/admin/rut-tien', label: 'Rút tiền', icon: 'fa-money-check-alt', dot: hasPendingWithdrawals, color: '#4F46E5' },
+                                { to: '/admin/quan-ly-bai-dang', label: 'Bài đăng', icon: 'fa-list-check', dot: hasPendingRoomPosts, color: '#4F46E5' },
+                                { to: '/admin/quan-ly-tai-khoan', label: 'Tài khoản', icon: 'fa-users', dot: false, color: '#4F46E5' },
+                                { to: '/admin/thong-ke', label: 'Thống kê', icon: 'fa-chart-bar', dot: false, color: '#4F46E5' },
+                                { to: '/admin/vi-chu-tro', label: 'Ví Chủ trọ', icon: 'fa-piggy-bank', dot: false, color: '#4F46E5' },
                             ].map(item => (
                                 <Link key={item.to} to={item.to} style={{
                                     position: 'relative', display: 'flex', alignItems: 'center', gap: 5,
                                     padding: '7px 11px', borderRadius: 10, fontSize: '0.8rem', fontWeight: 700,
-                                    color: isActive(item.to) ? item.color : '#6B7280',
-                                    background: isActive(item.to) ? '#EFF6FF' : 'transparent',
+                                    color: isActive(item.to) ? '#4F46E5' : '#64748B',
+                                    background: isActive(item.to) ? '#F5F3FF' : 'transparent',
                                     textDecoration: 'none', transition: 'all 0.18s',
                                 }}
-                                    onMouseEnter={e => { e.currentTarget.style.color = item.color; e.currentTarget.style.background = '#F0F7FF'; }}
-                                    onMouseLeave={e => { if (!isActive(item.to)) { e.currentTarget.style.color = '#6B7280'; e.currentTarget.style.background = 'transparent'; } }}
+                                    onMouseEnter={e => { e.currentTarget.style.color = '#4F46E5'; e.currentTarget.style.background = '#F5F3FF'; }}
+                                    onMouseLeave={e => { if (!isActive(item.to)) { e.currentTarget.style.color = '#64748B'; e.currentTarget.style.background = 'transparent'; } }}
                                 >
                                     <i className={`fas ${item.icon}`} style={{ fontSize: '0.72rem' }}></i>
                                     {item.label}
