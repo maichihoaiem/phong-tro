@@ -165,9 +165,9 @@ function AdminHoanTien() {
 					<p className="text-gray-500 max-w-md mx-auto">Tất cả các khoản cọc đều đã được xử lý ổn thỏa.</p>
 				</div>
 			) : (
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
 					{filteredData.map(req => (
-						<div key={req.ID_DatPhong} className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-50 overflow-hidden hover:scale-[1.01] transition-transform flex flex-col">
+						<div key={req.ID_DatPhong} className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-50 overflow-hidden hover:scale-[1.02] transition-transform flex flex-col">
 							<div className={`p-1 text-center text-[10px] font-black uppercase tracking-widest ${
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' ? 'bg-yellow-400 text-white' : 
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Chưa có STK)' ? 'bg-orange-500 text-white' :
@@ -176,72 +176,72 @@ function AdminHoanTien() {
 								{req.TrangThaiThanhToan}
 							</div>
 
-							<div className="p-8 flex-grow">
-								<div className="flex justify-between items-start mb-6">
-									<div className="flex items-center gap-4">
-										<div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center text-white text-xl shadow-lg shadow-indigo-200">
+							<div className="p-5 flex-grow">
+								<div className="flex justify-between items-start mb-4">
+									<div className="flex items-center gap-3">
+										<div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl flex items-center justify-center text-white text-base shadow-md shadow-indigo-200">
 											<i className="fas fa-file-invoice-dollar"></i>
 										</div>
 										<div>
-											<h4 className="font-black text-gray-800 text-lg leading-tight">{req.TieuDe}</h4>
-											<p className="text-indigo-600 font-mono text-sm font-bold">#{req.MaGiaoDich}</p>
+											<h4 className="font-black text-gray-800 text-base leading-tight">{req.TieuDe}</h4>
+											<p className="text-indigo-600 font-mono text-xs font-bold">#{req.MaGiaoDich}</p>
 										</div>
 									</div>
 									<div className="text-right">
-										<p className="text-2xl font-black text-gray-900 line-through opacity-30 text-[12px]">{new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ</p>
-										<p className="text-xl font-black text-red-600">-{new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ</p>
+										<p className="font-black text-gray-900 line-through opacity-30 text-[10px]">{new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ</p>
+										<p className="text-lg font-black text-red-600">-{new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ</p>
 									</div>
 								</div>
 
-								<div className="grid grid-cols-2 gap-4 mb-6">
-									<div className="bg-blue-50/50 p-4 rounded-2xl border border-blue-50">
-										<p className="text-[10px] font-black text-blue-400 uppercase tracking-tighter mb-1">Người thuê</p>
-										<p className="font-bold text-gray-800 text-sm">{req.TenNguoiThue}</p>
-										<p className="text-gray-500 text-xs">{req.SDT_NguoiThue}</p>
+								<div className="grid grid-cols-2 gap-3 mb-4">
+									<div className="bg-blue-50/50 p-3 rounded-xl border border-blue-50">
+										<p className="text-[9px] font-black text-blue-400 uppercase tracking-tighter mb-1">Người thuê</p>
+										<p className="font-bold text-gray-800 text-xs">{req.TenNguoiThue}</p>
+										<p className="text-gray-500 text-[10px]">{req.SDT_NguoiThue}</p>
 									</div>
-									<div className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-50">
-										<p className="text-[10px] font-black text-indigo-400 uppercase tracking-tighter mb-1">Chủ trọ</p>
-										<p className="font-bold text-gray-800 text-sm">{req.TenChuTro}</p>
-										<p className="text-gray-500 text-xs">{req.SDT_ChuTro}</p>
+									<div className="bg-indigo-50/50 p-3 rounded-xl border border-indigo-50">
+										<p className="text-[9px] font-black text-indigo-400 uppercase tracking-tighter mb-1">Chủ trọ</p>
+										<p className="font-bold text-gray-800 text-xs">{req.TenChuTro}</p>
+										<p className="text-gray-500 text-[10px]">{req.SDT_ChuTro}</p>
 									</div>
 								</div>
 
-								<div className="mt-4 p-4 bg-gray-50 rounded-xl mb-4 text-center">
-									<h5 className="text-sm font-bold text-gray-700 mb-2">Thông tin Ngân hàng của Khách thuê</h5>
-									<p className="text-xs text-gray-500 mb-2">Vui lòng chuyển khoản lại {new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ vào tài khoản này:</p>
+								<div className="mt-3 p-3 bg-gray-50 rounded-xl mb-0 text-center">
+									<h5 className="text-xs font-bold text-gray-700 mb-1">Thông tin Ngân hàng của Khách thuê</h5>
+									<p className="text-[10px] text-gray-500 mb-2">Vui lòng chuyển khoản lại {new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ vào tài khoản này:</p>
 									<div className="flex flex-col items-center gap-0.5">
 										<div className="relative inline-flex items-center group">
-											<p className="text-lg font-mono font-black text-blue-600">STK: {req.STK_NguoiThue}</p>
+											<p className="text-base font-mono font-black text-blue-600">STK: {req.STK_NguoiThue}</p>
 											<button 
 												onClick={() => {
 													navigator.clipboard.writeText(req.STK_NguoiThue);
 													alert("Đã sao chép số tài khoản: " + req.STK_NguoiThue);
 												}}
-												className="absolute -right-8 text-gray-400 hover:text-blue-600 transition p-1 opacity-0 group-hover:opacity-100"
+												className="absolute -right-7 text-gray-400 hover:text-blue-600 transition p-1 opacity-0 group-hover:opacity-100"
 												title="Sao chép STK"
 											>
-												<i className="far fa-copy"></i>
+												<i className="far fa-copy text-xs"></i>
 											</button>
 										</div>
-										<p className="text-sm font-bold uppercase text-gray-800">Chủ TK: {req.ChuTK_NguoiThue || req.chutk_nguoithue}</p>
-										<p className="text-sm text-gray-600 italic">Ngân hàng: {req.NganHang_NguoiThue || req.nganhang_nguoithue}</p>
+										<p className="text-xs font-bold uppercase text-gray-800 border-t border-gray-200/50 pt-1 mt-1 w-full text-center">Chủ TK: {req.ChuTK_NguoiThue || req.chutk_nguoithue}</p>
+										<p className="text-[11px] text-gray-600 italic">Ngân hàng: {req.NganHang_NguoiThue || req.nganhang_nguoithue}</p>
 									</div>
 								</div>
 							</div>
 
-							<div className="p-6 bg-gray-50 border-t border-gray-100 flex flex-wrap gap-3">
+							<div className="p-4 bg-gray-50 border-t border-gray-100 flex flex-wrap gap-2">
 								{req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' && (
 									<>
 										<button
 											onClick={() => setShowQR(req.ID_DatPhong)}
-											className="flex-1 flex items-center justify-center gap-2 bg-blue-50 text-blue-600 border border-blue-100 font-bold py-3 rounded-full hover:bg-blue-600 hover:text-white transition-all duration-200 shadow-sm"
+											className="flex-1 flex items-center justify-center gap-1.5 bg-blue-50 text-blue-600 border border-blue-100 font-bold py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-all duration-200 shadow-sm text-xs"
 										>
 											<i className="fas fa-qrcode text-[10px]"></i> Hiện mã QR
 										</button>
 										<button
 											onClick={() => handleConfirmRefunded(req.ID_DatPhong)}
 											disabled={actionLoading === req.ID_DatPhong}
-											className="flex-1 flex items-center justify-center gap-2 bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold py-3 rounded-full hover:bg-emerald-600 hover:text-white transition-all duration-200 shadow-sm disabled:opacity-50"
+											className="flex-[1.5] flex items-center justify-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 font-bold py-2.5 rounded-xl hover:bg-emerald-600 hover:text-white transition-all duration-200 shadow-sm disabled:opacity-50 text-xs"
 										>
 											{actionLoading === req.ID_DatPhong ? <i className="fas fa-spinner fa-spin"></i> : <i className="fas fa-check-double text-[10px]"></i>}
 											{actionLoading === req.ID_DatPhong ? 'Đang xử lý...' : 'Xác nhận Đã hoàn tiền'}
