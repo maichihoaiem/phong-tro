@@ -61,7 +61,7 @@ function Hero({ onSearch }) {
             }}>
                 {/* Phần Text bên trái */}
                 <div className="hero-text fade-up" style={{ flex: '1', minWidth: '300px' }}>
-                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight tracking-tighter">
+                    <h1 className="text-3xl md:text-5xl lg:text-5xl font-black mb-4 leading-[1.25] tracking-tight">
                         Tìm Kiếm <span style={{ color: '#60A5FA' }}>Phòng Trọ</span><br />
                         Đẳng Cấp & Tiện Nghi
                     </h1>

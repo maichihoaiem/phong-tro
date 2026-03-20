@@ -408,7 +408,7 @@ function Header({ user, onLogout }) {
             )}
             <style>{`
                 .header-main {
-                    margin-bottom: 20px;
+                    margin-bottom: 0px;
                 }
                 .header-container {
                     max-width: 1200px;
