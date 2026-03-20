@@ -38,12 +38,12 @@ function AdminViChuTro() {
 	return (
 		<div className="container mx-auto max-w-6xl px-4 py-8">
 			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
-				<i className="fas fa-piggy-bank" style={{ color: '#059669' }}></i>
-				Quản lý <span style={{ color: '#059669' }}>Ví Chủ Trọ</span>
+				<i className="fas fa-piggy-bank" style={{ color: '#4F46E5' }}></i>
+				Quản lý <span style={{ color: '#4F46E5' }}>Ví Chủ Trọ</span>
 			</h1>
 			<p className="text-gray-500 mb-8">Danh sách tất cả cọc của chủ trọ đang được hệ thống giữ hộ</p>
 
-			<div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl p-6 shadow-lg flex items-center gap-4 text-white mb-8">
+			<div className="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-2xl p-6 shadow-lg flex items-center gap-4 text-white mb-8">
 				<div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center">
 					<i className="fas fa-piggy-bank text-3xl text-white"></i>
 				</div>
@@ -57,7 +57,7 @@ function AdminViChuTro() {
 				<div className="overflow-x-auto">
 					<table className="w-full text-left border-collapse">
 						<thead>
-							<tr style={{ background: '#F0FDF4' }} className="text-green-700 text-sm border-b border-green-100">
+							<tr style={{ background: '#F5F3FF' }} className="text-indigo-700 text-sm border-b border-indigo-100">
 								<th className="p-4 font-semibold">ID</th>
 								<th className="p-4 font-semibold">Tên Chủ Trọ</th>
 								<th className="p-4 font-semibold">SĐT / Email</th>
@@ -81,7 +81,7 @@ function AdminViChuTro() {
 										<p className="text-xs text-gray-500">{l.Email}</p>
 									</td>
 									<td className="p-4 text-right">
-										<span className="text-base font-bold text-green-600">
+										<span className="text-base font-bold text-indigo-600">
 											{new Intl.NumberFormat('vi-VN').format(l.SoDu)} đ
 										</span>
 									</td>

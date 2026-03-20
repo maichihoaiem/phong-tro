@@ -81,7 +81,7 @@ function AdminHoanTien() {
 	if (loading) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
-				<i className="fas fa-spinner fa-spin text-purple-600 text-4xl"></i>
+				<i className="fas fa-spinner fa-spin text-indigo-600 text-4xl"></i>
 			</div>
 		);
 	}
@@ -123,8 +123,8 @@ function AdminHoanTien() {
 			<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
 				<div>
 					<h1 className="text-3xl font-extrabold text-gray-900 mb-2 flex items-center gap-2">
-						<i className="fas fa-shield-alt" style={{ color: '#7C3AED' }}></i>
-						Quản lý <span style={{ color: '#7C3AED' }}>Hoàn Tiền Tự Động</span>
+						<i className="fas fa-shield-alt" style={{ color: '#4F46E5' }}></i>
+						Quản lý <span style={{ color: '#4F46E5' }}>Hoàn Tiền Tự Động</span>
 					</h1>
 					<p className="text-gray-500 font-medium italic">Xử lý các khoản cọc cần hoàn trả do Chủ trọ từ chối</p>
 				</div>
@@ -138,7 +138,7 @@ function AdminHoanTien() {
 						<button
 							key={f.key}
 							onClick={() => setFilter(f.key)}
-							className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${filter === f.key ? 'bg-purple-600 text-white shadow-lg shadow-purple-200' : 'text-gray-500 hover:bg-gray-50'}`}
+							className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${filter === f.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'text-gray-500 hover:bg-gray-50'}`}
 						>
 							{f.label}
 							<span className={`px-2 py-0.5 rounded-lg text-[10px] ${filter === f.key ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>
@@ -158,8 +158,8 @@ function AdminHoanTien() {
 
 			{filteredData.length === 0 ? (
 				<div className="bg-white rounded-3xl p-20 text-center shadow-xl shadow-gray-100 border border-gray-50">
-					<div className="w-24 h-24 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-6">
-						<i className="fas fa-check-double text-4xl text-purple-300"></i>
+					<div className="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-6">
+						<i className="fas fa-check-double text-4xl text-indigo-300"></i>
 					</div>
 					<h3 className="text-2xl font-bold text-gray-800 mb-2">Không có yêu cầu hoàn tiền nào</h3>
 					<p className="text-gray-500 max-w-md mx-auto">Tất cả các khoản cọc đều đã được xử lý ổn thỏa.</p>
@@ -171,7 +171,7 @@ function AdminHoanTien() {
 							<div className={`p-1 text-center text-[10px] font-black uppercase tracking-widest ${
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' ? 'bg-yellow-400 text-white' : 
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Chưa có STK)' ? 'bg-orange-500 text-white' :
-								'bg-purple-600 text-white'
+								'bg-indigo-600 text-white'
 								}`}>
 								{req.TrangThaiThanhToan}
 							</div>
@@ -179,12 +179,12 @@ function AdminHoanTien() {
 							<div className="p-8 flex-grow">
 								<div className="flex justify-between items-start mb-6">
 									<div className="flex items-center gap-4">
-										<div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white text-xl shadow-lg shadow-purple-200">
+										<div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center text-white text-xl shadow-lg shadow-indigo-200">
 											<i className="fas fa-file-invoice-dollar"></i>
 										</div>
 										<div>
 											<h4 className="font-black text-gray-800 text-lg leading-tight">{req.TieuDe}</h4>
-											<p className="text-purple-600 font-mono text-sm font-bold">#{req.MaGiaoDich}</p>
+											<p className="text-indigo-600 font-mono text-sm font-bold">#{req.MaGiaoDich}</p>
 										</div>
 									</div>
 									<div className="text-right">
@@ -199,8 +199,8 @@ function AdminHoanTien() {
 										<p className="font-bold text-gray-800 text-sm">{req.TenNguoiThue}</p>
 										<p className="text-gray-500 text-xs">{req.SDT_NguoiThue}</p>
 									</div>
-									<div className="bg-purple-50/50 p-4 rounded-2xl border border-purple-50">
-										<p className="text-[10px] font-black text-purple-400 uppercase tracking-tighter mb-1">Chủ trọ</p>
+									<div className="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-50">
+										<p className="text-[10px] font-black text-indigo-400 uppercase tracking-tighter mb-1">Chủ trọ</p>
 										<p className="font-bold text-gray-800 text-sm">{req.TenChuTro}</p>
 										<p className="text-gray-500 text-xs">{req.SDT_ChuTro}</p>
 									</div>

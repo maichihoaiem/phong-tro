@@ -35,7 +35,7 @@ function AdminThongKe() {
 	if (loading) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
-				<div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"></div>
+				<div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
 			</div>
 		);
 	}
@@ -51,14 +51,14 @@ function AdminThongKe() {
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<h1 className="text-3xl font-extrabold text-gray-800 mb-8 flex items-center gap-2">
-				<i className="fas fa-chart-bar" style={{ color: '#2563EB' }}></i> Quản lý <span style={{ color: '#2563EB' }}>Thống Kê Hệ Thống</span>
+				<i className="fas fa-chart-bar" style={{ color: '#4F46E5' }}></i> Quản lý <span style={{ color: '#4F46E5' }}>Thống Kê Hệ Thống</span>
 			</h1>
 
 			{/* KPI Cards */}
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 				<div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
 					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl">
+						<div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
 							<i className="fas fa-hand-holding-usd"></i>
 						</div>
 						<div>
@@ -68,9 +68,9 @@ function AdminThongKe() {
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
+				<div className="bg-white p-6 rounded-2xl shadow-sm border border-indigo-50">
 					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-blue-500 text-xl">
+						<div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-500 text-xl">
 							<i className="fas fa-calendar-check"></i>
 						</div>
 						<div>
@@ -82,14 +82,14 @@ function AdminThongKe() {
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-blue-50">
+				<div className="bg-white p-6 rounded-2xl shadow-sm border border-indigo-50">
 					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl">
+						<div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
 							<i className="fas fa-chart-pie"></i>
 						</div>
 						<div>
 							<p className="text-gray-400 text-sm font-medium">Tăng trưởng tháng</p>
-							<h3 className={`text-2xl font-bold ${growth >= 0 ? 'text-blue-600' : 'text-red-500'}`}>
+							<h3 className={`text-2xl font-bold ${growth >= 0 ? 'text-indigo-600' : 'text-red-500'}`}>
 								{growth >= 0 ? '+' : ''}{growth.toFixed(1)}%
 							</h3>
 						</div>
@@ -113,7 +113,7 @@ function AdminThongKe() {
 								/>
 								<Bar dataKey="revenue" radius={[6, 6, 0, 0]}>
 									{stats.map((entry, index) => (
-										<Cell key={`cell-${index}`} fill={index === stats.length - 1 ? '#2563eb' : '#93c5fd'} />
+										<Cell key={`cell-${index}`} fill={index === stats.length - 1 ? '#4f46e5' : '#c7d2fe'} />
 									))}
 								</Bar>
 							</BarChart>
@@ -133,14 +133,14 @@ function AdminThongKe() {
 									contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
 									formatter={(value) => [value, 'Đơn thành công']}
 								/>
-								<Line type="monotone" dataKey="totalBookings" stroke="#10b981" strokeWidth={3} dot={{ r: 6, fill: '#10b981', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 8 }} />
+								<Line type="monotone" dataKey="totalBookings" stroke="#4f46e5" strokeWidth={3} dot={{ r: 6, fill: '#4f46e5', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 8 }} />
 							</LineChart>
 						</ResponsiveContainer>
 					</div>
 				</div>
 			</div>
             
-			<div className="mt-8 bg-blue-50 p-4 rounded-xl text-blue-600 text-sm flex items-start gap-3">
+			<div className="mt-8 bg-indigo-50 p-4 rounded-xl text-indigo-600 text-sm flex items-start gap-3">
 				<i className="fas fa-info-circle mt-0.5"></i>
 				<p>Số liệu được cập nhật từ phí sàn 5% trên mỗi giao dịch đặt cọc hoặc thanh toán thành công được chủ trọ duyệt. Hệ thống tự động ghi nhận doanh thu vào thời điểm chủ trọ chuyển trạng thái sang "Đã duyệt".</p>
 			</div>

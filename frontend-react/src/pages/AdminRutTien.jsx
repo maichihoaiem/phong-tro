@@ -188,8 +188,8 @@ function AdminRutTien() {
 	return (
 		<div className="container mx-auto max-w-6xl px-4 py-8">
 			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
-				<i className="fas fa-money-check-alt" style={{ color: '#0891B2' }}></i>
-				Quản lý <span style={{ color: '#0891B2' }}>Yêu Cầu Rút Tiền</span>
+				<i className="fas fa-money-check-alt" style={{ color: '#4F46E5' }}></i>
+				Quản lý <span style={{ color: '#4F46E5' }}>Yêu Cầu Rút Tiền</span>
 			</h1>
 			<p className="text-gray-500 mb-8">Kiểm duyệt và chuyển khoản cho các chủ trọ yêu cầu thanh toán</p>
 
@@ -197,7 +197,7 @@ function AdminRutTien() {
 				<div className="overflow-x-auto">
 					<table className="w-full text-left border-collapse">
 						<thead>
-							<tr style={{ background: '#ECFEFF' }} className="text-cyan-700 text-sm border-b border-cyan-100">
+							<tr style={{ background: '#F5F3FF' }} className="text-indigo-700 text-sm border-b border-indigo-100">
 								<th className="p-4 font-semibold">Mã YC</th>
 								<th className="p-4 font-semibold">Ngày tạo</th>
 								<th className="p-4 font-semibold">Chủ trọ</th>
