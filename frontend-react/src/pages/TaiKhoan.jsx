@@ -61,8 +61,13 @@ function TaiKhoan({ user, onUpdateUser }) {
 	const handleUpdateInfo = async (e) => {
 		e.preventDefault();
 		setInfoMsg({ type: '', text: '' });
-		if (!infoForm.hoTen?.trim() || !infoForm.soDienThoai?.trim() || !infoForm.soTaiKhoan?.trim() || !infoForm.tenNganHang?.trim() || !infoForm.chuTaiKhoan?.trim()) {
-			setInfoMsg({ type: 'error', text: 'Vui lòng nhập đầy đủ tất cả các thông tin!' });
+		const isLandlord = profile?.TenVaiTro === 'Chủ trọ' || user?.ID_VaiTro === 2;
+		if (!infoForm.hoTen?.trim() || !infoForm.soDienThoai?.trim()) {
+			setInfoMsg({ type: 'error', text: 'Họ tên và Số điện thoại không được để trống!' });
+			return;
+		}
+		if (isLandlord && (!infoForm.soTaiKhoan?.trim() || !infoForm.tenNganHang?.trim() || !infoForm.chuTaiKhoan?.trim())) {
+			setInfoMsg({ type: 'error', text: 'Chủ trọ vui lòng nhập đầy đủ thông tin ngân hàng!' });
 			return;
 		}
 		setInfoLoading(true);
@@ -181,18 +186,23 @@ function TaiKhoan({ user, onUpdateUser }) {
 								<label className="block text-xs font-bold text-gray-500 mb-2">Số điện thoại *</label>
 								<input type="text" name="soDienThoai" required value={infoForm.soDienThoai} onChange={e => setInfoForm({ ...infoForm, soDienThoai: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
 							</div>
-							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Số tài khoản *</label>
-								<input type="text" name="soTaiKhoan" required value={infoForm.soTaiKhoan} onChange={e => setInfoForm({ ...infoForm, soTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
-							</div>
-							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Tên ngân hàng *</label>
-								<input type="text" name="tenNganHang" required value={infoForm.tenNganHang} onChange={e => setInfoForm({ ...infoForm, tenNganHang: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
-							</div>
-							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Chủ tài khoản *</label>
-								<input type="text" name="chuTaiKhoan" required value={infoForm.chuTaiKhoan} onChange={e => setInfoForm({ ...infoForm, chuTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
-							</div>
+							{/* Chỉ hiện thông tin ngân hàng cho Chủ trọ */}
+							{(profile?.TenVaiTro === 'Chủ trọ' || user?.ID_VaiTro === 2) && (
+								<>
+									<div>
+										<label className="block text-xs font-bold text-gray-500 mb-2">Số tài khoản *</label>
+										<input type="text" name="soTaiKhoan" required value={infoForm.soTaiKhoan} onChange={e => setInfoForm({ ...infoForm, soTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+									</div>
+									<div>
+										<label className="block text-xs font-bold text-gray-500 mb-2">Tên ngân hàng *</label>
+										<input type="text" name="tenNganHang" required value={infoForm.tenNganHang} onChange={e => setInfoForm({ ...infoForm, tenNganHang: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+									</div>
+									<div>
+										<label className="block text-xs font-bold text-gray-500 mb-2">Chủ tài khoản *</label>
+										<input type="text" name="chuTaiKhoan" required value={infoForm.chuTaiKhoan} onChange={e => setInfoForm({ ...infoForm, chuTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" />
+									</div>
+								</>
+							)}
 							{infoMsg.text && (
 								<div className={`p-3 rounded-xl text-sm font-bold ${infoMsg.type === 'success' ? 'bg-green-50 text-green-600 border border-green-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>{infoMsg.text}</div>
 							)}

@@ -85,6 +85,9 @@ const walletController = {
                 success: true,
                 data: {
                     balance: user.SoDu || 0,
+                    tenNganHang: user.TenNganHang || '',
+                    soTaiKhoan: user.SoTaiKhoan || '',
+                    chuTaiKhoan: user.ChuTaiKhoan || '',
                     history,
                     withdrawals
                 }

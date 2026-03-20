@@ -237,8 +237,8 @@ const authController = {
                 return res.status(400).json({ success: false, message: "Họ tên không được để trống!" });
             }
 
-            // Nếu không phải Admin, xóa các trường ngân hàng để tránh bị hack/ghi đè
-            if (req.session.user.TenVaiTro !== 'Admin') {
+            // Nếu không phải Admin hoặc Chủ trọ, xóa các trường ngân hàng để tránh bị hack/ghi đè
+            if (req.session.user.TenVaiTro !== 'Admin' && req.session.user.TenVaiTro !== 'Chủ trọ') {
                 delete req.body.soTaiKhoan;
                 delete req.body.tenNganHang;
                 delete req.body.chuTaiKhoan;

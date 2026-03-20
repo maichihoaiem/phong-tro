@@ -13,6 +13,7 @@ function ViTien() {
 	const [showAllWithdrawals, setShowAllWithdrawals] = useState(false);
 	const [activeSection, setActiveSection] = useState('history'); // 'history' or 'withdrawals'
 	const [withdrawForm, setWithdrawForm] = useState({ soTien: '', tenNganHang: '', soTaiKhoan: '', chuTaiKhoan: '' });
+	const [isChangingAccount, setIsChangingAccount] = useState(false);
 
 	useEffect(() => { loadWalletData(); }, []);
 
@@ -82,7 +83,16 @@ function ViTien() {
 							{new Intl.NumberFormat('vi-VN').format(walletData.balance)} đ
 						</h2>
 						<button
-							onClick={() => setShowWithdrawModal(true)}
+							onClick={() => {
+								setWithdrawForm({
+									...withdrawForm,
+									tenNganHang: walletData.tenNganHang || '',
+									soTaiKhoan: walletData.soTaiKhoan || '',
+									chuTaiKhoan: walletData.chuTaiKhoan || ''
+								});
+								setIsChangingAccount(false);
+								setShowWithdrawModal(true);
+							}}
 							className="w-full bg-white text-blue-700 py-3 rounded-2xl font-bold hover:bg-blue-50 transition shadow-lg"
 						>
 							Rút tiền về ngân hàng
@@ -229,27 +239,72 @@ function ViTien() {
 								<label className="block text-xs font-bold text-gray-500 mb-2">Số tiền muốn rút</label>
 								<input type="number" name="soTien" value={withdrawForm.soTien} onChange={e => setWithdrawForm({ ...withdrawForm, soTien: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" min="10000" required />
 							</div>
-							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Tên ngân hàng</label>
-								<input type="text" name="tenNganHang" list="vietqr-bank-list" value={withdrawForm.tenNganHang} onChange={e => setWithdrawForm({ ...withdrawForm, tenNganHang: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" required />
-								<datalist id="vietqr-bank-list">
-									{VIETQR_BANKS.map((bank) => (
-										<option key={bank.id} value={bank.name} />
-									))}
-								</datalist>
-								<p className="mt-1 text-[11px] text-gray-400">Gợi ý: chọn tên trong danh sách để Admin tự tạo mã QR.</p>
+
+							{!isChangingAccount && walletData.soTaiKhoan ? (
+								<div className="bg-blue-50 p-4 rounded-2xl border border-blue-100 relative group">
+									<div className="flex justify-between items-start mb-2">
+										<p className="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Tài khoản thụ hưởng</p>
+										<button 
+											type="button"
+											onClick={() => setIsChangingAccount(true)}
+											className="text-[10px] font-bold text-blue-600 hover:text-blue-800 transition-colors bg-white px-2 py-1 rounded-lg shadow-sm border border-blue-100"
+										>
+											Đổi tài khoản khác
+										</button>
+									</div>
+									<div className="space-y-1">
+										<p className="text-sm font-bold text-gray-800">{walletData.tenNganHang}</p>
+										<p className="text-lg font-mono font-bold text-blue-700 tracking-tight">{walletData.soTaiKhoan}</p>
+										<p className="text-xs font-medium text-gray-500 uppercase">{walletData.chuTaiKhoan}</p>
+									</div>
+								</div>
+							) : (
+								<>
+									<div>
+										<label className="block text-xs font-bold text-gray-500 mb-2">Tên ngân hàng</label>
+										<input type="text" name="tenNganHang" list="vietqr-bank-list" value={withdrawForm.tenNganHang} onChange={e => setWithdrawForm({ ...withdrawForm, tenNganHang: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" required />
+										<datalist id="vietqr-bank-list">
+											{VIETQR_BANKS.map((bank) => (
+												<option key={bank.id} value={bank.name} />
+											))}
+										</datalist>
+									</div>
+									<div>
+										<label className="block text-xs font-bold text-gray-500 mb-2">Số tài khoản</label>
+										<input type="text" name="soTaiKhoan" value={withdrawForm.soTaiKhoan} onChange={e => setWithdrawForm({ ...withdrawForm, soTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" required />
+									</div>
+									<div>
+										<label className="block text-xs font-bold text-gray-500 mb-2">Chủ tài khoản</label>
+										<input type="text" name="chuTaiKhoan" value={withdrawForm.chuTaiKhoan} onChange={e => setWithdrawForm({ ...withdrawForm, chuTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" required />
+									</div>
+									{walletData.soTaiKhoan && (
+										<button 
+											type="button" 
+											onClick={() => {
+												setIsChangingAccount(false);
+												setWithdrawForm({
+													...withdrawForm,
+													tenNganHang: walletData.tenNganHang,
+													soTaiKhoan: walletData.soTaiKhoan,
+													chuTaiKhoan: walletData.chuTaiKhoan
+												});
+											}}
+											className="text-xs text-blue-600 font-bold hover:underline"
+										>
+											Quay lại tài khoản đã lưu
+										</button>
+									)}
+								</>
+							)}
+
+							<div className="flex gap-3 pt-2">
+								<button type="button" onClick={() => setShowWithdrawModal(false)} className="flex-1 px-4 py-3 rounded-xl border border-gray-200 text-gray-600 font-bold hover:bg-gray-50 transition text-sm">
+									Hủy
+								</button>
+								<button type="submit" disabled={withdrawLoading} className="flex-[2] bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition disabled:opacity-60 flex items-center justify-center gap-2 text-sm shadow-lg shadow-blue-200">
+									{withdrawLoading ? <i className="fas fa-spinner fa-spin"></i> : <><i className="fas fa-check-circle"></i> Xác nhận rút</>}
+								</button>
 							</div>
-							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Số tài khoản</label>
-								<input type="text" name="soTaiKhoan" value={withdrawForm.soTaiKhoan} onChange={e => setWithdrawForm({ ...withdrawForm, soTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" required />
-							</div>
-							<div>
-								<label className="block text-xs font-bold text-gray-500 mb-2">Chủ tài khoản</label>
-								<input type="text" name="chuTaiKhoan" value={withdrawForm.chuTaiKhoan} onChange={e => setWithdrawForm({ ...withdrawForm, chuTaiKhoan: e.target.value })} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all font-medium" required />
-							</div>
-							<button type="submit" disabled={withdrawLoading} className="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition disabled:opacity-60 flex items-center justify-center gap-2">
-								{withdrawLoading ? <i className="fas fa-spinner fa-spin"></i> : <><i className="fas fa-money-bill-wave"></i> Gửi yêu cầu</>}
-							</button>
 						</form>
 					</div>
 				</div>
