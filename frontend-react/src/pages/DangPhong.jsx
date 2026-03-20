@@ -355,7 +355,7 @@ function DangPhong({ user }) {
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-1">Loại phòng <span className="text-red-500">*</span></label>
                             <select name="idLoaiPhong" value={formData.idLoaiPhong} onChange={handleChange}
-                                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm" required>
+                                className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-base md:text-sm transition-all" required>
                                 <option value="">-- Chọn loại phòng --</option>
                                 {loaiPhongList.map(lp => (
                                     <option key={lp.ID_LoaiPhong} value={lp.ID_LoaiPhong}>{lp.TenLoai}</option>
@@ -472,7 +472,7 @@ function DangPhong({ user }) {
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1">Tỉnh / Thành phố <span className="text-red-500">*</span></label>
                                 <select value={selectedTinhThanh} onChange={(e) => { setSelectedTinhThanh(e.target.value); setQuanHuyenList([]); setPhuongXaList([]); }}
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm" required>
+                                    className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-base md:text-sm transition-all" required>
                                     <option value="">-- Chọn --</option>
                                     {tinhThanhList.map(tt => (
                                         <option key={tt.code} value={tt.code}>{tt.name}</option>
@@ -482,7 +482,7 @@ function DangPhong({ user }) {
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1">Quận / Huyện <span className="text-red-500">*</span></label>
                                 <select value={selectedQuanHuyen} onChange={(e) => { setSelectedQuanHuyen(e.target.value); setPhuongXaList([]); }} disabled={!selectedTinhThanh}
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm disabled:opacity-50" required>
+                                    className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-base md:text-sm disabled:opacity-50 transition-all" required>
                                     <option value="">-- Chọn --</option>
                                     {quanHuyenList.map(qh => (
                                         <option key={qh.code} value={qh.code}>{qh.name}</option>
@@ -492,7 +492,7 @@ function DangPhong({ user }) {
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-1">Phường / Xã <span className="text-red-500">*</span></label>
                                 <select value={selectedPhuongXa} onChange={(e) => setSelectedPhuongXa(e.target.value)} disabled={!selectedQuanHuyen}
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm disabled:opacity-50" required>
+                                    className="w-full px-4 py-4 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-base md:text-sm disabled:opacity-50 transition-all" required>
                                     <option value="">-- Chọn --</option>
                                     {phuongXaList.map(px => (
                                         <option key={px.code} value={px.code}>{px.name}</option>

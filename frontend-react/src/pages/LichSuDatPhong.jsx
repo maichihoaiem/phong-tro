@@ -180,7 +180,7 @@ function BookingHistoryPage() {
                                                     </p>
                                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                                         <select
-                                                            className="px-3 py-2 border rounded-lg text-sm bg-white"
+                                                            className="px-3 py-4 border rounded-xl text-base md:text-sm bg-white transition-all w-full"
                                                             value={refundForms[booking.ID_DatPhong || booking.id_datphong]?.nganHang || ''}
                                                             onChange={(e) => setRefundForms({ ...refundForms, [booking.ID_DatPhong || booking.id_datphong]: { ...refundForms[booking.ID_DatPhong || booking.id_datphong], nganHang: e.target.value } })}
                                                         >

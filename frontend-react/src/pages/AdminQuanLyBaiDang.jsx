@@ -25,7 +25,7 @@ function AdminQuanLyBaiDang() {
 			setLoading(true);
 			const res = await axios.get('/api/admin/room-posts', { withCredentials: true });
 			if (res.data.success) {
-				setPosts(res.data.data || []);
+				setPosts(Array.isArray(res.data.data) ? res.data.data : []);
 			}
 		} catch (err) {
 			if (err.response?.status === 401 || err.response?.status === 403) {
@@ -76,20 +76,20 @@ function AdminQuanLyBaiDang() {
 
 	const filteredPosts = useMemo(() => {
 		if (filter === 'all') return posts;
-		if (filter === 'pending') return posts.filter((p) => p.TrangThai === 'Chờ duyệt');
-		if (filter === 'approved') return posts.filter((p) => !p.TrangThai || p.TrangThai === 'Còn trống' || p.TrangThai === 'Đang trống');
-		if (filter === 'hidden') return posts.filter((p) => p.TrangThai === 'Đã ẩn');
-		if (filter === 'removed') return posts.filter((p) => p.TrangThai === 'Đã gỡ');
+		if (filter === 'pending') return posts.filter((p) => p?.TrangThai === 'Chờ duyệt');
+		if (filter === 'approved') return posts.filter((p) => !p?.TrangThai || p?.TrangThai === 'Còn trống' || p?.TrangThai === 'Đang trống');
+		if (filter === 'hidden') return posts.filter((p) => p?.TrangThai === 'Đã ẩn');
+		if (filter === 'removed') return posts.filter((p) => p?.TrangThai === 'Đã gỡ');
 		return posts;
 	}, [posts, filter]);
 
 	const counts = useMemo(() => {
 		return {
 			all: posts.length,
-			pending: posts.filter((p) => p.TrangThai === 'Chờ duyệt').length,
-			approved: posts.filter((p) => !p.TrangThai || p.TrangThai === 'Còn trống' || p.TrangThai === 'Đang trống').length,
-			hidden: posts.filter((p) => p.TrangThai === 'Đã ẩn').length,
-			removed: posts.filter((p) => p.TrangThai === 'Đã gỡ').length,
+			pending: posts.filter((p) => p?.TrangThai === 'Chờ duyệt').length,
+			approved: posts.filter((p) => !p?.TrangThai || p?.TrangThai === 'Còn trống' || p?.TrangThai === 'Đang trống').length,
+			hidden: posts.filter((p) => p?.TrangThai === 'Đã ẩn').length,
+			removed: posts.filter((p) => p?.TrangThai === 'Đã gỡ').length,
 		};
 	}, [posts]);
 
@@ -162,24 +162,24 @@ function AdminQuanLyBaiDang() {
 									<td colSpan="6" className="p-8 text-center text-gray-500">Không có bài đăng nào.</td>
 								</tr>
 							) : visiblePosts.map((post) => (
-								<tr key={post.ID_Phong} className="hover:bg-gray-50 transition-colors">
-									<td className="p-4 text-sm font-medium text-gray-900">#{post.ID_Phong}</td>
+								<tr key={post?.ID_Phong} className="hover:bg-gray-50 transition-colors">
+									<td className="p-4 text-sm font-medium text-gray-900">#{post?.ID_Phong}</td>
 									<td className="p-4">
-										<p className="text-sm font-bold text-gray-800 line-clamp-1">{post.TieuDe}</p>
-										<p className="text-xs text-gray-500">{post.TenLoaiPhong || '---'}</p>
+										<p className="text-sm font-bold text-gray-800 line-clamp-1">{post?.TieuDe}</p>
+										<p className="text-xs text-gray-500">{post?.TenLoaiPhong || '---'}</p>
 									</td>
 									<td className="p-4">
-										<p className="text-sm font-semibold text-gray-800">{post.TenChuTro || '---'}</p>
-										<p className="text-xs text-gray-500">{post.EmailChuTro || ''}</p>
+										<p className="text-sm font-semibold text-gray-800">{post?.TenChuTro || '---'}</p>
+										<p className="text-xs text-gray-500">{post?.EmailChuTro || ''}</p>
 									</td>
-									<td className="p-4 text-sm font-bold text-blue-700">{new Intl.NumberFormat('vi-VN').format(post.Gia || 0)} đ</td>
+									<td className="p-4 text-sm font-bold text-blue-700">{new Intl.NumberFormat('vi-VN').format(post?.Gia || 0)} đ</td>
 									<td className="p-4 whitespace-nowrap">
-										{post.TrangThai === 'Chờ duyệt' && <span className="px-2 py-0.5 bg-sky-100 text-sky-700 rounded-full text-[10px] font-bold whitespace-nowrap">Chờ duyệt</span>}
-										{post.TrangThai === 'Đã ẩn' && <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-[10px] font-bold whitespace-nowrap">Đã ẩn</span>}
-										{post.TrangThai === 'Đã gỡ' && <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-[10px] font-bold whitespace-nowrap">Đã gỡ</span>}
-										{(!post.TrangThai || post.TrangThai === 'Còn trống' || post.TrangThai === 'Đang trống') && <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-[10px] font-bold whitespace-nowrap">Đã duyệt</span>}
-										{post.TrangThai && !['Chờ duyệt', 'Đã ẩn', 'Đã gỡ', 'Còn trống', 'Đang trống'].includes(post.TrangThai) && (
-											<span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-full text-[10px] font-bold whitespace-nowrap">{post.TrangThai}</span>
+										{post?.TrangThai === 'Chờ duyệt' && <span className="px-2 py-0.5 bg-sky-100 text-sky-700 rounded-full text-[10px] font-bold whitespace-nowrap">Chờ duyệt</span>}
+										{post?.TrangThai === 'Đã ẩn' && <span className="px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-full text-[10px] font-bold whitespace-nowrap">Đã ẩn</span>}
+										{post?.TrangThai === 'Đã gỡ' && <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded-full text-[10px] font-bold whitespace-nowrap">Đã gỡ</span>}
+										{(!post?.TrangThai || post?.TrangThai === 'Còn trống' || post?.TrangThai === 'Đang trống') && <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-[10px] font-bold whitespace-nowrap">Đã duyệt</span>}
+										{post?.TrangThai && !['Chờ duyệt', 'Đã ẩn', 'Đã gỡ', 'Còn trống', 'Đang trống'].includes(post?.TrangThai) && (
+											<span className="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-full text-[10px] font-bold whitespace-nowrap">{post?.TrangThai}</span>
 										)}
 									</td>
 									<td className="p-4 text-center">
@@ -196,7 +196,7 @@ function AdminQuanLyBaiDang() {
 												<>
 													<button
 														onClick={() => updateStatus(post, 'duyet', 'Duyệt')}
-														disabled={processingId === post.ID_Phong}
+														disabled={processingId === post?.ID_Phong}
 														className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-check text-[10px]"></i>
@@ -204,7 +204,7 @@ function AdminQuanLyBaiDang() {
 													</button>
 													<button
 														onClick={() => updateStatus(post, 'tu-choi', 'Từ chối')}
-														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã gỡ'}
+														disabled={processingId === post?.ID_Phong || post?.TrangThai === 'Đã gỡ'}
 														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-ban text-[10px]"></i>
@@ -217,7 +217,7 @@ function AdminQuanLyBaiDang() {
 												<>
 													<button
 														onClick={() => updateStatus(post, 'an', 'Ẩn')}
-														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã ẩn'}
+														disabled={processingId === post?.ID_Phong || post?.TrangThai === 'Đã ẩn'}
 														className="inline-flex items-center gap-1.5 bg-orange-50 text-orange-600 border border-orange-100 hover:bg-orange-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-eye-slash text-[10px]"></i>
@@ -225,7 +225,7 @@ function AdminQuanLyBaiDang() {
 													</button>
 													<button
 														onClick={() => updateStatus(post, 'tu-choi', 'Gỡ bài')}
-														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã gỡ'}
+														disabled={processingId === post?.ID_Phong || post?.TrangThai === 'Đã gỡ'}
 														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-trash-alt text-[10px]"></i>
@@ -238,7 +238,7 @@ function AdminQuanLyBaiDang() {
 												<>
 													<button
 														onClick={() => updateStatus(post, 'bo-an', 'Bỏ ẩn')}
-														disabled={processingId === post.ID_Phong}
+														disabled={processingId === post?.ID_Phong}
 														className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-eye text-[10px]"></i>
@@ -246,7 +246,7 @@ function AdminQuanLyBaiDang() {
 													</button>
 													<button
 														onClick={() => updateStatus(post, 'tu-choi', 'Gỡ bài')}
-														disabled={processingId === post.ID_Phong || post.TrangThai === 'Đã gỡ'}
+														disabled={processingId === post?.ID_Phong || post?.TrangThai === 'Đã gỡ'}
 														className="inline-flex items-center gap-1.5 bg-rose-50 text-rose-600 border border-rose-100 hover:bg-rose-600 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 disabled:opacity-50"
 													>
 														<i className="fas fa-trash-alt text-[10px]"></i>
@@ -282,7 +282,7 @@ function AdminQuanLyBaiDang() {
 				<div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={() => setPreviewPost(null)}>
 					<div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
 						<div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-							<h3 className="text-xl font-bold text-gray-800">Xem nhanh bài đăng #{previewPost.ID_Phong}</h3>
+							<h3 className="text-xl font-bold text-gray-800">Xem nhanh bài đăng #{previewPost?.ID_Phong}</h3>
 							<button className="text-gray-400 hover:text-gray-700" onClick={() => setPreviewPost(null)}>
 								<i className="fas fa-times"></i>
 							</button>
@@ -290,10 +290,10 @@ function AdminQuanLyBaiDang() {
 
 						<div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-5">
 							<div>
-								{previewPost.AnhDaiDien ? (
+								{previewPost?.AnhDaiDien ? (
 									<img
-										src={getImageUrl(previewPost.AnhDaiDien)}
-										alt={previewPost.TieuDe}
+										src={getImageUrl(previewPost?.AnhDaiDien)}
+										alt={previewPost?.TieuDe}
 										className="w-full h-56 object-cover rounded-xl border border-gray-100"
 									/>
 								) : (
@@ -304,15 +304,15 @@ function AdminQuanLyBaiDang() {
 							</div>
 
 							<div className="space-y-2 text-sm text-gray-700">
-								<p className="text-base font-bold text-gray-900">{previewPost.TieuDe}</p>
-								<p><strong>Giá:</strong> {new Intl.NumberFormat('vi-VN').format(previewPost.Gia || 0)} đ</p>
-								<p><strong>Diện tích:</strong> {previewPost.DienTich || 0} m²</p>
-								<p><strong>Địa chỉ:</strong> {previewPost.DiaChiChiTiet || '---'}</p>
-								<p><strong>Trạng thái:</strong> {previewPost.TrangThai || 'Đã duyệt'}</p>
-								<p><strong>Chủ trọ:</strong> {previewPost.TenChuTro || '---'} ({previewPost.EmailChuTro || '---'})</p>
+								<p className="text-base font-bold text-gray-900">{previewPost?.TieuDe}</p>
+								<p><strong>Giá:</strong> {new Intl.NumberFormat('vi-VN').format(previewPost?.Gia || 0)} đ</p>
+								<p><strong>Diện tích:</strong> {previewPost?.DienTich || 0} m²</p>
+								<p><strong>Địa chỉ:</strong> {previewPost?.DiaChiChiTiet || '---'}</p>
+								<p><strong>Trạng thái:</strong> {previewPost?.TrangThai || 'Đã duyệt'}</p>
+								<p><strong>Chủ trọ:</strong> {previewPost?.TenChuTro || '---'} ({previewPost?.EmailChuTro || '---'})</p>
 								<div className="pt-3">
 									<a
-										href={`/phong-tro/${previewPost.ID_Phong}`}
+										href={`/phong-tro/${previewPost?.ID_Phong}`}
 										target="_blank"
 										rel="noreferrer"
 										className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold"
