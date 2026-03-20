@@ -95,7 +95,7 @@ function HomePage() {
                                 display: 'block'
                             }}>Lựa Chọn Hàng Đầu</span>
                         </div>
-                        <h3 className="text-xl lg:text-[2.2rem] font-black text-[#0F1C3F] mb-4 tracking-tight leading-tight">
+                        <h3 className="text-lg md:text-xl lg:text-[2.2rem] font-black text-[#0F1C3F] mb-4 tracking-tight leading-tight">
                             {searchActive ? 'Kết Quả Tìm Kiếm' : 'Mini House & Phòng Trọ Mới Nhất'}
                         </h3>
                         <p className="hidden lg:block" style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.6, maxWidth: '850px', fontWeight: 500 }}>

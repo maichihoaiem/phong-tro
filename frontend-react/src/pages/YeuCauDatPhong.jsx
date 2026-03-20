@@ -187,10 +187,10 @@ function BookingRequestsPage() {
                                                 <i className="fas fa-receipt text-blue-400 mr-2 w-4"></i>
                                                 <strong>Loại:</strong> {req.LoaiDat === 'Coc' ? 'Đặt cọc' : 'Thanh toán đủ'}
                                             </p>
-                                            <p className="text-sm text-gray-600">
-                                                <i className="fas fa-money-bill text-green-400 mr-2 w-4"></i>
-                                                <strong>Số tiền:</strong> {new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ
-                                            </p>
+                                             <p className="text-sm text-gray-600 whitespace-nowrap overflow-hidden text-ellipsis">
+                                                 <i className="fas fa-money-bill text-green-400 mr-2 w-4"></i>
+                                                 <strong>Số tiền:</strong> {new Intl.NumberFormat('vi-VN').format(req.SoTien || 0)} đ
+                                             </p>
                                             <p className="text-sm text-gray-600">
                                                 <i className="fas fa-hashtag text-gray-400 mr-2 w-4"></i>
                                                 <strong>Mã giao dịch:</strong> <span className="font-mono bg-blue-50 text-blue-700 px-1 py-0.5 rounded">{req.MaGiaoDich}</span>

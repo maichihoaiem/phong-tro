@@ -80,9 +80,9 @@ function ViTien() {
 				</div>
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 				<div className="md:col-span-1">
-					<div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl mb-6">
+					<div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-5 md:p-8 text-white shadow-xl mb-6">
 						<p className="text-blue-100 text-sm mb-2 opacity-80">Số dư khả dụng</p>
-						<h2 className="text-4xl font-extrabold mb-8">
+						<h2 className="text-2xl md:text-4xl font-extrabold mb-4 md:mb-8 whitespace-nowrap">
 							{new Intl.NumberFormat('vi-VN').format(walletData.balance)} đ
 						</h2>
 						<button
@@ -96,7 +96,7 @@ function ViTien() {
 								setIsChangingAccount(false);
 								setShowWithdrawModal(true);
 							}}
-							className="w-full bg-white text-blue-700 py-3 rounded-2xl font-bold hover:bg-blue-50 transition shadow-lg"
+							className="w-full bg-white text-blue-700 py-2.5 md:py-3 rounded-xl md:rounded-2xl font-bold hover:bg-blue-50 transition shadow-lg text-sm md:text-base"
 						>
 							Rút tiền về ngân hàng
 						</button>
@@ -112,7 +112,7 @@ function ViTien() {
 				</div>
 				<div className="md:col-span-2 space-y-6">
 					{/* Tabs */}
-					<div className="flex bg-gray-100 p-1.5 rounded-2xl mb-6 max-w-sm shadow-sm">
+					<div className="flex bg-gray-100 p-1 md:p-1.5 rounded-2xl mb-6 max-w-sm shadow-sm">
 						<button 
 							onClick={() => setActiveSection('history')}
 							className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${activeSection === 'history' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}
@@ -137,9 +137,9 @@ function ViTien() {
 							<table className="w-full text-left">
 								<thead style={{ background: '#EFF6FF' }} className="text-blue-600 text-xs uppercase">
 									<tr>
-										<th className="px-6 py-4">Ngày</th>
-										<th className="px-6 py-4">Nội dung</th>
-										<th className="px-6 py-4 text-right">Số tiền</th>
+										<th className="px-2 md:px-6 py-4">Ngày</th>
+										<th className="px-2 md:px-6 py-4">Nội dung</th>
+										<th className="px-2 md:px-6 py-4 text-right">Số tiền</th>
 									</tr>
 								</thead>
 								<tbody className="divide-y divide-gray-50 text-sm">
@@ -148,11 +148,11 @@ function ViTien() {
 									) : (
 										displayedHistory.map(item => (
 											<tr key={item.ID_LichSu} className="hover:bg-gray-50 transition">
-												<td className="px-3 md:px-6 py-4 text-gray-500 whitespace-nowrap text-xs md:text-sm">
+												<td className="px-2 md:px-6 py-4 text-gray-500 whitespace-nowrap text-[11px] md:text-sm">
 													{new Date(item.NgayGiaoDich).toLocaleDateString('vi-VN')}
 												</td>
-												<td className="px-3 md:px-6 py-4 font-medium text-gray-700 text-[10px] md:text-sm">{item.NoiDung}</td>
-												<td className={`px-3 md:px-6 py-4 text-right font-bold whitespace-nowrap text-xs md:text-sm ${item.LoaiGiaoDich === 'Cộng' ? 'text-green-600' : 'text-red-500'}`}>
+												<td className="px-2 md:px-6 py-4 font-medium text-gray-700 text-[10px] md:text-sm">{item.NoiDung}</td>
+												<td className={`px-2 md:px-6 py-4 text-right font-bold whitespace-nowrap text-[11px] md:text-sm ${item.LoaiGiaoDich === 'Cộng' ? 'text-green-600' : 'text-red-500'}`}>
 													{item.LoaiGiaoDich === 'Cộng' ? '+' : '-'} {new Intl.NumberFormat('vi-VN').format(item.SoTien)} đ
 												</td>
 											</tr>
@@ -182,10 +182,10 @@ function ViTien() {
 							<table className="w-full text-left">
 								<thead style={{ background: '#F5F3FF' }} className="text-purple-600 text-xs uppercase">
 									<tr>
-										<th className="px-6 py-4">Ngày</th>
-										<th className="px-6 py-4">Ngân hàng</th>
-										<th className="px-6 py-4">Số tiền</th>
-										<th className="px-6 py-4 text-center">Trạng thái</th>
+										<th className="px-2 md:px-6 py-4">Ngày</th>
+										<th className="px-2 md:px-6 py-4">Ngân hàng</th>
+										<th className="px-2 md:px-6 py-4 whitespace-nowrap">Số tiền</th>
+										<th className="px-2 md:px-6 py-4 text-center">Trạng thái</th>
 									</tr>
 								</thead>
 								<tbody className="divide-y divide-gray-50 text-sm">
@@ -194,18 +194,18 @@ function ViTien() {
 									) : (
 										displayedWithdrawals.map(item => (
 											<tr key={item.ID_RutTien} className="hover:bg-gray-50 transition">
-												<td className="px-6 py-4 text-gray-500 whitespace-nowrap">
+												<td className="px-2 md:px-6 py-4 text-gray-500 whitespace-nowrap text-[11px] md:text-sm">
 													{new Date(item.NgayYeuCau).toLocaleDateString('vi-VN')}
 												</td>
-												<td className="px-6 py-4">
-													<p className="font-medium text-gray-700">{item.TenNganHang}</p>
-													<p className="text-xs text-gray-400">{item.SoTaiKhoan}</p>
+												<td className="px-2 md:px-6 py-4">
+													<p className="font-medium text-gray-700 text-[11px] md:text-sm whitespace-nowrap overflow-hidden text-ellipsis max-w-[80px] md:max-w-none">{item.TenNganHang}</p>
+													<p className="text-[10px] text-gray-400 font-mono">{item.SoTaiKhoan}</p>
 												</td>
-												<td className="px-6 py-4 font-bold text-gray-800">
+												<td className="px-2 md:px-6 py-4 font-bold text-gray-800 text-[11px] md:text-sm whitespace-nowrap">
 													{new Intl.NumberFormat('vi-VN').format(item.SoTien)} đ
 												</td>
-												<td className="px-6 py-4 text-center">
-													<span className={`px-3 py-1 rounded-full text-xs font-bold ${item.TrangThai === 'Đã duyệt' ? 'bg-green-100 text-green-700' : item.TrangThai === 'Từ chối' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'}`}>
+												<td className="px-2 md:px-6 py-4 text-center">
+													<span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${item.TrangThai === 'Đã duyệt' ? 'bg-green-100 text-green-700' : item.TrangThai === 'Từ chối' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'}`}>
 														{item.TrangThai}
 													</span>
 												</td>

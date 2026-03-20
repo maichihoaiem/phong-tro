@@ -85,24 +85,24 @@ function FavoritesPage() {
                             {/* Thông tin */}
                             <div className="flex-1 p-4 flex flex-col justify-between">
                                 <div>
-                                    <Link to={`/phong-tro/${room.ID_Phong}`} className="font-bold text-gray-800 hover:text-blue-600 transition">
+                                    <Link to={`/phong-tro/${room.ID_Phong}`} className="font-bold text-gray-800 hover:text-blue-600 transition text-sm sm:text-base line-clamp-2">
                                         {room.TieuDe}
                                     </Link>
-                                    <p className="text-gray-500 text-sm mt-1 flex items-center gap-1">
+                                    <p className="text-gray-500 text-[11px] sm:text-sm mt-1 flex items-center gap-1">
                                         <i className="fas fa-map-marker-alt text-red-400"></i>
                                         {room.DiaChiChiTiet}
                                     </p>
                                 </div>
                                 <div className="flex items-center justify-between mt-3">
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-blue-600 font-bold">{new Intl.NumberFormat('vi-VN').format(room.Gia)} đ/tháng</span>
-                                        <span className="text-gray-400 text-sm">{room.DienTich} m²</span>
+                                    <div className="flex items-center gap-2 sm:gap-4">
+                                        <span className="text-blue-600 font-bold text-sm sm:text-base whitespace-nowrap">{new Intl.NumberFormat('vi-VN').format(room.Gia)} đ/tháng</span>
+                                        <span className="text-gray-400 text-[11px] sm:text-sm whitespace-nowrap">{room.DienTich} m²</span>
                                     </div>
                                     <button
                                         onClick={() => removeFavorite(room.ID_Phong)}
-                                        className="text-red-400 hover:text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg transition text-sm font-medium flex items-center gap-1"
+                                        className="text-red-400 hover:text-red-600 hover:bg-red-50 px-2 sm:px-3 py-1.5 rounded-lg transition text-[11px] sm:text-sm font-medium flex items-center gap-1 whitespace-nowrap"
                                     >
-                                        <i className="fas fa-trash-alt"></i> Bỏ yêu thích
+                                        <i className="fas fa-trash-alt"></i> <span className="hidden xs:inline">Bỏ yêu thích</span><span className="xs:hidden">Bỏ</span>
                                     </button>
                                 </div>
                             </div>

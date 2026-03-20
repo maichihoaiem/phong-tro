@@ -4,14 +4,14 @@ import axios from 'axios';
 
 function StatCard({ icon, label, val, color, bgColor }) {
 	return (
-		<div className="bg-white rounded-2xl md:rounded-[24px] border border-slate-100 p-4 md:p-6 shadow-sm flex items-center gap-3 md:gap-5 transition-transform hover:-translate-y-1">
-			<div className="w-10 h-10 md:w-[60px] md:h-[60px] rounded-xl md:rounded-[18px] flex items-center justify-center text-lg md:text-[1.5rem]" 
+		<div className="bg-white rounded-xl md:rounded-[24px] border border-slate-100 p-1.5 md:p-6 shadow-sm flex flex-col md:flex-row items-center justify-center md:justify-start gap-1 md:gap-5 transition-transform hover:-translate-y-1 h-full">
+			<div className="w-7 h-7 md:w-[60px] md:h-[60px] rounded-lg md:rounded-[18px] flex-shrink-0 flex items-center justify-center text-[11px] md:text-[1.5rem]" 
 				 style={{ backgroundColor: bgColor, color: color }}>
 				<i className={icon}></i>
 			</div>
-			<div>
-				<p className="m-0 text-[10px] md:text-[0.9rem] text-slate-500 font-semibold uppercase md:capitalize">{label}</p>
-				<p className="m-0 text-xl md:text-[1.8rem] font-black text-slate-900">{val}</p>
+			<div className="text-center md:text-left min-w-0 flex-grow">
+				<p className="m-0 text-[7.5px] md:text-[0.9rem] text-slate-500 font-bold uppercase md:capitalize leading-tight mb-0.5 line-clamp-1">{label}</p>
+				<p className="m-0 text-xs md:text-[1.8rem] font-black text-slate-900 leading-none">{val}</p>
 			</div>
 		</div>
 	);
@@ -123,64 +123,64 @@ function LandlordDashboard() {
 	}
 
 	return (
-		<div className="bg-[#F8FAFF] min-h-screen px-4 py-6 md:p-10">
+		<div className="bg-[#F8FAFF] min-h-screen px-4 py-3 md:p-10">
 			<div className="max-w-[1400px] mx-auto">
                 
 				{/* HEAD & TOP INFO */}
-				<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 md:mb-10 gap-6">
+				<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 md:mb-10 gap-3 md:gap-6">
 					<div>
-						<h1 className="text-2xl md:text-3xl font-black text-slate-900 mb-2 flex items-center gap-3">
+						<h1 className="text-xl md:text-3xl font-black text-slate-900 mb-1 flex items-center gap-2">
 							<i className="fas fa-tasks text-blue-600"></i>
 							Quản lý <span className="text-blue-600">Phòng</span>
 						</h1>
-						<p className="text-slate-500 font-medium text-sm md:text-base">Chào mừng bạn quay lại! Dưới đây là tình hình kinh doanh của bạn hôm nay.</p>
+						<p className="text-slate-500 font-medium text-[11px] md:text-base">Chào mừng bạn quay lại! Dưới đây là tình hình kinh doanh của bạn.</p>
 					</div>
-					<div className="flex flex-wrap gap-3 w-full lg:w-auto">
-						<Link to="/vi-tien" className="flex-1 lg:flex-none bg-white p-3 md:px-6 md:py-3 rounded-2xl flex items-center gap-3 border border-slate-100 hover:border-blue-600 transition-all text-decoration-none shadow-sm">
-							<div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+					<div className="flex flex-wrap gap-2 md:gap-3 w-full lg:w-auto">
+						<Link to="/vi-tien" className="flex-1 lg:flex-none bg-white p-2.5 md:px-6 md:py-3 rounded-xl md:rounded-2xl flex items-center gap-2 md:gap-3 border border-slate-100 hover:border-blue-600 transition-all text-decoration-none shadow-sm">
+							<div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 text-xs md:text-base">
 								<i className="fas fa-wallet"></i>
 							</div>
 							<div>
-								<p className="m-0 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ví của bạn</p>
-								<p className="m-0 text-base md:text-lg font-black text-slate-900">{new Intl.NumberFormat('vi-VN').format(balance)} đ</p>
+								<p className="m-0 text-[9px] font-bold text-slate-400 uppercase tracking-wider leading-none mb-1">Ví của bạn</p>
+								<p className="m-0 text-sm md:text-lg font-black text-slate-900 whitespace-nowrap text-[11px] md:text-lg">{new Intl.NumberFormat('vi-VN').format(balance)} đ</p>
 							</div>
 						</Link>
-						<Link to="/dang-phong" className="flex-1 lg:flex-none bg-blue-600 text-white p-3 md:px-7 md:py-3.5 rounded-2xl font-black flex items-center justify-center gap-2 shadow-lg shadow-blue-200 hover:-translate-y-1 transition-all text-decoration-none">
-							<i className="fas fa-plus"></i> <span className="text-sm md:text-base">Đăng phòng</span>
+						<Link to="/dang-phong" className="flex-1 lg:flex-none bg-blue-600 text-white p-2.5 md:px-7 md:py-3.5 rounded-xl md:rounded-2xl font-black flex items-center justify-center gap-2 shadow-lg shadow-blue-200 hover:-translate-y-1 transition-all text-decoration-none">
+							<i className="fas fa-plus text-[10px] md:text-base"></i> <span className="text-[11px] md:text-base">Đăng phòng</span>
 						</Link>
 					</div>
 				</div>
 
 				{/* STATS GRID */}
-				<div className="grid grid-cols-6 lg:grid-cols-5 gap-2 md:gap-5 mb-10 md:mb-12">
-					<div className="col-span-2 lg:col-span-1">
+				<div className="grid grid-cols-5 gap-1 md:gap-5 mb-4 md:mb-12">
+					<div className="col-span-1">
 						<StatCard icon="fas fa-home" label="Tổng phòng" val={stats.total} color="#2563EB" bgColor="#EFF6FF" />
 					</div>
-					<div className="col-span-2 lg:col-span-1">
+					<div className="col-span-1">
 						<StatCard icon="fas fa-check-circle" label="Còn trống" val={stats.available} color="#10B981" bgColor="#ECFDF5" />
 					</div>
-					<div className="col-span-2 lg:col-span-1">
+					<div className="col-span-1">
 						<StatCard icon="fas fa-clock" label="Đã cọc" val={stats.deposited} color="#8B5CF6" bgColor="#F5F3FF" />
 					</div>
-					<div className="col-span-3 lg:col-span-1">
+					<div className="col-span-1">
 						<StatCard icon="fas fa-user-check" label="Đã thuê" val={stats.rented} color="#F59E0B" bgColor="#FFFBEB" />
 					</div>
-					<div className="col-span-3 lg:col-span-1">
+					<div className="col-span-1">
 						<StatCard icon="fas fa-eye" label="Lượt xem" val={stats.views} color="#64748B" bgColor="#F8FAFF" />
 					</div>
 				</div>
 
 				{/* TABS (All devices) */}
-				<div className="flex bg-slate-100 p-1.5 rounded-2xl mb-8 max-w-md shadow-sm">
+				<div className="flex bg-slate-100 p-1 md:p-1.5 rounded-xl md:rounded-2xl mb-4 md:mb-8 max-w-md shadow-sm">
 					<button 
 						onClick={() => setActiveTab('available')}
-						className={`flex-1 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'available' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}
+						className={`flex-1 py-2 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-black transition-all ${activeTab === 'available' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}
 					>
 						Phòng còn trống ({stats.available + stats.deposited})
 					</button>
 					<button 
 						onClick={() => setActiveTab('rented')}
-						className={`flex-1 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'rented' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}
+						className={`flex-1 py-2 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-black transition-all ${activeTab === 'rented' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}
 					>
 						Đã cho thuê ({stats.rented})
 					</button>
@@ -190,7 +190,7 @@ function LandlordDashboard() {
 				<div className="w-full">
                     
 					{/* LEFT COLUMN: AVAILABLE ROOMS */}
-					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'available' ? 'hidden' : ''}`}>
+					<div className={`bg-white rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm border border-slate-100 ${activeTab !== 'available' ? 'hidden' : ''}`}>
 						<div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
 							<div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-500">
 								<i className="fas fa-check-circle"></i>
@@ -217,7 +217,7 @@ function LandlordDashboard() {
 					</div>
 
 					{/* RIGHT COLUMN: RENTED ROOMS */}
-					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'rented' ? 'hidden' : ''}`}>
+					<div className={`bg-white rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm border border-slate-100 ${activeTab !== 'rented' ? 'hidden' : ''}`}>
 						<div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
 							<div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500">
 								<i className="fas fa-user-check"></i>
@@ -268,7 +268,7 @@ function RoomCard({ room, handleRestoreStatus, handleDelete, getImageUrl }) {
 			</div>
 
 			{/* Nội dung bên phải */}
-			<div className="p-4 flex-grow flex flex-col justify-between">
+			<div className="p-3 md:p-4 flex-grow flex flex-col justify-between">
 				<div>
 					<div className="flex justify-between items-start mb-1.5 gap-2">
 						<span className="text-[10px] font-bold px-2 py-0.5 rounded-lg uppercase tracking-wider"
@@ -287,8 +287,8 @@ function RoomCard({ room, handleRestoreStatus, handleDelete, getImageUrl }) {
 							 Duyệt cọc →
 						</Link>
 					)}
-					<div className="flex items-baseline gap-1">
-						<span className="text-blue-600 font-black text-lg">{new Intl.NumberFormat('vi-VN').format(room.Gia)} đ</span>
+					<div className="flex items-baseline gap-1 whitespace-nowrap">
+						<span className="text-blue-600 font-black text-base md:text-lg">{new Intl.NumberFormat('vi-VN').format(room.Gia)} đ</span>
 						<span className="text-[10px] font-bold text-slate-400">/ tháng</span>
 					</div>
 				</div>

@@ -198,7 +198,7 @@ function Hero({ onSearch }) {
                 </div>
             </div>
 
-            <div style={{
+            <div className="hidden lg:block" style={{
                 position: 'absolute',
                 bottom: -1,
                 left: 0,
@@ -206,7 +206,7 @@ function Hero({ onSearch }) {
                 lineHeight: 0,
                 zIndex: 5
             }}>
-                <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: '100%', height: '60px' }}>
+                <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: '100%', height: '80px' }}>
                     <defs>
                         <pattern id="dotPatternWave" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
                             <circle cx="0.8" cy="0.8" r="0.8" fill="#cbd5e1" />

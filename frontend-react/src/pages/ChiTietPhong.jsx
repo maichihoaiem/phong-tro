@@ -235,7 +235,12 @@ function RoomDetailPage({ user }) {
                             <div className="flex flex-wrap gap-4 mb-4">
                                 <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-xl">
                                     <i className="fas fa-money-bill-wave text-blue-600"></i>
-                                    <span className="font-bold text-blue-600 text-lg">{new Intl.NumberFormat('vi-VN').format(room.Gia)} đ/tháng</span>
+                                     <div className="flex items-baseline gap-2 whitespace-nowrap">
+                                         <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#2563EB', letterSpacing: '-0.5px' }} className="md:text-[2rem]">
+                                             {room.Gia ? new Intl.NumberFormat('vi-VN').format(room.Gia) + 'đ' : 'Liên hệ'}
+                                         </span>
+                                         <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#64748B' }} className="md:text-base">/ tháng</span>
+                                     </div>
                                 </div>
                                 <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-xl text-sm">
                                     <i className="fas fa-vector-square text-blue-400"></i>
