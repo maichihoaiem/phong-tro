@@ -184,7 +184,7 @@ function RoomDetailPage({ user }) {
                     <span className="text-gray-800 font-medium truncate max-w-xs">{room.TieuDe}</span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
                     {/* Cột trái: Ảnh + Thông tin */}
                     <div className="md:col-span-2 space-y-6">
                         {/* Ảnh phòng */}
@@ -445,7 +445,7 @@ function RoomDetailPage({ user }) {
                     </div>
 
                     {/* Cột phải: Sidebar */}
-                    <div className="space-y-6 h-full">
+                    <div className="space-y-6">
                         {/* Thông tin chủ trọ (Desktop/Tablet Only) */}
                         <div className="hidden md:block bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
