@@ -8,17 +8,13 @@ const ValueCard = ({ icon, title, desc, delay }) => {
         <div 
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            className="p-6 md:p-10 rounded-[32px] border border-slate-100 transition-all duration-500 opacity-0"
             style={{
                 backgroundColor: 'white',
-                padding: '40px',
-                borderRadius: '32px',
-                border: '1px solid #F1F5F9',
-                transition: 'all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)',
                 boxShadow: isHovered ? '0 30px 60px -12px rgba(15, 28, 63, 0.12)' : '0 4px 6px -1px rgba(0, 0, 0, 0.02)',
                 transform: isHovered ? 'translateY(-10px) scale(1.02)' : 'none',
                 textAlign: 'left',
                 animation: `fadeUp 0.8s ease forwards ${delay}s`,
-                opacity: 0
             }}
         >
             <div style={{
@@ -49,15 +45,7 @@ function Introduction() {
             </Helmet>
 
             {/* ARTISTIC HERO */}
-            <section style={{ 
-                minHeight: '60vh', 
-                display: 'flex', 
-                alignItems: 'center', 
-                padding: '80px 24px 40px',
-                maxWidth: '1240px',
-                margin: '0 auto',
-                position: 'relative'
-            }}>
+            <section className="min-h-[50vh] md:min-h-[60vh] flex items-center px-6 py-10 md:py-20 max-w-[1240px] mx-auto relative content-section-intro">
                 <div style={{ flex: '1', zIndex: 1 }}>
                     <span style={{ 
                         color: '#2563EB', 
@@ -128,8 +116,8 @@ function Introduction() {
             </section>
 
             {/* STAGGERED NARRATIVE: MISSION */}
-            <section style={{ padding: '80px 24px', backgroundColor: '#F8FAFF' }}>
-                <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '100px' }}>
+            <section className="py-12 md:py-24 px-6 bg-slate-50">
+                <div className="max-w-[1100px] mx-auto flex flex-col gap-12 md:gap-24">
                     
                     {/* Mission */}
                     <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '60px' }}>
@@ -164,7 +152,7 @@ function Introduction() {
             </section>
 
             {/* OZIC IN NUMBERS */}
-            <section style={{ padding: '60px 24px', textAlign: 'center' }}>
+            <section className="py-12 md:py-16 px-6 text-center">
                 <div style={{ maxWidth: '1240px', margin: '0 auto' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '40px' }}>
                         {[
@@ -183,10 +171,10 @@ function Introduction() {
             </section>
 
             {/* CORE VALUES */}
-            <section style={{ padding: '80px 24px', backgroundColor: '#FFFFFF' }}>
+            <section className="py-12 md:py-24 px-6 bg-white">
                 <div style={{ maxWidth: '1240px', margin: '0 auto', textAlign: 'center' }}>
                     <h2 style={{ fontSize: '2rem', fontWeight: 900, color: '#0F1C3F', marginBottom: '40px', letterSpacing: '-1px' }}>Giá trị chúng tôi theo đuổi</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '32px' }}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         <ValueCard 
                             icon="fas fa-heart" 
                             title="Tận tâm phụng sự" 
@@ -210,19 +198,8 @@ function Introduction() {
             </section>
 
             {/* CTA SECTION - PREMIUM GLASSBAR */}
-            <section style={{ padding: '30px 24px 60px' }}>
-                <div style={{ 
-                    maxWidth: '1100px', 
-                    margin: '0 auto',
-                    background: 'linear-gradient(135deg, #0F1C3F 0%, #1E3A8A 100%)',
-                    borderRadius: '40px',
-                    padding: '40px 30px',
-                    textAlign: 'center',
-                    color: 'white',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    boxShadow: '0 30px 70px -15px rgba(15, 28, 63, 0.25)'
-                }}>
+            <section className="px-6 py-10 md:py-16">
+                <div className="max-w-[1100px] mx-auto bg-gradient-to-br from-[#0F1C3F] to-[#1E3A8A] rounded-[32px] md:rounded-[40px] px-6 py-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl shadow-indigo-900/20">
                     <div style={{ position: 'relative', zIndex: 1 }}>
                         <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 800, marginBottom: '16px', letterSpacing: '-1px' }}>
                             Sẵn sàng bắt đầu kỷ nguyên sống mới?

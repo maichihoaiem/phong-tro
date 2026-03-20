@@ -364,13 +364,13 @@ function DangPhong({ user }) {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Giá thuê (đ/tháng) <span className="text-red-500">*</span></label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1 h-5">Giá thuê (đ/tháng) <span className="text-red-500">*</span></label>
                                 <input type="number" name="gia" value={formData.gia} onChange={handleChange}
                                     placeholder="VD: 2000000"
                                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm" required min="0" />
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Diện tích (m²) <span className="text-red-500">*</span></label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1 h-5">Diện tích (m²) <span className="text-red-500">*</span></label>
                                 <input type="number" name="dienTich" value={formData.dienTich} onChange={handleChange}
                                     placeholder="VD: 25"
                                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm" required min="0" />
@@ -379,13 +379,13 @@ function DangPhong({ user }) {
 
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Tiền điện (đ/kWh)</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1 h-5">Tiền điện (đ/kWh)</label>
                                 <input type="text" name="giaDien" value={formData.giaDien} onChange={handleChange}
                                     placeholder="VD: 3500 hoặc miễn phí"
                                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm" />
                             </div>
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-1">Tiền nước (đ/m³ hoặc đ/người)</label>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1 h-5">Tiền nước (đ/m³)</label>
                                 <input type="text" name="giaNuoc" value={formData.giaNuoc} onChange={handleChange}
                                     placeholder="VD: 20000 hoặc miễn phí"
                                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50 text-sm" />
