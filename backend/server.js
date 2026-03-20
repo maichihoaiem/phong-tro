@@ -103,6 +103,11 @@ app.use("/api/wallet", require("./routes/walletRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/ai", require("./routes/aiRoutes"));
 
+// API Ping de kiem tra server
+app.get("/api/ping", (req, res) => {
+    res.json({ success: true, message: "Pong! Server is alive.", timestamp: new Date() });
+});
+
 // Ket noi DB va start server
 const PORT = process.env.PORT || 5000;
 

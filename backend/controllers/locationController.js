@@ -8,7 +8,7 @@ const locationController = {
     async getTinhThanh(req, res) {
         try {
             const axios = require('axios');
-            const response = await axios.get('https://provinces.open-api.vn/api/p/');
+            const response = await axios.get('https://provinces.open-api.vn/api/p/', { timeout: 5000 });
             res.json({ success: true, data: response.data });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });
@@ -20,7 +20,7 @@ const locationController = {
         try {
             const idTinhThanh = req.params.idTinhThanh;
             const axios = require('axios');
-            const response = await axios.get(`https://provinces.open-api.vn/api/p/${idTinhThanh}?depth=2`);
+            const response = await axios.get(`https://provinces.open-api.vn/api/p/${idTinhThanh}?depth=2`, { timeout: 5000 });
             res.json({ success: true, data: response.data?.districts || [] });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });
@@ -32,7 +32,7 @@ const locationController = {
         try {
             const idQuanHuyen = req.params.idQuanHuyen;
             const axios = require('axios');
-            const response = await axios.get(`https://provinces.open-api.vn/api/d/${idQuanHuyen}?depth=2`);
+            const response = await axios.get(`https://provinces.open-api.vn/api/d/${idQuanHuyen}?depth=2`, { timeout: 5000 });
             res.json({ success: true, data: response.data?.wards || [] });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });
