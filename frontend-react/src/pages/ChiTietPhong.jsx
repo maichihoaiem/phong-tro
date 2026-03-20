@@ -417,7 +417,7 @@ function RoomDetailPage({ user }) {
                     </div>
 
                     {/* Cột phải: Sidebar */}
-                    <div className="space-y-6">
+                    <div className="space-y-6 h-full">
                         {/* Thông tin chủ trọ (Desktop Only) */}
                         <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                             <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -461,7 +461,7 @@ function RoomDetailPage({ user }) {
                         </div>
 
                         {/* Hành động (Desktop Only) */}
-                        <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-20">
+                        <div className="hidden lg:block bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-24 z-10">
                             <div className="text-center mb-5">
                                 <div className="text-3xl font-bold text-blue-600 mb-1">
                                     {new Intl.NumberFormat('vi-VN').format(room.Gia)} đ
