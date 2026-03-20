@@ -11,7 +11,8 @@ const locationController = {
             const response = await axios.get('https://provinces.open-api.vn/api/p/', { timeout: 5000 });
             res.json({ success: true, data: response.data });
         } catch (err) {
-            res.status(500).json({ success: false, error: err.message });
+            console.error('Loi khi goi provinces API (Tinh Thanh):', err.message);
+            res.json({ success: true, data: [], message: 'Khong the tai danh sach tinh thanh tu server vung.' });
         }
     },
 
@@ -21,9 +22,10 @@ const locationController = {
             const idTinhThanh = req.params.idTinhThanh;
             const axios = require('axios');
             const response = await axios.get(`https://provinces.open-api.vn/api/p/${idTinhThanh}?depth=2`, { timeout: 5000 });
-            res.json({ success: true, data: response.data?.districts || [] });
+            res.json({ success: true, data: response.data.districts });
         } catch (err) {
-            res.status(500).json({ success: false, error: err.message });
+            console.error('Loi khi goi provinces API (Quan Huyen):', err.message);
+            res.json({ success: true, data: [], message: 'Khong thể tải danh sách quan huyen.' });
         }
     },
 
@@ -33,9 +35,10 @@ const locationController = {
             const idQuanHuyen = req.params.idQuanHuyen;
             const axios = require('axios');
             const response = await axios.get(`https://provinces.open-api.vn/api/d/${idQuanHuyen}?depth=2`, { timeout: 5000 });
-            res.json({ success: true, data: response.data?.wards || [] });
+            res.json({ success: true, data: response.data.wards });
         } catch (err) {
-            res.status(500).json({ success: false, error: err.message });
+            console.error('Loi khi goi provinces API (Phuong Xa):', err.message);
+            res.json({ success: true, data: [], message: 'Khong thể tải danh sách phuong xa.' });
         }
     }
 };
