@@ -74,8 +74,22 @@ function DangPhong({ user }) {
                         tienIch: room.tienIch ? room.tienIch.map(t => t.ID_TienIch) : []
                     });
 
+                    // Hàm chuẩn hóa tên địa chỉ để so sánh chính xác hơn
+                    const normalizeName = (name) => {
+                        if (!name) return '';
+                        return name.toLowerCase()
+                            .replace(/thành phố |tỉnh |quận |huyện |thị xã |phường |xã |tt\. |tt |tp\. |tp /g, '')
+                            .trim();
+                    };
+
                     if (room.TenTinhThanh && fetchedTinhThanh.length > 0) {
-                        const tt = fetchedTinhThanh.find(t => t.name.includes(room.TenTinhThanh) || room.TenTinhThanh.includes(t.name));
+                        const normalizedRoomTT = normalizeName(room.TenTinhThanh);
+                        const tt = fetchedTinhThanh.find(t => 
+                            normalizeName(t.name) === normalizedRoomTT || 
+                            t.name.includes(room.TenTinhThanh) || 
+                            room.TenTinhThanh.includes(t.name)
+                        );
+                        
                         if (tt) {
                             setSelectedTinhThanh(tt.code);
                             const qhRes = await axios.get(`/api/location/quan-huyen/${tt.code}`);
@@ -83,7 +97,13 @@ function DangPhong({ user }) {
                             setQuanHuyenList(fetchedQuanHuyen);
 
                             if (room.TenQuanHuyen) {
-                                const qh = fetchedQuanHuyen.find(q => q.name.includes(room.TenQuanHuyen) || room.TenQuanHuyen.includes(q.name));
+                                const normalizedRoomQH = normalizeName(room.TenQuanHuyen);
+                                const qh = fetchedQuanHuyen.find(q => 
+                                    normalizeName(q.name) === normalizedRoomQH || 
+                                    q.name.includes(room.TenQuanHuyen) || 
+                                    room.TenQuanHuyen.includes(q.name)
+                                );
+                                
                                 if (qh) {
                                     setSelectedQuanHuyen(qh.code);
                                     const pxRes = await axios.get(`/api/location/phuong-xa/${qh.code}`);
@@ -91,7 +111,12 @@ function DangPhong({ user }) {
                                     setPhuongXaList(fetchedPhuongXa);
 
                                     if (room.TenPhuongXa) {
-                                        const px = fetchedPhuongXa.find(x => x.name.includes(room.TenPhuongXa) || room.TenPhuongXa.includes(x.name));
+                                        const normalizedRoomPX = normalizeName(room.TenPhuongXa);
+                                        const px = fetchedPhuongXa.find(x => 
+                                            normalizeName(x.name) === normalizedRoomPX || 
+                                            x.name.includes(room.TenPhuongXa) || 
+                                            room.TenPhuongXa.includes(x.name)
+                                        );
                                         if (px) setSelectedPhuongXa(px.code);
                                     }
                                 }

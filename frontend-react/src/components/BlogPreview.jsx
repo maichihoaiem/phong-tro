@@ -96,38 +96,82 @@ function BlogPreview() {
     const blogs = blogPosts.slice(0, 3);
 
     return (
-        <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '30px 20px 60px' }}>
-            <div className="blog-header" style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'baseline', 
-                marginBottom: '32px' 
-            }}>
-                <div>
-                    <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F1C3F', marginBottom: '8px' }}>
-                        Cẩm nang thuê phòng
-                    </h2>
-                    <p style={{ color: '#64748B', fontSize: '0.9rem' }}>Cập nhật những thông tin và kiến thức bổ ích mới nhất</p>
-                </div>
-                <Link to="/blog" style={{ 
-                    color: '#2563EB', 
-                    fontWeight: 700, 
-                    fontSize: '1rem',
-                    whiteSpace: 'nowrap'
+        <section className="blog-preview-section">
+            <div className="blog-preview-container">
+                <div className="blog-header" style={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'baseline', 
+                    marginBottom: '32px' 
                 }}>
-                    Xem tất cả bài viết <i className="fas fa-chevron-right" style={{ fontSize: '0.8rem' }}></i>
-                </Link>
-            </div>
-
-            <div className="mobile-horizontal-scroller" style={{ gap: '24px' }}>
-                {blogs.map((b, i) => (
-                    <div key={i} className="mobile-scroller-item">
-                        <BlogCard {...b} />
+                    <div>
+                        <h2 style={{ fontSize: '1.75rem', fontWeight: 800, color: '#0F1C3F', marginBottom: '8px' }}>
+                            Cẩm nang thuê phòng
+                        </h2>
+                        <p style={{ color: '#64748B', fontSize: '0.9rem' }}>Cập nhật những thông tin và kiến thức bổ ích mới nhất</p>
                     </div>
-                ))}
+                    <Link to="/blog" className="desktop-see-all" style={{ 
+                        color: '#2563EB', 
+                        fontWeight: 700, 
+                        fontSize: '1rem',
+                        whiteSpace: 'nowrap'
+                    }}>
+                        Xem tất cả bài viết <i className="fas fa-chevron-right" style={{ fontSize: '0.8rem' }}></i>
+                    </Link>
+                </div>
+
+                <div className="mobile-horizontal-scroller" style={{ gap: '24px' }}>
+                    {blogs.map((b, i) => (
+                        <div key={i} className="mobile-scroller-item">
+                            <BlogCard {...b} />
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mobile-see-all-wrapper">
+                    <Link to="/blog" className="btn-premium btn-premium-outline full-width-mobile">
+                        Xem tất cả bài viết <i className="fas fa-chevron-right" style={{ marginLeft: '8px' }}></i>
+                    </Link>
+                </div>
             </div>
 
             <style>{`
+                .blog-preview-section {
+                    background-color: var(--surface-alt);
+                    border-top: 1px solid #F1F5F9;
+                    padding-bottom: 100px;
+                }
+                .blog-preview-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 30px 20px 0;
+                }
+                .mobile-see-all-wrapper {
+                    display: none;
+                    margin-top: 24px;
+                    text-align: center;
+                }
+                @media (max-width: 768px) {
+                    .blog-preview-section {
+                        padding-bottom: 40px !important;
+                    }
+                    .blog-preview-container {
+                        padding-top: 20px !important;
+                    }
+                    .blog-header h2 {
+                        font-size: 1.3rem !important;
+                    }
+                    .desktop-see-all {
+                        display: none !important;
+                    }
+                    .mobile-see-all-wrapper {
+                        display: block;
+                    }
+                    .full-width-mobile {
+                        width: 100% !important;
+                        justify-content: center !important;
+                    }
+                }
                 @media (max-width: 640px) {
                     .blog-header {
                         flex-direction: column;

@@ -5,11 +5,7 @@ function CallToAction() {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <section style={{ 
-            maxWidth: '1200px', 
-            margin: '0 auto', 
-            padding: '40px 20px 60px' 
-        }}>
+        <section className="cta-container">
             <div className="bg-gradient-to-br from-[#0F1C3F] to-[#2563EB] rounded-[30px] p-8 lg:p-[60px_40px] text-center text-white relative overflow-hidden shadow-2xl">
                 {/* Decorative Elements */}
                 <div style={{
@@ -38,7 +34,7 @@ function CallToAction() {
                     <p className="text-xs lg:text-[1.05rem] opacity-90 mb-6 lg:mb-8 max-w-[700px] leading-relaxed lg:leading-[1.6]">
                         Tham gia cộng đồng Ozic House để tiếp cận hàng ngàn khách thuê tiềm năng mỗi tháng. Đăng tin hoàn toàn miễn phí!
                     </p>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '12px lg:gap-[20px]', flexWrap: 'wrap' }}>
+                    <div className="cta-buttons-wrapper">
                         <Link 
                             to="/dang-ky"
                             onMouseEnter={() => setIsHovered(true)}
@@ -59,6 +55,27 @@ function CallToAction() {
                     </div>
                 </div>
             </div>
+            <style>{`
+                .cta-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 40px 20px 60px;
+                }
+                .cta-buttons-wrapper {
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+                    flex-wrap: wrap;
+                }
+                @media (max-width: 768px) {
+                    .cta-container {
+                        padding: 20px 12px !important;
+                    }
+                    .cta-buttons-wrapper {
+                        gap: 12px;
+                    }
+                }
+            `}</style>
         </section>
     );
 }

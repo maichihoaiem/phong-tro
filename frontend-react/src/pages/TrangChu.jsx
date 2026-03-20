@@ -65,7 +65,7 @@ function HomePage() {
             <Hero onSearch={handleSearch} />
 
             {/* Room Listing Section */}
-            <main className="main-content" style={{ maxWidth: '1240px', margin: '0 auto', padding: '20px 24px 60px' }}>
+            <main className="main-content homepage-main">
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -142,7 +142,7 @@ function HomePage() {
                             </div>
                         </div>
 
-                        <div style={{ textAlign: 'center', marginTop: '60px' }} className="fade-up">
+                        <div className="home-discover-btn-wrapper fade-up">
                             <Link to="/tim-phong" className="btn-premium btn-premium-primary" style={{
                                 padding: '16px 40px',
                                 fontSize: '1rem'
@@ -195,15 +195,23 @@ function HomePage() {
                 <FeaturesSection />
             </div>
 
-            <div style={{ padding: '40px 0' }}>
-                <CallToAction />
-            </div>
-
-            <div style={{ backgroundColor: 'var(--surface-alt)', borderTop: '1px solid #F1F5F9', paddingBottom: '100px' }}>
-                <BlogPreview />
-            </div>
+            <CallToAction />
+            <BlogPreview />
 
             <style>{`
+                .homepage-main {
+                    max-width: 1240px;
+                    margin: 0 auto;
+                    padding: 20px 24px 60px;
+                }
+                .home-discover-btn-wrapper {
+                    text-align: center;
+                    margin-top: 60px;
+                }
+                @media (max-width: 768px) {
+                    .homepage-main { padding-top: 10px !important; padding-bottom: 30px !important; }
+                    .home-discover-btn-wrapper { margin-top: 30px !important; }
+                }
                 .home-rooms-grid {
                     display: grid;
                     grid-template-columns: repeat(3, minmax(0, 360px));

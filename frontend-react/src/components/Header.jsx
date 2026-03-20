@@ -106,20 +106,15 @@ function Header({ user, onLogout }) {
             borderBottom: '2px solid var(--primary-100)',
             boxShadow: scrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.05)' : 'none',
             transition: 'all 0.3s ease',
-        }}>
-            <div style={{ maxWidth: 1200, margin: '0 auto', height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem' }}>
+        }} className="header-main">
+            <div className="header-container">
 
                 {/* Logo */}
-                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}>
-                    <div style={{
-                        width: 36, height: 36, borderRadius: '8px',
-                        background: '#2563EB',
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: 'white', fontSize: 16
-                    }}>
+                <Link to="/" className="header-logo">
+                    <div className="logo-icon">
                         <i className="fas fa-home"></i>
                     </div>
-                    <span style={{ fontWeight: 800, fontSize: '1.25rem', color: '#0F1C3F', letterSpacing: '-0.5px' }}>
+                    <span className="logo-text">
                         OZIC<span style={{ color: '#2563EB' }}>HOUSE</span>
                     </span>
                 </Link>
@@ -339,13 +334,13 @@ function Header({ user, onLogout }) {
                         </div>
                     )}
 
-                    {/* Mobile toggle */}
-                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden" style={{
-                        padding: '8px 10px', background: '#F0F4F8', border: '1px solid #E2EAF4',
-                        borderRadius: 10, color: '#6B7280', cursor: 'pointer', fontSize: '1rem',
-                    }}>
-                        <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
-                    </button>
+                {/* Mobile toggle */}
+                <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="md:hidden" style={{
+                    padding: '8px 10px', background: '#F0F4F8', border: '1px solid #E2EAF4',
+                    borderRadius: 10, color: '#6B7280', cursor: 'pointer', fontSize: '1rem',
+                }}>
+                    <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
+                </button>
                 </div>
             </div>
 
@@ -403,6 +398,77 @@ function Header({ user, onLogout }) {
                     )}
                 </div>
             )}
+            <style>{`
+                .header-main {
+                    margin-bottom: 20px;
+                }
+                .header-container {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    height: 70px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0 1.5rem;
+                }
+                .header-logo {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    text-decoration: none;
+                    flex-shrink: 0;
+                }
+                .logo-icon {
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 8px;
+                    background: #2563EB;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-size: 16px;
+                }
+                .logo-text {
+                    font-weight: 800;
+                    font-size: 1.25rem;
+                    color: #0F1C3F;
+                    letter-spacing: -0.5px;
+                }
+                @media (max-width: 768px) {
+                    .header-main {
+                        margin-bottom: 4px;
+                    }
+                    .header-container {
+                        height: 56px;
+                        padding: 0 1rem;
+                    }
+                    .header-logo {
+                        gap: 6px;
+                    }
+                    .logo-icon {
+                        width: 28px;
+                        height: 28px;
+                        font-size: 12px;
+                        border-radius: 6px;
+                    }
+                    .logo-text {
+                        font-size: 1.05rem;
+                    }
+                }
+                @keyframes slide-up {
+                    from { transform: translateY(10px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+                .notif-dot {
+                    position: absolute;
+                    width: 8px;
+                    height: 8px;
+                    background: #EF4444;
+                    border-radius: 50%;
+                    border: 2px solid #FFFFFF;
+                }
+            `}</style>
         </header>
     );
 }

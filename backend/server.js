@@ -104,12 +104,17 @@ app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/ai", require("./routes/aiRoutes"));
 
 // Ket noi DB va start server
-connectDB().then(() => {
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => {
-        console.log(`Kết nối server thành công tại cổng ${PORT}`);
-    });
-}).catch((err) => {
+const PORT = process.env.PORT || 5000;
 
-    console.error("Khong the khoi dong server:", err.message);
-});
+connectDB()
+    .then(() => {
+        console.log("✅ Database connected successfully.");
+    })
+    .catch((err) => {
+        console.error("⚠️ Database connection failed:", err.message);
+    })
+    .finally(() => {
+        app.listen(PORT, () => {
+            console.log(`🚀 Server đang chạy tại cổng ${PORT}`);
+        });
+    });

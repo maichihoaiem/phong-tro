@@ -102,7 +102,7 @@ function FeaturesSection() {
                 .feature-desc { font-size: 0.88rem; line-height: 1.6; }
                 
                 @media (max-width: 768px) {
-                    .features-section { padding: 30px 12px !important; }
+                    .features-section { padding: 10px 12px 30px !important; }
                     .features-grid { gap: 12px; }
                     .feature-card-wrapper { padding: 16px 8px !important; }
                     .feature-icon-wrapper { width: 36px !important; height: 36px !important; border-radius: 10px !important; margin-bottom: 12px !important; }
