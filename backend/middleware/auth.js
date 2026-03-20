@@ -5,8 +5,10 @@
 // Kiem tra da dang nhap chua
 function requireLogin(req, res, next) {
     if (!req.session || !req.session.user) {
+        console.log(`[Auth] requireLogin FAILED: Missing session user. Origin: ${req.get('Origin')}`);
         return res.status(401).json({ success: false, message: "Bạn cần đăng nhập!" });
     }
+    console.log(`[Auth] requireLogin SUCCESS: User ID ${req.session.user.ID_TaiKhoan}`);
     next();
 }
 

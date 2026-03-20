@@ -48,7 +48,7 @@ function RoomDetailPage({ user }) {
 
     const loadRoomDetail = async () => {
         try {
-            const res = await axios.get(`/api/phong-tro/${id}`);
+            const res = await axios.get(`/api/phong-tro/${id}`, { withCredentials: true });
             if (res.data.success) {
                 const roomData = res.data.data;
                 setRoom(roomData);
