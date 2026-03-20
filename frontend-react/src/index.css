@@ -54,7 +54,10 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(#cbd5e1 0.8px, transparent 0.8px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
   color: var(--text-1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

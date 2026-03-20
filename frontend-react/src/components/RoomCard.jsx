@@ -48,10 +48,21 @@ const RoomCard = ({ room }) => {
                 flexDirection: 'column',
                 height: '100%',
                 position: 'relative',
-                borderTop: `3px solid ${typeColor.color}`,
                 minWidth: 0 // Prevent CSS Grid blowout
             }}
         >
+            {/* Top accent bar that follows rounded corners */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                backgroundColor: typeColor.color,
+                zIndex: 10,
+                borderTopLeftRadius: '24px',
+                borderTopRightRadius: '24px'
+            }}></div>
             {/* Image Section */}
             <div style={{ 
                 position: 'relative', 

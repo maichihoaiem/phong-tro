@@ -65,7 +65,7 @@ function App() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'transparent' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{
             width: 52, height: 52, borderRadius: '50%',
@@ -84,7 +84,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--bg)', overflowX: 'hidden' }}>
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', overflowX: 'hidden' }}>
 
         <Header user={user} onLogout={handleLogout} />
 

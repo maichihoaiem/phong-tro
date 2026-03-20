@@ -170,8 +170,8 @@ function LandlordDashboard() {
 					</div>
 				</div>
 
-				{/* MOBILE TABS (Only on mobile) */}
-				<div className="flex lg:hidden bg-slate-100 p-1.5 rounded-2xl mb-6">
+				{/* TABS (All devices) */}
+				<div className="flex bg-slate-100 p-1.5 rounded-2xl mb-8 max-w-md shadow-sm">
 					<button 
 						onClick={() => setActiveTab('available')}
 						className={`flex-1 py-3 rounded-xl text-sm font-black transition-all ${activeTab === 'available' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}
@@ -186,11 +186,11 @@ function LandlordDashboard() {
 					</button>
 				</div>
 
-				{/* MANAGEMENT AREA - 2 COLUMNS LAYOUT */}
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+				{/* MANAGEMENT AREA - TAB VIEW */}
+				<div className="w-full">
                     
 					{/* LEFT COLUMN: AVAILABLE ROOMS */}
-					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'available' ? 'hidden lg:block' : ''}`}>
+					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'available' ? 'hidden' : ''}`}>
 						<div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
 							<div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-500">
 								<i className="fas fa-check-circle"></i>
@@ -217,7 +217,7 @@ function LandlordDashboard() {
 					</div>
 
 					{/* RIGHT COLUMN: RENTED ROOMS */}
-					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'rented' ? 'hidden lg:block' : ''}`}>
+					<div className={`bg-white rounded-3xl p-6 shadow-sm border border-slate-100 ${activeTab !== 'rented' ? 'hidden' : ''}`}>
 						<div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-50">
 							<div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-500">
 								<i className="fas fa-user-check"></i>
@@ -259,7 +259,7 @@ function RoomCard({ room, handleRestoreStatus, handleDelete, getImageUrl }) {
 	return (
 		<div className="bg-white border border-slate-100 rounded-2xl overflow-hidden transition-all hover:border-blue-600 hover:shadow-xl hover:shadow-blue-50/50 flex flex-col sm:flex-row">
 			{/* Ảnh thu nhỏ */}
-			<div className="w-full sm:w-[180px] h-48 sm:h-auto relative flex-shrink-0">
+			<div className="w-full sm:w-[350px] h-52 sm:h-[200px] relative flex-shrink-0">
 				<img 
 					src={getImageUrl(room.AnhDaiDien) || "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?fit=crop&w=400&q=80"} 
 					className="w-full h-full object-cover"
@@ -313,7 +313,7 @@ function RoomCard({ room, handleRestoreStatus, handleDelete, getImageUrl }) {
 					)}
 					<Link 
 						to={`/phong-tro/${room.ID_Phong}`} 
-						className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-gray-50 text-gray-600 border border-gray-100 hover:bg-gray-600 hover:text-white transition-all duration-200 text-decoration-none"
+						className="flex-1 flex items-center justify-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-100 hover:bg-emerald-600 hover:text-white transition-all duration-200 text-decoration-none"
 					>
 						<i className="fas fa-eye text-[10px]"></i> Xem
 					</Link>

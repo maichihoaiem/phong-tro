@@ -34,8 +34,10 @@ function Hero({ onSearch }) {
             backgroundImage: 'linear-gradient(135deg, rgba(15, 28, 63, 0.82) 0%, rgba(37, 99, 235, 0.4) 100%), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
+            backgroundColor: 'transparent',
             color: 'white',
-            padding: '60px 20px',
+            padding: '100px 20px', /* Cân bằng trên dưới để nội dung nằm giữa */
+            marginTop: '0',
             overflow: 'visible'
         }} className="hero-section">
             <div style={{
@@ -50,14 +52,15 @@ function Hero({ onSearch }) {
                 zIndex: 0
             }}></div>
 
-            <div className="container" style={{ 
-                zIndex: 1, 
-                display: 'flex', 
-                alignItems: 'center', 
+            <div className="container" style={{
+                zIndex: 10,
+                display: 'flex',
+                alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
                 gap: '40px',
-                width: '100%'
+                width: '100%',
+                padding: '0 20px'
             }}>
                 {/* Phần Text bên trái */}
                 <div className="hero-text fade-up" style={{ flex: '1', minWidth: '300px' }}>
@@ -94,7 +97,7 @@ function Hero({ onSearch }) {
                         <i className="fas fa-search-location text-blue-600"></i>
                         Tìm kiếm ngay
                     </h3>
-                    
+
                     <form onSubmit={handleSearch} className="flex flex-col gap-6">
                         <div>
                             <label className="text-sm font-bold mb-2 block text-slate-700">Tiêu đề</label>
@@ -112,7 +115,7 @@ function Hero({ onSearch }) {
 
                         <div>
                             <label className="text-sm font-bold mb-2 block text-slate-700">Loại hình phòng</label>
-                            <div className="flex items-center bg-[#F8FAFF] rounded-2xl px-4 border border-slate-200 relative cursor-pointer h-[54px]" 
+                            <div className="flex items-center bg-[#F8FAFF] rounded-2xl px-4 border border-slate-200 relative cursor-pointer h-[54px]"
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                                 <i className="fas fa-home text-blue-500 mr-3"></i>
                                 <div className="text-[0.95rem] text-[#0F1C3F] font-semibold flex-1 truncate">
@@ -122,12 +125,12 @@ function Hero({ onSearch }) {
 
                                 {isDropdownOpen && (
                                     <div className="absolute top-[calc(100%+8px)] left-0 right-0 bg-white rounded-2xl shadow-2xl border border-slate-100 z-[1000] overflow-hidden p-2">
-                                        <div 
+                                        <div
                                             className={`px-4 py-3 rounded-xl text-sm transition-colors cursor-pointer ${loaiPhong === '' ? 'bg-slate-100 text-blue-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
                                             onClick={(e) => { e.stopPropagation(); setLoaiPhong(''); setIsDropdownOpen(false); }}
                                         >Tất cả các loại</div>
                                         {loaiPhongList.map((lp) => (
-                                            <div 
+                                            <div
                                                 key={lp.ID_LoaiPhong}
                                                 className={`px-4 py-3 rounded-xl text-sm transition-colors cursor-pointer ${loaiPhong === lp.ID_LoaiPhong ? 'bg-slate-100 text-blue-600 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}
                                                 onClick={(e) => { e.stopPropagation(); setLoaiPhong(lp.ID_LoaiPhong); setIsDropdownOpen(false); }}
@@ -157,7 +160,7 @@ function Hero({ onSearch }) {
                                     className="w-full border-none outline-none text-sm font-semibold text-gray-800 bg-transparent placeholder-gray-400"
                                 />
                             </div>
-                            
+
                             <div className="relative flex items-center px-2 cursor-pointer" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                                 <i className="fas fa-home text-gray-400 mr-1.5 text-xs"></i>
                                 <span className="text-xs font-bold text-gray-600 truncate max-w-[70px]">
@@ -167,12 +170,12 @@ function Hero({ onSearch }) {
 
                                 {isDropdownOpen && (
                                     <div className="absolute top-[calc(100%+12px)] right-0 w-[180px] bg-white rounded-xl shadow-2xl border border-gray-100 z-[2000] p-1.5 overflow-hidden">
-                                        <div 
+                                        <div
                                             className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 transition-colors"
                                             onClick={(e) => { e.stopPropagation(); setLoaiPhong(''); setIsDropdownOpen(false); }}
                                         >Tất cả các loại</div>
                                         {loaiPhongList.map((lp) => (
-                                            <div 
+                                            <div
                                                 key={lp.ID_LoaiPhong}
                                                 className="px-3 py-2.5 rounded-lg text-xs font-bold text-gray-600 hover:bg-gray-50 transition-colors"
                                                 onClick={(e) => { e.stopPropagation(); setLoaiPhong(lp.ID_LoaiPhong); setIsDropdownOpen(false); }}
@@ -195,9 +198,28 @@ function Hero({ onSearch }) {
                 </div>
             </div>
 
+            <div style={{
+                position: 'absolute',
+                bottom: -1,
+                left: 0,
+                width: '100%',
+                lineHeight: 0,
+                zIndex: 5
+            }}>
+                <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: '100%', height: '60px' }}>
+                    <defs>
+                        <pattern id="dotPatternWave" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+                            <circle cx="0.8" cy="0.8" r="0.8" fill="#cbd5e1" />
+                        </pattern>
+                    </defs>
+                    <path d="M0 120V60C240 20 480 20 720 60C960 100 1200 100 1440 60V120H0Z" fill="var(--bg)" />
+                    <path d="M0 120V60C240 20 480 20 720 60C960 100 1200 100 1440 60V120H0Z" fill="url(#dotPatternWave)" />
+                </svg>
+            </div>
+
             <style>{`
                 .hero-section {
-                    height: 500px !important;
+                    height: auto !important;
                 }
                 @media (max-width: 992px) {
                     .hero-section {

@@ -413,7 +413,7 @@ function Header({ user, onLogout }) {
                 .header-container {
                     max-width: 1200px;
                     margin: 0 auto;
-                    height: 70px;
+                    height: 64px;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;

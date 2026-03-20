@@ -126,7 +126,7 @@ function BookingHistoryPage() {
                         <div key={booking.ID_DatPhong} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition">
                             <div className="flex flex-col sm:flex-row">
                                 {/* Ảnh */}
-                                <div className="w-full sm:w-48 h-48 sm:h-40 flex-shrink-0 bg-gray-100">
+                                <div className="w-full sm:w-64 h-36 flex-shrink-0 bg-gray-100 border-r border-gray-50">
                                     {booking.AnhPhong ? (
                                         <img
                                             src={getImageUrl(booking.AnhPhong)}
@@ -142,64 +142,69 @@ function BookingHistoryPage() {
                                 </div>
 
                                 {/* Thông tin */}
-                                <div className="flex-1 p-5">
-                                    <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-0 mb-2">
-                                        <div>
-                                            <Link to={`/phong-tro/${booking.ID_Phong || booking.id_phong}`} className="font-bold text-lg text-gray-800 hover:text-blue-600 transition">
+                                <div className="flex-1 p-3 flex flex-col justify-between min-h-0">
+                                    <div>
+                                        <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-1.5">
+                                            <Link to={`/phong-tro/${booking.ID_Phong || booking.id_phong}`} className="font-bold text-base text-gray-800 hover:text-blue-600 transition truncate max-w-[280px]">
                                                 {booking.TieuDe || booking.tieude}
                                             </Link>
-                                            <p className="text-gray-500 text-sm mt-1 flex items-center gap-1">
-                                                <i className="fas fa-map-marker-alt text-red-400"></i>
-                                                {booking.DiaChiChiTiet || booking.diachichitiet || "Chưa cập nhật địa chỉ"}
-                                            </p>
+                                            {getStatusBadge(booking.TrangThai || booking.trangthai, booking.TrangThaiThanhToan || booking.trangthaithanhtoan)}
                                         </div>
-                                        {getStatusBadge(booking.TrangThai || booking.trangthai, booking.TrangThaiThanhToan || booking.trangthaithanhtoan)}
+                                        
+                                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-400 mb-2">
+                                            <span className="flex items-center gap-1">
+                                                <i className="fas fa-map-marker-alt text-red-300"></i>
+                                                {booking.DiaChiChiTiet || "Chưa cập nhật"}
+                                            </span>
+                                            <span className="flex items-center gap-1 border-l pl-3 border-gray-100">
+                                                <i className="fas fa-calendar-alt"></i>
+                                                Ngày đặt: {new Date(booking.NgayDat || booking.ngaydat).toLocaleDateString('vi-VN')}
+                                            </span>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-4 bg-gray-50 p-2.5 rounded-xl border border-gray-100">
+                                            <div>
+                                                <p className="text-[10px] text-gray-400 uppercase font-semibold mb-0.5">Số tiền</p>
+                                                <p className="text-sm font-bold text-gray-700">
+                                                    {new Intl.NumberFormat('vi-VN').format(booking.SoTien || booking.sotien || 0)} đ
+                                                </p>
+                                            </div>
+                                            <div className="border-l pl-4 border-gray-100">
+                                                <p className="text-[10px] text-gray-400 uppercase font-semibold mb-0.5">Mã giao dịch</p>
+                                                <p className="text-sm font-mono text-blue-600 font-bold">{booking.MaGiaoDich || booking.magiaodich}</p>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
-                                        <div>
-                                            <p className="text-xs text-gray-400 mb-1">Hình thức & Số tiền</p>
-                                            <p className="text-sm font-semibold text-gray-700">
-                                                {(booking.LoaiDat || booking.loaidat) === 'Coc' ? 'Đặt cọc' : 'Trả góp/Đủ'}: {new Intl.NumberFormat('vi-VN').format(booking.SoTien || booking.sotien || 0)} đ
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="text-xs text-gray-400 mb-1">Mã giao dịch</p>
-                                            <p className="text-sm font-mono text-blue-600 font-bold">{booking.MaGiaoDich || booking.magiaodich}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center justify-between mt-3 text-xs text-gray-400 border-t border-gray-50 pt-3">
-                                        <span><i className="fas fa-calendar-alt mr-1"></i>Ngày đặt: {new Date(booking.NgayDat || booking.ngaydat).toLocaleDateString('vi-VN')}</span>
-
+                                    <div className="mt-2 empty:hidden">
                                         <div className="flex flex-col gap-2 w-full">
                                             {((booking.TrangThaiThanhToan || booking.trangthaithanhtoan || '').includes('Chờ hoàn tiền') && !(booking.STK_NguoiThue || booking.stk_nguoithue)) && (
-                                                <div className="bg-red-50 p-4 rounded-xl border border-red-100 mt-2">
-                                                    <p className="text-red-600 font-bold text-sm mb-3">
-                                                        <i className="fas fa-exclamation-triangle mr-1"></i> Đơn bị từ chối. Vui lòng nhập STK để nhận lại tiền cọc:
+                                                <div className="bg-red-50 p-2.5 rounded-xl border border-red-100">
+                                                    <p className="text-red-600 font-bold text-xs mb-2">
+                                                        <i className="fas fa-exclamation-triangle mr-1"></i> Đơn bị từ chối. Nhập STK nhận tiền:
                                                     </p>
-                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                                                         <select
-                                                            className="px-3 py-4 border rounded-xl text-base md:text-sm bg-white transition-all w-full"
+                                                            className="px-2 py-1.5 border rounded-lg text-xs bg-white outline-none focus:ring-1 focus:ring-red-200"
                                                             required
                                                             value={refundForms[booking.ID_DatPhong || booking.id_datphong]?.nganHang || ''}
                                                             onChange={(e) => setRefundForms({ ...refundForms, [booking.ID_DatPhong || booking.id_datphong]: { ...refundForms[booking.ID_DatPhong || booking.id_datphong], nganHang: e.target.value } })}
                                                         >
-                                                            <option value="">Chọn ngân hàng</option>
+                                                            <option value="">Chọn Ngân hàng</option>
                                                             {VIETQR_BANKS.map(bank => (
-                                                                <option key={bank.id} value={bank.id}>{bank.name} ({bank.id})</option>
+                                                                <option key={bank.id} value={bank.id}>{bank.name}</option>
                                                             ))}
                                                         </select>
                                                         <input
                                                             type="text" placeholder="Số tài khoản"
-                                                            className="px-3 py-2 border rounded-lg text-sm"
+                                                            className="px-2 py-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-red-200"
                                                             required
                                                             value={refundForms[booking.ID_DatPhong || booking.id_datphong]?.stk || ''}
                                                             onChange={(e) => setRefundForms({ ...refundForms, [booking.ID_DatPhong || booking.id_datphong]: { ...refundForms[booking.ID_DatPhong || booking.id_datphong], stk: e.target.value } })}
                                                         />
                                                         <input
-                                                            type="text" placeholder="Tên chủ tài khoản"
-                                                            className="px-3 py-2 border rounded-lg text-sm"
+                                                            type="text" placeholder="Tên chủ TK"
+                                                            className="px-2 py-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-red-200"
                                                             required
                                                             value={refundForms[booking.ID_DatPhong || booking.id_datphong]?.chuTk || ''}
                                                             onChange={(e) => setRefundForms({ ...refundForms, [booking.ID_DatPhong || booking.id_datphong]: { ...refundForms[booking.ID_DatPhong || booking.id_datphong], chuTk: e.target.value.toUpperCase() } })}
@@ -207,26 +212,25 @@ function BookingHistoryPage() {
                                                     </div>
                                                     <button
                                                         onClick={() => handleProvideRefundInfo(booking.ID_DatPhong || booking.id_datphong)}
-                                                        className="mt-3 bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-red-700 transition w-full md:w-auto"
+                                                        className="mt-2 bg-red-600 text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-red-700 transition"
                                                     >
-                                                        Gửi thông tin hoàn tiền
+                                                        Gửi thông tin
                                                     </button>
                                                 </div>
                                             )}
                                             {booking.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' && (
-                                                <div className="bg-purple-50 p-4 rounded-xl border border-purple-100 mt-2">
-                                                    <p className="text-purple-600 font-bold text-sm">
-                                                        <i className="fas fa-clock mr-1"></i> Đã gửi thông tin. Admin sẽ hoàn tiền trong 1-2 ngày làm việc.
+                                                <div className="bg-purple-50 p-2.5 rounded-xl border border-purple-100 flex items-center gap-2">
+                                                    <i className="fas fa-clock text-purple-400"></i>
+                                                    <p className="text-purple-600 font-bold text-xs m-0">
+                                                        Đã gửi thông tin. Đang chờAdmin hoàn tiền.
                                                     </p>
-                                                    <div className="mt-2 text-xs text-purple-400">
-                                                        Thông tin nhận: {booking.NganHang_NguoiThue} - {booking.STK_NguoiThue} ({booking.ChuTK_NguoiThue})
-                                                    </div>
                                                 </div>
                                             )}
                                             {booking.TrangThaiThanhToan === 'Đã hoàn tiền' && (
-                                                <div className="bg-green-50 p-3 rounded-xl border border-green-100 mt-2">
+                                                <div className="bg-green-50 p-2 rounded-xl border border-green-100 inline-flex items-center gap-2">
+                                                    <i className="fas fa-check-circle text-green-400"></i>
                                                     <span className="text-green-600 font-bold text-xs">
-                                                        <i className="fas fa-check-circle mr-1"></i> Đã hoàn trả tiền cọc về tài khoản của bạn.
+                                                        Đã hoàn trả tiền cọc.
                                                     </span>
                                                 </div>
                                             )}
@@ -234,8 +238,8 @@ function BookingHistoryPage() {
                                     </div>
 
                                     {booking.GhiChu && (
-                                        <div className="mt-2 text-xs text-gray-400 italic">
-                                            <i className="fas fa-comment-alt mr-1"></i> Ghi chú: {booking.GhiChu}
+                                        <div className="mt-2 text-xs text-gray-400 italic truncate border-t border-gray-50 pt-1.5">
+                                            <i className="fas fa-comment-alt mr-1 text-gray-300"></i> Ghi chú: {booking.GhiChu}
                                         </div>
                                     )}
                                 </div>

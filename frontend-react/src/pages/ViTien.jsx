@@ -64,17 +64,20 @@ function ViTien() {
 	if (loading) return <div className="text-center py-20"><i className="fas fa-spinner fa-spin text-3xl text-blue-600"></i></div>;
 
 	return (
-		<div className="container mx-auto max-w-5xl px-4 py-8">
-			<div className="mb-8">
-				<Link to="/quan-ly-phong" className="text-blue-600 hover:underline mb-4 inline-block">
-					<i className="fas fa-arrow-left mr-2"></i> Quay lại quản lý
-				</Link>
-				<h1 className="text-xl md:text-3xl font-extrabold text-gray-800 flex items-center gap-2 whitespace-nowrap">
-					<i className="fas fa-wallet" style={{ color: '#2563EB' }}></i>
-					Quản lý <span style={{ color: '#2563EB' }}>Ví Tiền Chủ Trọ</span>
-				</h1>
-				<p className="text-sm md:text-base text-gray-500">Quản lý doanh thu và rút tiền cọc</p>
-			</div>
+		<div className="bg-[#F8FAFF] min-h-screen px-4 pt-10 pb-8">
+			<div className="container mx-auto max-w-5xl">
+				<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+					<div>
+						<h1 className="text-xl md:text-3xl font-extrabold text-gray-800 flex items-center gap-2 whitespace-nowrap">
+							<i className="fas fa-wallet" style={{ color: '#2563EB' }}></i>
+							Quản lý <span style={{ color: '#2563EB' }}>Ví Tiền Chủ Trọ</span>
+						</h1>
+						<p className="text-sm md:text-base text-gray-500">Quản lý doanh thu và rút tiền cọc</p>
+					</div>
+					<Link to="/quan-ly-phong" className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2 transition whitespace-nowrap">
+						<i className="fas fa-arrow-left"></i> Quay lại quản lý
+					</Link>
+				</div>
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 				<div className="md:col-span-1">
 					<div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl mb-6">
@@ -108,8 +111,8 @@ function ViTien() {
 					</div>
 				</div>
 				<div className="md:col-span-2 space-y-6">
-					{/* Mobile Tabs */}
-					<div className="flex md:hidden bg-gray-100 p-1 rounded-2xl mb-4">
+					{/* Tabs */}
+					<div className="flex bg-gray-100 p-1.5 rounded-2xl mb-6 max-w-sm shadow-sm">
 						<button 
 							onClick={() => setActiveSection('history')}
 							className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${activeSection === 'history' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}
@@ -124,7 +127,7 @@ function ViTien() {
 						</button>
 					</div>
 
-					<div className={`bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden ${activeSection !== 'history' ? 'hidden md:block' : ''}`}>
+					<div className={`bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden ${activeSection !== 'history' ? 'hidden' : ''}`}>
 						<div className="p-6 border-b border-gray-50 flex justify-between items-center">
 							<h3 className="font-bold text-gray-800 flex items-center gap-2">
 								<i className="fas fa-exchange-alt text-blue-500"></i> Biến động ví
@@ -169,7 +172,7 @@ function ViTien() {
 							</div>
 						)}
 					</div>
-					<div className={`bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden ${activeSection !== 'withdrawals' ? 'hidden md:block' : ''}`}>
+					<div className={`bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden ${activeSection !== 'withdrawals' ? 'hidden' : ''}`}>
 						<div className="p-6 border-b border-gray-50 flex justify-between items-center">
 							<h3 className="font-bold text-gray-800 flex items-center gap-2">
 								<i className="fas fa-history text-purple-500"></i> Lịch sử rút tiền
@@ -309,6 +312,7 @@ function ViTien() {
 					</div>
 				</div>
 			)}
+			</div>
 		</div>
 	);
 }

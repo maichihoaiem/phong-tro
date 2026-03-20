@@ -89,7 +89,7 @@ function FeaturesSection() {
             </div>
             
             <style>{`
-                .features-section { padding: 40px 24px; }
+                .features-section { padding: 24px; }
                 .features-grid {
                     display: grid; 
                     grid-template-columns: repeat(3, 1fr); 

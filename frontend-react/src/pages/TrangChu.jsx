@@ -61,7 +61,11 @@ function HomePage() {
     };
 
     return (
-        <div style={{ backgroundColor: 'var(--bg)', minHeight: '100vh', overflowX: 'hidden' }}>
+        <div style={{
+            backgroundColor: 'transparent',
+            minHeight: '100vh',
+            overflowX: 'hidden'
+        }}>
             <Hero onSearch={handleSearch} />
 
             {/* Room Listing Section */}
@@ -74,23 +78,30 @@ function HomePage() {
                     gap: '16px',
                     marginBottom: '32px',
                 }} className="fade-up">
-                    <div style={{ maxWidth: '600px' }}>
-                        <span style={{
-                            color: '#2563EB',
-                            fontWeight: 800,
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '1px',
-                            marginBottom: '8px',
-                            display: 'block'
-                        }}>Lựa Chọn Hàng Đầu</span>
-                        <h3 className="text-base lg:text-[1.75rem] font-extrabold text-[#0F1C3F] mb-3 tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                    <div style={{ maxWidth: '600px', position: 'relative' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                            <span style={{
+                                background: 'linear-gradient(90deg, #2563EB, transparent)',
+                                width: '40px',
+                                height: '2px',
+                                borderRadius: '2px'
+                            }}></span>
+                            <span style={{
+                                color: '#2563EB',
+                                fontWeight: 800,
+                                fontSize: '0.75rem',
+                                textTransform: 'uppercase',
+                                letterSpacing: '1.5px',
+                                display: 'block'
+                            }}>Lựa Chọn Hàng Đầu</span>
+                        </div>
+                        <h3 className="text-xl lg:text-[2.2rem] font-black text-[#0F1C3F] mb-4 tracking-tight leading-tight">
                             {searchActive ? 'Kết Quả Tìm Kiếm' : 'Mini House & Phòng Trọ Mới Nhất'}
                         </h3>
-                        <p className="hidden lg:block" style={{ color: '#64748B', fontSize: '0.95rem', lineHeight: 1.5, maxWidth: '500px' }}>
+                        <p className="hidden lg:block" style={{ color: '#64748B', fontSize: '1rem', lineHeight: 1.6, maxWidth: '850px', fontWeight: 500 }}>
                             {searchActive
                                 ? `Chúng tôi đã tìm thấy ${total} không gian phù hợp với tiêu chí của bạn.`
-                                : 'Khám phá bộ sưu tập những không gian sống đẳng cấp, tiện nghi vừa được ra mắt.'}
+                                : 'Khám phá bộ sưu tập không gian sống đẳng cấp và tiện nghi mới nhất.'}
                         </p>
                     </div>
                 </div>
@@ -202,11 +213,12 @@ function HomePage() {
                 .homepage-main {
                     max-width: 1240px;
                     margin: 0 auto;
-                    padding: 20px 24px 60px;
+                    padding: 0px 24px 24px; /* Giảm mạnh xuống 24px */
+                    position: relative;
                 }
                 .home-discover-btn-wrapper {
                     text-align: center;
-                    margin-top: 60px;
+                    margin-top: 24px; /* Giảm mạnh xuống 24px */
                 }
                 @media (max-width: 768px) {
                     .homepage-main { padding-top: 10px !important; padding-bottom: 30px !important; }

@@ -321,7 +321,7 @@ function SearchPage({ user }) {
 
     return (
         <div style={{ 
-            backgroundColor: 'var(--bg)', 
+            backgroundColor: 'transparent', 
             height: 'calc(100vh - 70px)', // Fill viewport minus header
             overflow: 'hidden' // Root shouldn't scroll
         }}>
