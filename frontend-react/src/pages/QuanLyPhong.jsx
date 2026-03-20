@@ -353,7 +353,7 @@ function RoomCard({ room, handleRestoreStatus, handleDelete, getImageUrl }) {
 				</div>
 
 				{/* Thanh hành động */}
-				<div className="flex gap-2 border-t border-gray-50 pt-3 mt-auto">
+				<div className="flex flex-nowrap whitespace-nowrap gap-2 border-t border-gray-50 pt-3 mt-auto">
 					{(room.TrangThai?.toLowerCase() || '') === 'đã cho thuê' ? (
 						<button 
 							onClick={() => handleRestoreStatus(room.ID_Phong, room.TieuDe)} 

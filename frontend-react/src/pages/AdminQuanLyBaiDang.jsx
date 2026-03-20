@@ -170,7 +170,7 @@ function AdminQuanLyBaiDang() {
 										)}
 									</td>
 									<td className="p-4 text-center">
-										<div className="flex flex-wrap justify-center gap-2">
+										<div className="flex flex-nowrap justify-center gap-2 whitespace-nowrap">
 											<button
 												onClick={() => setPreviewPost(post)}
 												className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-600 border border-blue-100 hover:bg-blue-500 hover:text-white px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200"
