@@ -80,7 +80,7 @@ function BookingRequestsPage() {
             paymentEl = <span className="ml-2 bg-gray-100 text-gray-500 px-3 py-1 rounded-full text-xs font-bold">Chưa thanh toán</span>;
         }
 
-        return <div className="flex gap-1">{statusEl}{paymentEl}</div>;
+        return <div className="flex flex-nowrap gap-1 whitespace-nowrap">{statusEl}{paymentEl}</div>;
     };
 
     const pendingCount = requests.filter(r => r.TrangThai === 'Chờ thanh toán' || r.TrangThai === 'Chờ duyệt' || r.TrangThai === 'Chờ xác nhận' || !r.TrangThai).length;
@@ -110,9 +110,9 @@ function BookingRequestsPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
                 <div>
-                    <h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
-                        <i className="fas fa-bell" style={{ color: '#D97706' }}></i>
-                        Quản lý <span style={{ color: '#D97706' }}>Yêu Cầu Đặt Phòng</span>
+                    <h1 className="text-xl md:text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2 whitespace-nowrap">
+                        <i className="fas fa-bell text-amber-600"></i>
+                        Quản lý <span className="text-amber-600">Yêu Cầu Đặt Phòng</span>
                     </h1>
                     <p className="text-gray-500">
                         Duyệt hoặc từ chối các yêu cầu đặt phòng từ người thuê
@@ -127,7 +127,7 @@ function BookingRequestsPage() {
             </div>
 
             {/* Filter Tabs */}
-            <div className="flex gap-2 mb-8 flex-wrap">
+            <div className="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide flex-nowrap">
                 {[
                     { key: 'all', label: 'Tất cả', count: requests.length },
                     { key: 'Chờ duyệt', label: 'Chờ duyệt', count: requests.filter(r => r.TrangThai === 'Chờ duyệt' || !r.TrangThai || r.TrangThai === 'Chờ thanh toán' || r.TrangThai === 'Chờ xác nhận').length },
@@ -137,7 +137,7 @@ function BookingRequestsPage() {
                     <button
                         key={tab.key}
                         onClick={() => setFilter(tab.key)}
-                        className={`px-5 py-2.5 rounded-xl text-sm font-semibold transition border-2 ${filter === tab.key
+                        className={`px-3 py-2 md:px-5 md:py-2.5 rounded-xl text-[11px] md:text-sm font-bold transition border-2 whitespace-nowrap ${filter === tab.key
                             ? 'bg-amber-600 text-white border-amber-600 shadow-lg shadow-amber-200'
                             : 'bg-white text-gray-600 border-gray-200 hover:border-amber-300'
                             }`}

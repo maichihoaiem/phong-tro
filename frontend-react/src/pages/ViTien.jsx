@@ -11,6 +11,7 @@ function ViTien() {
 	const [withdrawLoading, setWithdrawLoading] = useState(false);
 	const [showAllHistory, setShowAllHistory] = useState(false);
 	const [showAllWithdrawals, setShowAllWithdrawals] = useState(false);
+	const [activeSection, setActiveSection] = useState('history'); // 'history' or 'withdrawals'
 	const [withdrawForm, setWithdrawForm] = useState({ soTien: '', tenNganHang: '', soTaiKhoan: '', chuTaiKhoan: '' });
 
 	useEffect(() => { loadWalletData(); }, []);
@@ -67,11 +68,11 @@ function ViTien() {
 				<Link to="/quan-ly-phong" className="text-blue-600 hover:underline mb-4 inline-block">
 					<i className="fas fa-arrow-left mr-2"></i> Quay lại quản lý
 				</Link>
-				<h1 className="text-3xl font-extrabold text-gray-800 flex items-center gap-2">
+				<h1 className="text-xl md:text-3xl font-extrabold text-gray-800 flex items-center gap-2 whitespace-nowrap">
 					<i className="fas fa-wallet" style={{ color: '#2563EB' }}></i>
 					Quản lý <span style={{ color: '#2563EB' }}>Ví Tiền Chủ Trọ</span>
 				</h1>
-				<p className="text-gray-500">Quản lý doanh thu và rút tiền cọc</p>
+				<p className="text-sm md:text-base text-gray-500">Quản lý doanh thu và rút tiền cọc</p>
 			</div>
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 				<div className="md:col-span-1">
@@ -87,7 +88,7 @@ function ViTien() {
 							Rút tiền về ngân hàng
 						</button>
 					</div>
-					<div className="bg-blue-50 border border-blue-100 rounded-2xl p-6">
+					<div className="hidden md:block bg-blue-50 border border-blue-100 rounded-2xl p-6">
 						<h3 className="font-bold text-blue-800 mb-3 flex items-center gap-2">
 							<i className="fas fa-info-circle text-blue-500"></i> Thông tin mô hình
 						</h3>
@@ -97,7 +98,23 @@ function ViTien() {
 					</div>
 				</div>
 				<div className="md:col-span-2 space-y-6">
-					<div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+					{/* Mobile Tabs */}
+					<div className="flex md:hidden bg-gray-100 p-1 rounded-2xl mb-4">
+						<button 
+							onClick={() => setActiveSection('history')}
+							className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${activeSection === 'history' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}
+						>
+							Biến động ví
+						</button>
+						<button 
+							onClick={() => setActiveSection('withdrawals')}
+							className={`flex-1 py-2.5 rounded-xl text-xs font-bold transition-all ${activeSection === 'withdrawals' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500'}`}
+						>
+							Lịch sử rút tiền
+						</button>
+					</div>
+
+					<div className={`bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden ${activeSection !== 'history' ? 'hidden md:block' : ''}`}>
 						<div className="p-6 border-b border-gray-50 flex justify-between items-center">
 							<h3 className="font-bold text-gray-800 flex items-center gap-2">
 								<i className="fas fa-exchange-alt text-blue-500"></i> Biến động ví
@@ -118,11 +135,11 @@ function ViTien() {
 									) : (
 										displayedHistory.map(item => (
 											<tr key={item.ID_LichSu} className="hover:bg-gray-50 transition">
-												<td className="px-6 py-4 text-gray-500 whitespace-nowrap">
+												<td className="px-3 md:px-6 py-4 text-gray-500 whitespace-nowrap text-xs md:text-sm">
 													{new Date(item.NgayGiaoDich).toLocaleDateString('vi-VN')}
 												</td>
-												<td className="px-6 py-4 font-medium text-gray-700">{item.NoiDung}</td>
-												<td className={`px-6 py-4 text-right font-bold ${item.LoaiGiaoDich === 'Cộng' ? 'text-green-600' : 'text-red-500'}`}>
+												<td className="px-3 md:px-6 py-4 font-medium text-gray-700 text-[10px] md:text-sm">{item.NoiDung}</td>
+												<td className={`px-3 md:px-6 py-4 text-right font-bold whitespace-nowrap text-xs md:text-sm ${item.LoaiGiaoDich === 'Cộng' ? 'text-green-600' : 'text-red-500'}`}>
 													{item.LoaiGiaoDich === 'Cộng' ? '+' : '-'} {new Intl.NumberFormat('vi-VN').format(item.SoTien)} đ
 												</td>
 											</tr>
@@ -142,7 +159,7 @@ function ViTien() {
 							</div>
 						)}
 					</div>
-					<div className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+					<div className={`bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden ${activeSection !== 'withdrawals' ? 'hidden md:block' : ''}`}>
 						<div className="p-6 border-b border-gray-50 flex justify-between items-center">
 							<h3 className="font-bold text-gray-800 flex items-center gap-2">
 								<i className="fas fa-history text-purple-500"></i> Lịch sử rút tiền

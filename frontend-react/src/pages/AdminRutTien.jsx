@@ -16,6 +16,7 @@ function AdminRutTien() {
 	const [showRejectModal, setShowRejectModal] = useState(false);
 	const [selectedWithdrawal, setSelectedWithdrawal] = useState(null);
 	const [qrModalData, setQrModalData] = useState(null);
+	const [filter, setFilter] = useState('all');
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -182,16 +183,53 @@ function AdminRutTien() {
 		}
 	};
 
+	const counts = useMemo(() => {
+		return {
+			all: withdrawals.length,
+			'Chờ duyệt': withdrawals.filter(w => w.TrangThai === 'Chờ duyệt').length,
+			'Đã duyệt': withdrawals.filter(w => w.TrangThai === 'Đã duyệt').length,
+			'Từ chối': withdrawals.filter(w => w.TrangThai === 'Từ chối').length,
+		};
+	}, [withdrawals]);
+
+	const filteredWithdrawals = useMemo(() => {
+		if (filter === 'all') return withdrawals;
+		return withdrawals.filter(w => w.TrangThai === filter);
+	}, [withdrawals, filter]);
+
 	if (loading) return <div className="text-center py-20"><i className="fas fa-spinner fa-spin text-3xl text-indigo-600"></i></div>;
 	if (error) return <div className="text-center py-20 text-red-500">{error}</div>;
 
 	return (
 		<div className="container mx-auto max-w-6xl px-4 py-8">
-			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
-				<i className="fas fa-money-check-alt" style={{ color: '#4F46E5' }}></i>
-				Quản lý <span style={{ color: '#4F46E5' }}>Yêu Cầu Rút Tiền</span>
-			</h1>
-			<p className="text-gray-500 mb-8">Kiểm duyệt và chuyển khoản cho các chủ trọ yêu cầu thanh toán</p>
+			<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+				<div>
+					<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
+						<i className="fas fa-money-check-alt" style={{ color: '#4F46E5' }}></i>
+						Quản lý <span style={{ color: '#4F46E5' }}>Yêu Cầu Rút Tiền</span>
+					</h1>
+					<p className="text-gray-500 font-medium italic">Kiểm duyệt và chuyển khoản cho các chủ trọ yêu cầu thanh toán</p>
+				</div>
+				<div className="flex bg-white p-1.5 rounded-2xl shadow-sm border border-gray-100 flex-wrap gap-2">
+					{[
+						{ key: 'all', label: 'Tất cả' },
+						{ key: 'Chờ duyệt', label: 'Chờ duyệt' },
+						{ key: 'Đã duyệt', label: 'Đã duyệt' },
+						{ key: 'Từ chối', label: 'Từ chối' }
+					].map((f) => (
+						<button
+							key={f.key}
+							onClick={() => setFilter(f.key)}
+							className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${filter === f.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'text-gray-500 hover:bg-gray-50'}`}
+						>
+							{f.label}
+							<span className={`px-2 py-0.5 rounded-lg text-[10px] ${filter === f.key ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>
+								{counts[f.key] || 0}
+							</span>
+						</button>
+					))}
+				</div>
+			</div>
 
 			<div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
 				<div className="overflow-x-auto">
@@ -208,11 +246,11 @@ function AdminRutTien() {
 							</tr>
 						</thead>
 						<tbody className="divide-y divide-gray-100">
-							{withdrawals.length === 0 ? (
+							{filteredWithdrawals.length === 0 ? (
 								<tr>
 									<td colSpan="7" className="p-8 text-center text-gray-500">Chưa có yêu cầu rút tiền nào.</td>
 								</tr>
-							) : withdrawals.map(w => {
+							) : filteredWithdrawals.map(w => {
 								const qrData = getQrData(w);
 
 								return (
