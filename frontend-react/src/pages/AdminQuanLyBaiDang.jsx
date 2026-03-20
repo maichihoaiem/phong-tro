@@ -160,13 +160,13 @@ function AdminQuanLyBaiDang() {
 										<p className="text-xs text-gray-500">{post.EmailChuTro || ''}</p>
 									</td>
 									<td className="p-4 text-sm font-bold text-blue-700">{new Intl.NumberFormat('vi-VN').format(post.Gia || 0)} đ</td>
-									<td className="p-4">
-										{post.TrangThai === 'Chờ duyệt' && <span className="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-xs font-bold">Chờ duyệt</span>}
-										{post.TrangThai === 'Đã ẩn' && <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold">Đã ẩn</span>}
-										{post.TrangThai === 'Đã gỡ' && <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold">Đã gỡ</span>}
-										{(!post.TrangThai || post.TrangThai === 'Còn trống' || post.TrangThai === 'Đang trống') && <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Đã duyệt</span>}
+									<td className="p-4 whitespace-nowrap">
+										{post.TrangThai === 'Chờ duyệt' && <span className="px-3 py-1 bg-sky-100 text-sky-700 rounded-full text-xs font-bold whitespace-nowrap">Chờ duyệt</span>}
+										{post.TrangThai === 'Đã ẩn' && <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold whitespace-nowrap">Đã ẩn</span>}
+										{post.TrangThai === 'Đã gỡ' && <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold whitespace-nowrap">Đã gỡ</span>}
+										{(!post.TrangThai || post.TrangThai === 'Còn trống' || post.TrangThai === 'Đang trống') && <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold whitespace-nowrap">Đã duyệt</span>}
 										{post.TrangThai && !['Chờ duyệt', 'Đã ẩn', 'Đã gỡ', 'Còn trống', 'Đang trống'].includes(post.TrangThai) && (
-											<span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold">{post.TrangThai}</span>
+											<span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-bold whitespace-nowrap">{post.TrangThai}</span>
 										)}
 									</td>
 									<td className="p-4 text-center">

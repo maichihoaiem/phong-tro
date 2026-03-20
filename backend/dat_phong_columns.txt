@@ -1,0 +1,56 @@
+[
+  {
+    "COLUMN_NAME": "ID_DatPhong"
+  },
+  {
+    "COLUMN_NAME": "ID_Phong"
+  },
+  {
+    "COLUMN_NAME": "ID_TaiKhoan"
+  },
+  {
+    "COLUMN_NAME": "NgayThue"
+  },
+  {
+    "COLUMN_NAME": "GhiChu"
+  },
+  {
+    "COLUMN_NAME": "TrangThai"
+  },
+  {
+    "COLUMN_NAME": "NgayDat"
+  },
+  {
+    "COLUMN_NAME": "MaGiaoDich"
+  },
+  {
+    "COLUMN_NAME": "LoaiDat"
+  },
+  {
+    "COLUMN_NAME": "SoTien"
+  },
+  {
+    "COLUMN_NAME": "TrangThaiThanhToan"
+  },
+  {
+    "COLUMN_NAME": "AnhHoanTien"
+  },
+  {
+    "COLUMN_NAME": "NgayHoanTien"
+  },
+  {
+    "COLUMN_NAME": "NoiDungKhieuNai"
+  },
+  {
+    "COLUMN_NAME": "NgayKhieuNai"
+  },
+  {
+    "COLUMN_NAME": "STK_NguoiThue"
+  },
+  {
+    "COLUMN_NAME": "NganHang_NguoiThue"
+  },
+  {
+    "COLUMN_NAME": "ChuTK_NguoiThue"
+  }
+]
