@@ -20,6 +20,7 @@ function AdminQuanLyTaiKhoan() {
 	const [viewReportRoom, setViewReportRoom] = useState(null);
 	const [roomImages, setRoomImages] = useState([]);
 	const [loadingRoomImages, setLoadingRoomImages] = useState(false);
+	const [zoomedImage, setZoomedImage] = useState(null); // Để phóng to ảnh
 
 	// Modals
 	const [viewUser, setViewUser] = useState(null);
@@ -116,10 +117,11 @@ function AdminQuanLyTaiKhoan() {
 		setViewReportRoom(report);
 		setLoadingRoomImages(true);
 		try {
-			// Lấy danh sách ảnh của phòng từ API sẵn có
-			const res = await axios.get(`http://localhost:5000/api/phòng-trọ/images/${report.ID_Phong}`);
+			// Sửa API: Lấy chi tiết phòng bao gồm danh sách hình ảnh
+			const res = await axios.get(`/api/phong-tro/${report.ID_Phong}`);
 			if (res.data.success) {
-				setRoomImages(res.data.images || []);
+				// Cấu trúc dữ liệu mới: res.data.data.hinhAnh
+				setRoomImages(res.data.data.hinhAnh || []);
 			}
 		} catch (err) {
 			console.error("Lỗi lấy ảnh phòng:", err);
@@ -390,10 +392,15 @@ function AdminQuanLyTaiKhoan() {
 											<div className="w-6 h-6 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 text-[10px]"><i className="fas fa-user-tie"></i></div>
 											<p className="text-xs font-bold text-gray-700 truncate">{report.TenChuTro}</p>
 										</div>
-										<div className="pt-2">
+										<div className="pt-2 flex gap-3">
+											{report.AnhPhong && (
+												<div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-gray-100 shadow-sm">
+													<img src={report.AnhPhong} className="w-full h-full object-cover" alt="Ảnh phòng" />
+												</div>
+											)}
 											<button 
 												onClick={() => handleViewRoom(report)}
-												className="w-full py-2 rounded-xl bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-wider hover:bg-blue-100 transition border border-blue-100 flex items-center justify-center gap-2"
+												className="flex-1 py-2 rounded-xl bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-wider hover:bg-blue-100 transition border border-blue-100 flex items-center justify-center gap-2"
 											>
 												<i className="fas fa-eye"></i> Xem phòng
 											</button>
@@ -524,8 +531,12 @@ function AdminQuanLyTaiKhoan() {
 										</div>
 									) : roomImages.length > 0 ? (
 										roomImages.map((img, idx) => (
-											<div key={idx} className="aspect-square rounded-2xl overflow-hidden border-2 border-blue-50 shadow-sm">
-												<img src={img.DuongDanAnh} className="w-full h-full object-cover" />
+											<div 
+												key={idx} 
+												className="aspect-[4/3] rounded-2xl overflow-hidden border-2 border-blue-50 shadow-sm cursor-zoom-in hover:scale-[1.02] transition-transform duration-200"
+												onClick={() => setZoomedImage(img.DuongDanAnh)}
+											>
+												<img src={img.DuongDanAnh} className="w-full h-full object-cover" alt="Ảnh phòng" />
 											</div>
 										))
 									) : (
@@ -602,6 +613,25 @@ function AdminQuanLyTaiKhoan() {
 								<button onClick={submitLock} className="flex-1 py-3 bg-red-600 text-white rounded-xl font-bold">Xác nhận</button>
 							</div>
 						</div>
+					</div>
+				</div>
+			)}
+
+			{/* Zoomed Image Lightbox */}
+			{zoomedImage && (
+				<div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/95 p-4" onClick={() => setZoomedImage(null)}>
+					<div className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center pointer-events-none">
+						<img 
+							src={zoomedImage} 
+							className="max-w-full max-h-full object-contain pointer-events-auto shadow-2xl animate-zoom-in" 
+							style={{ borderRadius: '1rem' }}
+						/>
+						<button 
+							onClick={() => setZoomedImage(null)}
+							className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all pointer-events-auto"
+						>
+							<i className="fas fa-times text-xl"></i>
+						</button>
 					</div>
 				</div>
 			)}
