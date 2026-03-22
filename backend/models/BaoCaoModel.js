@@ -37,7 +37,11 @@ const BaoCaoModel = {
             SELECT bc.*, 
                    tk1.HoTen AS TenNguoiBaoCao, 
                    tk2.HoTen AS TenChuTro,
-                   p.TieuDe AS TenPhong
+                   p.TieuDe AS TenPhong,
+                   p.Gia,
+                   p.DienTich,
+                   p.DiaChiChiTiet,
+                   (SELECT TOP 1 DuongDanAnh FROM HinhAnhPhong WHERE ID_Phong = p.ID_Phong) AS AnhPhong
             FROM BaoCao bc
             LEFT JOIN TaiKhoan tk1 ON bc.ID_NguoiBaoCao = tk1.ID_TaiKhoan
             LEFT JOIN TaiKhoan tk2 ON bc.ID_ChuTro = tk2.ID_TaiKhoan

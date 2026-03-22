@@ -17,6 +17,9 @@ function AdminQuanLyTaiKhoan() {
 	const [handleLoading, setHandleLoading] = useState(false);
 	const [aiAnalysis, setAiAnalysis] = useState({});
 	const [aiLoading, setAiLoading] = useState({});
+	const [viewReportRoom, setViewReportRoom] = useState(null);
+	const [roomImages, setRoomImages] = useState([]);
+	const [loadingRoomImages, setLoadingRoomImages] = useState(false);
 
 	// Modals
 	const [viewUser, setViewUser] = useState(null);
@@ -100,11 +103,28 @@ function AdminQuanLyTaiKhoan() {
 				showToast(res.data.message);
 				fetchReports();
 				setSelectedReport(null);
+				setViewReportRoom(null); // Close comparison modal if open
 			}
 		} catch (err) {
 			showToast('Lỗi khi xử lý: ' + (err.response?.data?.message || err.message), 'error');
 		} finally {
 			setHandleLoading(false);
+		}
+	};
+
+	const handleViewRoom = async (report) => {
+		setViewReportRoom(report);
+		setLoadingRoomImages(true);
+		try {
+			// Lấy danh sách ảnh của phòng từ API sẵn có
+			const res = await axios.get(`http://localhost:5000/api/phòng-trọ/images/${report.ID_Phong}`);
+			if (res.data.success) {
+				setRoomImages(res.data.images || []);
+			}
+		} catch (err) {
+			console.error("Lỗi lấy ảnh phòng:", err);
+		} finally {
+			setLoadingRoomImages(false);
 		}
 	};
 
@@ -370,6 +390,14 @@ function AdminQuanLyTaiKhoan() {
 											<div className="w-6 h-6 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 text-[10px]"><i className="fas fa-user-tie"></i></div>
 											<p className="text-xs font-bold text-gray-700 truncate">{report.TenChuTro}</p>
 										</div>
+										<div className="pt-2">
+											<button 
+												onClick={() => handleViewRoom(report)}
+												className="w-full py-2 rounded-xl bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-wider hover:bg-blue-100 transition border border-blue-100 flex items-center justify-center gap-2"
+											>
+												<i className="fas fa-eye"></i> Xem phòng
+											</button>
+										</div>
 									</div>
 									{report.HinhAnh && (
 										<div className="mb-4 rounded-xl overflow-hidden h-24 bg-gray-100 border border-gray-50 cursor-pointer" onClick={() => setSelectedReport(report)}>
@@ -410,14 +438,125 @@ function AdminQuanLyTaiKhoan() {
 
 			{/* ======= MODALS (SAME AS BEFORE + IMAGE PREVIEW) ======= */}
 			{selectedReport && (
-				<div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90 p-4" onClick={() => setSelectedReport(null)}>
-					<div className="max-w-xl w-full bg-white rounded-3xl overflow-hidden relative shadow-2xl" onClick={e => e.stopPropagation()}>
-						<img src={selectedReport.HinhAnh} className="w-full h-96 object-contain bg-black" />
-						<div className="p-6">
-							<h4 className="font-bold text-lg mb-2">{selectedReport.LyDo}</h4>
-							<p className="text-sm text-gray-500 italic">"{selectedReport.MoTa}"</p>
+				<div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 p-4" onClick={() => setSelectedReport(null)}>
+					<div className="max-w-4xl w-full bg-white rounded-3xl overflow-hidden relative shadow-2xl flex flex-col md:flex-row h-[80vh]" onClick={e => e.stopPropagation()}>
+						<div className="flex-1 bg-black flex items-center justify-center overflow-hidden">
+							<img src={selectedReport.HinhAnh} className="w-full h-full object-contain" />
 						</div>
-						<button onClick={() => setSelectedReport(null)} className="absolute top-4 right-4 text-white text-xl"><i className="fas fa-times"></i></button>
+						<div className="w-full md:w-80 p-8 flex flex-col justify-between border-l border-gray-100">
+							<div>
+								<span className="text-[10px] font-black bg-red-100 text-red-600 px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">Bằng chứng báo cáo</span>
+								<h4 className="font-black text-xl text-gray-800 mb-3">{selectedReport.LyDo}</h4>
+								<p className="text-sm text-gray-500 italic p-4 bg-gray-50 rounded-2xl border border-gray-100 leading-relaxed mb-6">"{selectedReport.MoTa}"</p>
+								
+								<div className="space-y-3">
+									<div className="flex items-center gap-3">
+										<div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500"><i className="fas fa-home"></i></div>
+										<div>
+											<p className="text-[10px] text-gray-400 font-bold uppercase">Phòng bị báo cáo</p>
+											<p className="text-xs font-black text-gray-700">{selectedReport.TenPhong}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<button onClick={() => setSelectedReport(null)} className="w-full py-4 bg-gray-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-800 transition">Đóng xem ảnh</button>
+						</div>
+						<button onClick={() => setSelectedReport(null)} className="absolute top-4 right-4 text-white md:text-gray-400"><i className="fas fa-times"></i></button>
+					</div>
+				</div>
+			)}
+
+			{/* Modal So sánh chi tiết phòng */}
+			{viewReportRoom && (
+				<div className="fixed inset-0 z-[150] flex items-center justify-center bg-black/60 backdrop-blur-md p-4" onClick={() => setViewReportRoom(null)}>
+					<div className="max-w-6xl w-full bg-white rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col h-[90vh]" onClick={e => e.stopPropagation()}>
+						<div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+							<div>
+								<h3 className="text-2xl font-black text-gray-800">{viewReportRoom.TenPhong}</h3>
+								<div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+									<span><i className="fas fa-money-bill-wave mr-1 text-green-500"></i> {Number(viewReportRoom.Gia).toLocaleString()}đ</span>
+									<span><i className="fas fa-expand-alt mr-1 text-blue-500"></i> {viewReportRoom.DienTich}m²</span>
+									<span className="truncate max-w-xs"><i className="fas fa-map-marker-alt mr-1 text-red-500"></i> {viewReportRoom.DiaChiChiTiet}</span>
+								</div>
+							</div>
+							<button onClick={() => setViewReportRoom(null)} className="w-12 h-12 rounded-2xl bg-white shadow-sm border border-gray-100 text-gray-400 flex items-center justify-center hover:text-red-500 transition-all">
+								<i className="fas fa-times text-xl"></i>
+							</button>
+						</div>
+
+						<div className="flex-1 overflow-y-auto p-8 bg-white grid grid-cols-1 lg:grid-cols-2 gap-10">
+							{/* Bên trái: Ảnh báo cáo */}
+							<div>
+								<div className="flex items-center justify-between mb-4">
+									<h4 className="text-sm font-black text-red-600 uppercase tracking-widest flex items-center gap-2">
+										<i className="fas fa-exclamation-triangle"></i> Ảnh từ báo cáo
+									</h4>
+									<span className="text-[10px] text-gray-400 font-bold italic">Bằng chứng người dùng gửi</span>
+								</div>
+								<div className="rounded-3xl overflow-hidden border-4 border-red-50 shadow-xl bg-gray-100 h-[400px]">
+									{viewReportRoom.HinhAnh ? (
+										<img src={viewReportRoom.HinhAnh} className="w-full h-full object-cover" />
+									) : (
+										<div className="w-full h-full flex flex-col items-center justify-center text-gray-300">
+											<i className="fas fa-image text-5xl mb-3"></i>
+											<p className="font-bold">Không có ảnh bằng chứng</p>
+										</div>
+									)}
+								</div>
+								<div className="mt-4 p-5 rounded-2xl bg-red-50 border border-red-100">
+									<p className="text-[10px] font-black text-red-800 uppercase mb-2">Nội dung khiếu nại:</p>
+									<p className="text-sm text-red-700 italic">"{viewReportRoom.MoTa || 'Không có mô tả chi tiết'}"</p>
+								</div>
+							</div>
+
+							{/* Bên phải: Ảnh gốc bài đăng */}
+							<div>
+								<div className="flex items-center justify-between mb-4">
+									<h4 className="text-sm font-black text-blue-600 uppercase tracking-widest flex items-center gap-2">
+										<i className="fas fa-images"></i> Ảnh gốc bài đăng
+									</h4>
+									<span className="text-[10px] text-gray-400 font-bold italic">Hình ảnh chủ nhà đăng tải</span>
+								</div>
+								<div className="grid grid-cols-2 gap-3 h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+									{loadingRoomImages ? (
+										<div className="col-span-2 h-full flex items-center justify-center text-blue-500">
+											<i className="fas fa-spinner fa-spin text-3xl"></i>
+										</div>
+									) : roomImages.length > 0 ? (
+										roomImages.map((img, idx) => (
+											<div key={idx} className="aspect-square rounded-2xl overflow-hidden border-2 border-blue-50 shadow-sm">
+												<img src={img.DuongDanAnh} className="w-full h-full object-cover" />
+											</div>
+										))
+									) : (
+										<div className="col-span-2 h-full flex flex-col items-center justify-center text-gray-300 border-2 border-dashed border-gray-100 rounded-3xl">
+											<i className="fas fa-images text-4xl mb-3"></i>
+											<p className="font-bold">Không tìm thấy ảnh bài đăng</p>
+										</div>
+									)}
+								</div>
+								<div className="mt-4 p-5 rounded-2xl bg-blue-50 border border-blue-100">
+									<p className="text-[10px] font-black text-blue-800 uppercase mb-2">Thông tin chủ trọ:</p>
+									<p className="text-sm text-blue-700 font-bold">{viewReportRoom.TenChuTro}</p>
+									<p className="text-xs text-blue-600">ID Phòng: #{viewReportRoom.ID_Phong}</p>
+								</div>
+							</div>
+						</div>
+
+						<div className="p-8 bg-gray-50 border-t border-gray-100 flex gap-4">
+							<button 
+								onClick={() => handleReportAction(viewReportRoom.ID_BaoCao, 'reject')} 
+								className="flex-1 py-4 rounded-2xl bg-white border border-gray-200 text-gray-500 font-black text-xs uppercase tracking-widest hover:bg-gray-100 transition shadow-sm"
+							>
+								Bỏ qua báo cáo
+							</button>
+							<button 
+								onClick={() => handleReportAction(viewReportRoom.ID_BaoCao, 'approve')} 
+								className="flex-1 py-4 rounded-2xl bg-red-600 text-white font-black text-xs uppercase tracking-widest hover:bg-red-700 transition shadow-xl shadow-red-200"
+							>
+								Xác nhận Phạt
+							</button>
+						</div>
 					</div>
 				</div>
 			)}
