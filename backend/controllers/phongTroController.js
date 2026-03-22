@@ -34,7 +34,7 @@ const phongTroController = {
             const id = req.params.id;
             console.log(`[getById] Fetching data for room ID: ${id}`);
             const phong = await PhongTroModel.getById(id);
-            
+
             if (!phong) {
                 console.log(`[getById] Room not found: ${id}`);
                 return res.status(404).json({ success: false, message: "Khong tim thay phong!" });

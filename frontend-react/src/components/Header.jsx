@@ -13,6 +13,7 @@ function Header({ user, onLogout }) {
     const [hasPendingRefunds, setHasPendingRefunds] = useState(false);
     const [hasPendingWithdrawals, setHasPendingWithdrawals] = useState(false);
     const [hasPendingRoomPosts, setHasPendingRoomPosts] = useState(false);
+    const [hasPendingReports, setHasPendingReports] = useState(false);
 
     const checkNotifications = async () => {
         if (!user) {
@@ -42,6 +43,8 @@ function Header({ user, onLogout }) {
                 if (resWithdraw.data.success) setHasPendingWithdrawals(resWithdraw.data.data.some(w => w.TrangThai === 'Chờ duyệt'));
                 const resRoomPosts = await axios.get('/api/admin/room-posts', { withCredentials: true });
                 if (resRoomPosts.data.success) setHasPendingRoomPosts(resRoomPosts.data.data.some(p => p.TrangThai === 'Chờ duyệt'));
+                const resReports = await axios.get('/api/bao-cao/all', { withCredentials: true });
+                if (resReports.data.success) setHasPendingReports(resReports.data.data.some(r => r.TrangThai === 'Chờ duyệt'));
             }
         } catch (err) { }
     };
@@ -146,7 +149,7 @@ function Header({ user, onLogout }) {
                                 { to: '/admin/hoan-tien', label: 'Hoàn tiền', icon: 'fa-shield-alt', dot: hasPendingRefunds, color: '#7C3AED' },
                                 { to: '/admin/rut-tien', label: 'Rút tiền', icon: 'fa-money-check-alt', dot: hasPendingWithdrawals, color: '#0891B2' },
                                 { to: '/admin/quan-ly-bai-dang', label: 'Bài đăng', icon: 'fa-list-check', dot: hasPendingRoomPosts, color: '#D97706' },
-                                { to: '/admin/quan-ly-tai-khoan', label: 'Tài khoản', icon: 'fa-users', dot: false, color: '#EF4444' },
+                                { to: '/admin/quan-ly-tai-khoan', label: 'Tài khoản', icon: 'fa-users-cog', dot: hasPendingReports, color: '#EF4444' },
                                 { to: '/admin/thong-ke', label: 'Thống kê', icon: 'fa-chart-bar', dot: false, color: '#2563EB' },
                                 { to: '/admin/vi-chu-tro', label: 'Ví Chủ trọ', icon: 'fa-piggy-bank', dot: false, color: '#059669' },
                             ].map(item => (
@@ -371,8 +374,7 @@ function Header({ user, onLogout }) {
                                 { to: '/admin/hoan-tien', label: 'Quản lý hoàn tiền', dot: hasPendingRefunds },
                                 { to: '/admin/rut-tien', label: 'Duyệt rút tiền', dot: hasPendingWithdrawals },
                                 { to: '/admin/quan-ly-bai-dang', label: 'Quản lý bài đăng', dot: hasPendingRoomPosts },
-                                { to: '/admin/quan-ly-tai-khoan', label: 'Quản lý tài khoản', dot: false },
-                                { to: '/admin/thong-ke', label: 'Thống kê doanh thu', dot: false },
+                                { to: '/admin/quan-ly-tai-khoan', label: 'Quản lý tài khoản & vi phạm', dot: hasPendingReports },
                                 { to: '/admin/vi-chu-tro', label: 'Quản lý Ví Chủ trọ', dot: false },
                             ].map(item => (
                                 <Link key={item.to} to={item.to} onClick={() => setIsMobileMenuOpen(false)}

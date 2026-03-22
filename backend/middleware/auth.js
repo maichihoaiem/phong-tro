@@ -1,14 +1,29 @@
 // =============================================
 // Middleware xac thuc & phan quyen
 // =============================================
+const TaiKhoanModel = require("../models/TaiKhoanModel");
 
 // Kiem tra da dang nhap chua
-function requireLogin(req, res, next) {
+async function requireLogin(req, res, next) {
     if (!req.session || !req.session.user) {
-        console.log(`[Auth] requireLogin FAILED: Missing session user. Origin: ${req.get('Origin')}`);
         return res.status(401).json({ success: false, message: "Bạn cần đăng nhập!" });
     }
-    console.log(`[Auth] requireLogin SUCCESS: User ID ${req.session.user.ID_TaiKhoan}`);
+
+    // Kiểm tra trạng thái tài khoản TRỰC TIẾP từ DB để đảm bảo tính thời gian thực (Strict Lock)
+    try {
+        const user = await TaiKhoanModel.getById(req.session.user.ID_TaiKhoan);
+        if (!user || user.TrangThai === 'locked' || (user.TrangThai && user.TrangThai.includes('khóa'))) {
+            req.session.destroy(); // Hủy session nếu bị khóa
+            return res.status(403).json({ 
+                success: false, 
+                message: "Tài khoản của bạn vừa bị khóa do vi phạm chính sách!",
+                reason: user?.GhiChuKhoa || "Vui lòng liên hệ Admin."
+            });
+        }
+    } catch (err) {
+        console.error("[Middleware Auth] Error:", err);
+    }
+
     next();
 }
 

@@ -181,8 +181,12 @@ const authController = {
                 return res.status(401).json({ success: false, message: "Email không tồn tại!" });
             }
 
-            if (user.TrangThai === 'locked') {
-                return res.status(403).json({ success: false, message: "Tài khoản của bạn đã bị khóa!", reason: user.GhiChuKhoa || "Tài khoản bị khóa bởi quản trị viên." });
+            if (user.TrangThai === 'locked' || (user.TrangThai && user.TrangThai.includes('khóa'))) {
+                return res.status(403).json({ 
+                    success: false, 
+                    message: "Tài khoản của bạn đã bị khóa!", 
+                    reason: user.GhiChuKhoa || "Tài khoản bị báo cáo quá nhiều lần từ nhiều người." 
+                });
             }
 
             if (user.MatKhau !== matKhau) {

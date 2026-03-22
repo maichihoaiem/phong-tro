@@ -102,6 +102,7 @@ app.use("/api/yeu-thich", require("./routes/yeuThichRoutes"));
 app.use("/api/wallet", require("./routes/walletRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/ai", require("./routes/aiRoutes"));
+app.use("/api/bao-cao", require("./routes/baoCaoRoutes"));
 
 // API Ping de kiem tra server
 app.get("/api/ping", (req, res) => {

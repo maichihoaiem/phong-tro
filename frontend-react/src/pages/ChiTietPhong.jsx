@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import RoomCard from '../components/RoomCard';
 import BlogPreview from '../components/BlogPreview';
+import ReportModal from '../components/ReportModal';
 
 function RoomDetailPage({ user }) {
     const { id } = useParams();
@@ -18,6 +19,14 @@ function RoomDetailPage({ user }) {
     const [bookingLoading, setBookingLoading] = useState(false);
     const [relatedRooms, setRelatedRooms] = useState([]);
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+    const [showReportModal, setShowReportModal] = useState(false);
+    const [reportLoading, setReportLoading] = useState(false);
+    const [toast, setToast] = useState(null); // { msg, type }
+
+    const showToast = (msg, type = 'success') => {
+        setToast({ msg, type });
+        setTimeout(() => setToast(null), 3000);
+    };
 
     useEffect(() => {
         loadRoomDetail();
@@ -85,7 +94,7 @@ function RoomDetailPage({ user }) {
 
     const toggleFavorite = async () => {
         if (!user) {
-            alert('Vui lòng đăng nhập để lưu yêu thích!');
+            showToast('Vui lòng đăng nhập để lưu yêu thích!', 'error');
             return;
         }
         try {
@@ -102,7 +111,7 @@ function RoomDetailPage({ user }) {
 
     const handleBooking = async () => {
         if (!user) {
-            alert('Vui lòng đăng nhập để đặt phòng!');
+            showToast('Vui lòng đăng nhập để đặt phòng!', 'error');
             return;
         }
         setBookingLoading(true);
@@ -123,7 +132,7 @@ function RoomDetailPage({ user }) {
             console.error('Loi dat phong:', err);
             setBookingStatus('error');
             const msg = err.response?.data?.message || 'Có lỗi xảy ra khi đặt phòng.';
-            alert(`Lỗi: ${msg}`);
+            showToast(`Lỗi: ${msg}`, 'error');
         } finally {
             setBookingLoading(false);
         }
@@ -138,7 +147,49 @@ function RoomDetailPage({ user }) {
             // Cap nhat thanh cong ngay lap tuc cho UX tot hon
             setBookingStatus('success');
         } catch (err) {
-            alert('Lỗi giả lập thanh toán');
+            showToast('Lỗi giả lập thanh toán', 'error');
+        }
+    };
+
+    const handleReport = async (reportData) => {
+        if (!user) {
+            showToast('Vui lòng đăng nhập để báo cáo!', 'error');
+            return;
+        }
+        
+        setReportLoading(true);
+        try {
+            let hinhAnh = '';
+            // 1. Upload ảnh nếu có
+            if (reportData.image) {
+                const formData = new FormData();
+                formData.append('images', reportData.image);
+                const uploadRes = await axios.post('/api/upload', formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                if (uploadRes.data.success) {
+                    hinhAnh = uploadRes.data.urls[0];
+                }
+            }
+
+            // 2. Gửi báo cáo
+            const res = await axios.post('/api/bao-cao/send', {
+                idPhong: id,
+                idChuTro: room.ID_TaiKhoan,
+                lyDo: reportData.reason,
+                moTa: reportData.description,
+                hinhAnh: hinhAnh
+            }, { withCredentials: true });
+
+            if (res.data.success) {
+                showToast(res.data.message);
+                setShowReportModal(false);
+            }
+        } catch (err) {
+            console.error('Loi khi bao cao:', err);
+            showToast('Có lỗi xảy ra khi gửi báo cáo: ' + (err.response?.data?.message || err.message), 'error');
+        } finally {
+            setReportLoading(false);
         }
     };
 
@@ -174,6 +225,15 @@ function RoomDetailPage({ user }) {
 
     return (
         <div className="flex flex-col font-sans">
+            {/* Toast Notification */}
+            {toast && (
+                <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-[200] px-6 py-4 rounded-2xl shadow-2xl font-bold text-sm flex items-center gap-3 animate-fade-up ${
+                    toast.type === 'error' ? 'bg-red-600 text-white' : 'bg-emerald-600 text-white'
+                }`} style={{ minWidth: 'max-content' }}>
+                    <i className={`fas ${toast.type === 'error' ? 'fa-times-circle' : 'fa-check-circle'} text-lg`}></i>
+                    {toast.msg}
+                </div>
+            )}
             <div className="container mx-auto max-w-5xl px-4 pt-8 pb-2 flex-grow">
                 {/* Breadcrumb */}
                 <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
@@ -235,12 +295,12 @@ function RoomDetailPage({ user }) {
                             <div className="flex flex-wrap gap-4 mb-4">
                                 <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-xl">
                                     <i className="fas fa-money-bill-wave text-blue-600"></i>
-                                     <div className="flex items-baseline gap-2 whitespace-nowrap">
-                                         <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#2563EB', letterSpacing: '-0.5px' }} className="md:text-[2rem]">
-                                             {room.Gia ? new Intl.NumberFormat('vi-VN').format(room.Gia) + 'đ' : 'Liên hệ'}
-                                         </span>
-                                         <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#64748B' }} className="md:text-base">/ tháng</span>
-                                     </div>
+                                    <div className="flex items-baseline gap-2 whitespace-nowrap">
+                                        <span style={{ fontSize: '1.5rem', fontWeight: 900, color: '#2563EB', letterSpacing: '-0.5px' }} className="md:text-[2rem]">
+                                            {room.Gia ? new Intl.NumberFormat('vi-VN').format(room.Gia) + 'đ' : 'Liên hệ'}
+                                        </span>
+                                        <span style={{ fontSize: '0.875rem', fontWeight: 600, color: '#64748B' }} className="md:text-base">/ tháng</span>
+                                    </div>
                                 </div>
                                 <div className="flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-xl text-sm">
                                     <i className="fas fa-vector-square text-blue-400"></i>
@@ -383,16 +443,16 @@ function RoomDetailPage({ user }) {
                                         </p>
                                     )) : 'Chưa có mô tả.'}
                                 </div>
-                                
+
                                 {/* Gradient Overlay khi thu gọn trên mobile */}
                                 {!isDescriptionExpanded && (
                                     <div className="md:hidden absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
                                 )}
                             </div>
-                            
+
                             {/* Nút Xem thêm / Thu lại (Chỉ hiện trên mobile) */}
                             <div className="md:hidden mt-4 text-center">
-                                <button 
+                                <button
                                     onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
                                     className="px-6 py-2 rounded-full border border-blue-200 text-blue-600 font-bold text-sm bg-blue-50 hover:bg-blue-100 transition-all flex items-center justify-center gap-2 mx-auto"
                                 >
@@ -517,13 +577,21 @@ function RoomDetailPage({ user }) {
 
                             <button
                                 onClick={toggleFavorite}
-                                className={`w-full py-3 rounded-xl font-semibold transition border-2 flex items-center justify-center gap-2 ${isFavorited
+                                className={`w-full py-3 rounded-xl font-semibold transition border-2 flex items-center justify-center gap-2 mb-3 ${isFavorited
                                     ? 'bg-red-50 border-red-300 text-red-500 hover:bg-red-100'
                                     : 'bg-white border-gray-200 text-gray-600 hover:border-red-300 hover:text-red-500'
                                     }`}
                             >
                                 <i className={`fas fa-heart ${isFavorited ? 'text-red-500' : ''}`}></i>
                                 {isFavorited ? 'Đã yêu thích' : 'Lưu yêu thích'}
+                            </button>
+
+                            <button
+                                onClick={() => setShowReportModal(true)}
+                                className="w-full py-3 rounded-xl font-bold bg-gray-50 text-gray-400 hover:bg-orange-50 hover:text-orange-500 transition-all border border-gray-100 flex items-center justify-center gap-2 group"
+                            >
+                                <i className="fas fa-flag group-hover:animate-bounce"></i>
+                                Báo cáo bài đăng
                             </button>
                         </div>
                     </div>
@@ -635,6 +703,14 @@ function RoomDetailPage({ user }) {
                         </div>
                     </div>
                 )}
+
+                {/* Modal Báo cáo */}
+                <ReportModal 
+                    isOpen={showReportModal} 
+                    onClose={() => setShowReportModal(false)}
+                    onSubmit={handleReport}
+                    loading={reportLoading}
+                />
 
                 {/* Phòng cùng khu vực */}
                 {relatedRooms.length > 0 && (

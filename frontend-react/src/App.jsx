@@ -135,8 +135,8 @@ function App() {
         </div>
 
         <Footer />
-        {user?.ID_VaiTro !== 1 && <AIChatbot />}
-      </div>
+        <AIChatbot />
+    </div>
     </BrowserRouter>
   )
 }

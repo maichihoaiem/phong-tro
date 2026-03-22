@@ -1,5 +1,8 @@
 const Groq = require("groq-sdk");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const PhongTroModel = require("../models/PhongTroModel");
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 let groq;
 const MAX_HISTORY_MESSAGES = 30;
@@ -158,6 +161,54 @@ const extractLocationConstraint = (message = "", rooms = [], fallbackLocation = 
 };
 
 const aiController = {
+    analyzeReport: async (req, res) => {
+        try {
+            const { reason, description, imageUrl, roomTitle, hostName } = req.body;
+
+            if (!process.env.GROQ_API_KEY) {
+                return res.status(500).json({ success: false, message: "GROQ_API_KEY chưa được cấu hình." });
+            }
+
+            if (!groq) {
+                groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+            }
+
+            const prompt = `Bạn là một chuyên gia quản lý sàn giao dịch bất động sản chuyên nghiệp.
+Hãy phân tích báo cáo vi phạm sau đây và đưa ra đề xuất cho Admin:
+- Lý do báo cáo: ${reason}
+- Mô tả từ người dùng: ${description || "Không có mô tả"}
+- Bài đăng bị báo cáo: ${roomTitle}
+- Chủ nhà: ${hostName}
+${imageUrl ? ` - Ảnh minh chứng (link): ${imageUrl}` : ""}
+
+Yêu cầu:
+1. Đưa ra Quyết định: "DUYỆT PHẠT" (nếu vi phạm rõ ràng hoặc lý do hợp lý) hoặc "BỎ QUA" (nếu thiếu bằng chứng hoặc mô tả không rõ ràng).
+2. Giải thích lý do ngắn gọn (tối đa 2 câu).
+3. Đề xuất mức độ ưu tiên xử lý (Thấp, Trung bình, Cao).
+
+Luôn luôn trả về kết quả dưới định dạng JSON duy nhất như sau, không được thêm văn bản thừa:
+{
+  "decision": "DUYỆT PHẠT" | "BỎ QUA",
+  "reasoning": "...",
+  "priority": "..."
+}`;
+
+            const response = await groq.chat.completions.create({
+                messages: [{ role: "user", content: prompt }],
+                model: "llama-3.3-70b-versatile",
+                temperature: 0.5,
+                max_tokens: 500,
+                response_format: { type: "json_object" }
+            });
+
+            const aiData = JSON.parse(response.choices[0].message.content);
+            res.json({ success: true, aiData });
+        } catch (error) {
+            console.error("Groq Analyze Error:", error);
+            res.status(500).json({ success: false, error: error.message });
+        }
+    },
+
     chat: async (req, res) => {
         try {
             console.log("📨 [AI Chat] Request received:", req.body.message);
