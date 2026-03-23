@@ -11,7 +11,7 @@ function Blog() {
                 <meta name="description" content="Bài viết chia sẻ kinh nghiệm tìm phòng trọ, đàm phán giá và các mẹo hữu ích cho người thuê nhà." />
             </Helmet>
 
-            <div className="container mx-auto max-w-6xl py-16 px-4">
+            <div className="container mx-auto max-w-6xl pt-40 pb-16 px-4">
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Cẩm nang thuê phòng</h1>
                     <p className="text-gray-500 text-lg max-w-2xl mx-auto">Những kinh nghiệm và mẹo hữu ích giúp bạn tìm được không gian sống lý tưởng và an tâm nhất.</p>

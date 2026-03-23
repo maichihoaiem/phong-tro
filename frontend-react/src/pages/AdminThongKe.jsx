@@ -49,47 +49,47 @@ function AdminThongKe() {
 	}
 
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="container mx-auto max-w-5xl px-4 pt-16 pb-8">
 			<h1 className="text-3xl font-extrabold text-gray-800 mb-8 flex items-center gap-2">
 				<i className="fas fa-chart-bar" style={{ color: '#4F46E5' }}></i> Quản lý <span style={{ color: '#4F46E5' }}>Thống Kê Hệ Thống</span>
 			</h1>
 
 			{/* KPI Cards */}
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+			<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+				<div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+					<div className="flex items-center gap-3">
+						<div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-lg">
 							<i className="fas fa-hand-holding-usd"></i>
 						</div>
 						<div>
-							<p className="text-gray-400 text-sm font-medium">Tổng doanh thu phí sàn</p>
-							<h3 className="text-2xl font-bold text-gray-800">{formatCurrency(totalRevenue)}</h3>
+							<p className="text-gray-400 text-[11px] font-medium uppercase tracking-wider">Tổng doanh thu</p>
+							<h3 className="text-xl font-bold text-gray-800">{formatCurrency(totalRevenue)}</h3>
 						</div>
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-indigo-50">
-					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-500 text-xl">
+				<div className="bg-white p-4 rounded-2xl shadow-sm border border-indigo-50">
+					<div className="flex items-center gap-3">
+						<div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-500 text-lg">
 							<i className="fas fa-calendar-check"></i>
 						</div>
 						<div>
-							<p className="text-gray-400 text-sm font-medium">Doanh thu tháng này</p>
-							<h3 className="text-2xl font-bold text-gray-800">
+							<p className="text-gray-400 text-[11px] font-medium uppercase tracking-wider">Tháng này</p>
+							<h3 className="text-xl font-bold text-gray-800">
 								{latestMonth ? formatCurrency(latestMonth.revenue) : '0 đ'}
 							</h3>
 						</div>
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-indigo-50">
-					<div className="flex items-center gap-4">
-						<div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-xl">
+				<div className="bg-white p-4 rounded-2xl shadow-sm border border-indigo-50">
+					<div className="flex items-center gap-3">
+						<div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-lg">
 							<i className="fas fa-chart-pie"></i>
 						</div>
 						<div>
-							<p className="text-gray-400 text-sm font-medium">Tăng trưởng tháng</p>
-							<h3 className={`text-2xl font-bold ${growth >= 0 ? 'text-indigo-600' : 'text-red-500'}`}>
+							<p className="text-gray-400 text-[11px] font-medium uppercase tracking-wider">Tăng trưởng</p>
+							<h3 className={`text-xl font-bold ${growth >= 0 ? 'text-indigo-600' : 'text-red-500'}`}>
 								{growth >= 0 ? '+' : ''}{growth.toFixed(1)}%
 							</h3>
 						</div>
@@ -98,10 +98,10 @@ function AdminThongKe() {
 			</div>
 
 			{/* Charts */}
-			<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-					<h3 className="font-bold text-gray-700 mb-6">Biểu đồ Doanh thu Phí sàn (6 tháng gần nhất)</h3>
-					<div className="h-80">
+			<div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+				<div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+					<h3 className="font-bold text-sm text-gray-700 mb-4">Doanh thu phí sàn (6 tháng)</h3>
+					<div className="h-64">
 						<ResponsiveContainer width="100%" height="100%">
 							<BarChart data={stats}>
 								<CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
@@ -121,9 +121,9 @@ function AdminThongKe() {
 					</div>
 				</div>
 
-				<div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-					<h3 className="font-bold text-gray-700 mb-6">Số lượng đặt phòng thành công</h3>
-					<div className="h-80">
+				<div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+					<h3 className="font-bold text-sm text-gray-700 mb-4">Số lượng đặt phòng thành công</h3>
+					<div className="h-64">
 						<ResponsiveContainer width="100%" height="100%">
 							<LineChart data={stats}>
 								<CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import RoomCard from '../components/RoomCard';
@@ -19,6 +19,8 @@ function RoomDetailPage({ user }) {
     const [bookingLoading, setBookingLoading] = useState(false);
     const [relatedRooms, setRelatedRooms] = useState([]);
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+    const [isLongDescription, setIsLongDescription] = useState(false);
+    const descriptionRef = useRef(null);
     const [showReportModal, setShowReportModal] = useState(false);
     const [reportLoading, setReportLoading] = useState(false);
     const [toast, setToast] = useState(null); // { msg, type }
@@ -84,6 +86,23 @@ function RoomDetailPage({ user }) {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (descriptionRef.current) {
+            const checkHeight = () => {
+                if (descriptionRef.current) {
+                    setIsLongDescription(descriptionRef.current.scrollHeight > 250);
+                }
+            };
+            // Đợi một chút để content render
+            const timer = setTimeout(checkHeight, 100);
+            window.addEventListener('resize', checkHeight);
+            return () => {
+                clearTimeout(timer);
+                window.removeEventListener('resize', checkHeight);
+            };
+        }
+    }, [room, loading]);
 
     const checkFavorite = async () => {
         try {
@@ -405,9 +424,9 @@ function RoomDetailPage({ user }) {
                                                 <span className="font-semibold text-gray-700">Tiền điện</span>
                                             </div>
                                             <span className="font-bold text-yellow-700">
-                                                {!isNaN(parseFloat(room.GiaDien))
-                                                    ? `${new Intl.NumberFormat('vi-VN').format(room.GiaDien)} đ/kWh`
-                                                    : room.GiaDien}
+                                                {(!room.GiaDien || room.GiaDien === 0 || room.GiaDien === '0' || String(room.GiaDien).toLowerCase().includes('miễn phí'))
+                                                    ? 'Miễn phí'
+                                                    : (!isNaN(parseFloat(room.GiaDien)) ? `${new Intl.NumberFormat('vi-VN').format(room.GiaDien)} đ/kWh` : room.GiaDien)}
                                             </span>
                                         </div>
                                     )}
@@ -420,9 +439,9 @@ function RoomDetailPage({ user }) {
                                                 <span className="font-semibold text-gray-700">Tiền nước</span>
                                             </div>
                                             <span className="font-bold text-blue-700">
-                                                {!isNaN(parseFloat(room.GiaNuoc))
-                                                    ? `${new Intl.NumberFormat('vi-VN').format(room.GiaNuoc)} đ/khối`
-                                                    : room.GiaNuoc}
+                                                {(!room.GiaNuoc || room.GiaNuoc === 0 || room.GiaNuoc === '0' || String(room.GiaNuoc).toLowerCase().includes('miễn phí'))
+                                                    ? 'Miễn phí'
+                                                    : (!isNaN(parseFloat(room.GiaNuoc)) ? `${new Intl.NumberFormat('vi-VN').format(room.GiaNuoc)} đ/khối` : room.GiaNuoc)}
                                             </span>
                                         </div>
                                     )}
@@ -435,7 +454,10 @@ function RoomDetailPage({ user }) {
                             <h2 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
                                 <i className="fas fa-align-left text-blue-500"></i> Mô tả chi tiết
                             </h2>
-                            <div className={`relative transition-all duration-500 overflow-hidden ${!isDescriptionExpanded ? 'max-h-[200px] md:max-h-none' : 'max-h-[5000px]'}`}>
+                            <div 
+                                ref={descriptionRef}
+                                className={`relative transition-all duration-500 overflow-hidden ${(!isDescriptionExpanded && isLongDescription) ? 'max-h-[250px]' : 'max-h-[5000px]'}`}
+                            >
                                 <div className="text-gray-600 leading-loose break-words">
                                     {room.MoTa ? room.MoTa.split('\n').map((line, i) => (
                                         <p key={i} className={line.trim() === '' ? 'h-4' : 'mb-3 md:mb-4'}>
@@ -444,25 +466,27 @@ function RoomDetailPage({ user }) {
                                     )) : 'Chưa có mô tả.'}
                                 </div>
 
-                                {/* Gradient Overlay khi thu gọn trên mobile */}
-                                {!isDescriptionExpanded && (
-                                    <div className="md:hidden absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
+                                {/* Gradient Overlay khi thu gọn */}
+                                {!isDescriptionExpanded && isLongDescription && (
+                                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
                                 )}
                             </div>
 
-                            {/* Nút Xem thêm / Thu lại (Chỉ hiện trên mobile) */}
-                            <div className="md:hidden mt-4 text-center">
-                                <button
-                                    onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                                    className="px-6 py-2 rounded-full border border-blue-200 text-blue-600 font-bold text-sm bg-blue-50 hover:bg-blue-100 transition-all flex items-center justify-center gap-2 mx-auto"
-                                >
-                                    {isDescriptionExpanded ? (
-                                        <><i className="fas fa-chevron-up text-xs"></i> Thu lại</>
-                                    ) : (
-                                        <><i className="fas fa-chevron-down text-xs"></i> Xem thêm</>
-                                    )}
-                                </button>
-                            </div>
+                            {/* Nút Xem thêm / Thu lại */}
+                            {isLongDescription && (
+                                <div className="mt-4 text-center">
+                                    <button
+                                        onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+                                        className="px-6 py-2 rounded-full border border-blue-200 text-blue-600 font-bold text-sm bg-blue-50 hover:bg-blue-100 transition-all flex items-center justify-center gap-2 mx-auto"
+                                    >
+                                        {isDescriptionExpanded ? (
+                                            <><i className="fas fa-chevron-up text-xs"></i> Thu lại</>
+                                        ) : (
+                                            <><i className="fas fa-chevron-down text-xs"></i> Xem thêm</>
+                                        )}
+                                    </button>
+                                </div>
+                            )}
                         </div>
 
                         {/* Tiện ích */}

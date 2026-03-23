@@ -58,9 +58,9 @@ html {
     font-size: 15px;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 400px) {
   html {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -82,6 +82,16 @@ body {
 ::-webkit-scrollbar-track { background: var(--surface-alt); }
 ::-webkit-scrollbar-thumb { background: var(--primary-100); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary-200); }
+
+/* Table Mobile Indicator */
+.overflow-x-auto {
+  position: relative;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+.overflow-x-auto::-webkit-scrollbar {
+  height: 4px;
+}
 
 ::selection { background: var(--primary-200); color: var(--primary-dark); }
 
@@ -136,6 +146,21 @@ body {
 a { 
   text-decoration: none; 
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 60px;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 52px;
+  }
+}
+
+.main-content.no-padding {
+  padding-top: 0 !important;
 }
 
 img { max-width: 100%; height: auto; display: block; }

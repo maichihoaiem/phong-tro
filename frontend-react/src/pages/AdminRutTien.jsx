@@ -201,7 +201,7 @@ function AdminRutTien() {
 	if (error) return <div className="text-center py-20 text-red-500">{error}</div>;
 
 	return (
-		<div className="container mx-auto max-w-6xl px-4 py-8">
+		<div className="container mx-auto max-w-5xl px-4 pt-16 pb-8">
 			<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
 				<div>
 					<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
@@ -236,7 +236,7 @@ function AdminRutTien() {
 					<table className="w-full text-left border-collapse">
 						<thead>
 							<tr style={{ background: '#F5F3FF' }} className="text-indigo-700 text-sm border-b border-indigo-100">
-								<th className="p-4 font-semibold">Mã YC</th>
+								<th className="p-4 font-semibold whitespace-nowrap">Mã YC</th>
 								<th className="p-4 font-semibold">Ngày tạo</th>
 								<th className="p-4 font-semibold">Chủ trọ</th>
 								<th className="p-4 font-semibold">Số tiền</th>
@@ -340,7 +340,7 @@ function AdminRutTien() {
 
 			{qrModalData && (
 				<div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-					<div className="bg-white rounded-3xl shadow-2xl w-full max-w-md p-5 md:p-6 relative">
+					<div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-4 md:p-5 relative">
 						<button
 							onClick={() => setQrModalData(null)}
 							className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
@@ -349,10 +349,10 @@ function AdminRutTien() {
 							<i className="fas fa-times text-xl"></i>
 						</button>
 
-						<h3 className="text-2xl font-extrabold text-gray-800 text-center mb-2">Chuyển khoản rút tiền</h3>
-						<p className="text-gray-500 text-center mb-6">Vui lòng quét mã QR bên dưới để chuyển khoản cho chủ trọ.</p>
+						<h3 className="text-xl font-extrabold text-gray-800 text-center mb-1">Chuyển khoản rút tiền</h3>
+						<p className="text-[11px] text-gray-500 text-center mb-4">Vui lòng quét mã QR bên dưới để chuyển khoản cho chủ trọ.</p>
 
-						<div className="mx-auto w-full max-w-[280px] p-3 rounded-2xl border border-gray-200 bg-gray-50">
+						<div className="mx-auto w-full max-w-[220px] p-2 rounded-2xl border border-gray-100 bg-gray-50">
 							<div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
 								<img
 									src={qrModalData.qrUrl}

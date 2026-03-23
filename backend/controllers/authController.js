@@ -3,6 +3,7 @@
 // =============================================
 const TaiKhoanModel = require("../models/TaiKhoanModel");
 const { sendEmail } = require("../utils/emailService");
+const bcrypt = require("bcryptjs");
 
 // Bộ nhớ tạm lưu OTP: { email: { otp, expires } }
 const otpStore = new Map();
@@ -121,7 +122,8 @@ const authController = {
             }
 
             const user = await TaiKhoanModel.findByEmail(email);
-            await TaiKhoanModel.changePassword(user.ID_TaiKhoan, matKhauMoi);
+            const hashedNewPassword = await bcrypt.hash(matKhauMoi, 10);
+            await TaiKhoanModel.changePassword(user.ID_TaiKhoan, hashedNewPassword);
 
             // Xóa OTP khỏi memory
             otpStore.delete(email);
@@ -150,7 +152,8 @@ const authController = {
 
             // Tạo tài khoản (vaiTro: 2 = Chủ trọ, 3 = Người thuê, mặc định là 3)
             const idVaiTro = vaiTro === "chutro" ? 2 : 3;
-            const user = await TaiKhoanModel.create(hoTen, email, matKhau, soDienThoai || '', idVaiTro);
+            const hashedPassword = await bcrypt.hash(matKhau, 10);
+            const user = await TaiKhoanModel.create(hoTen, email, hashedPassword, soDienThoai || '', idVaiTro);
 
             // Lưu session
             req.session.user = {
@@ -189,8 +192,16 @@ const authController = {
                 });
             }
 
-            if (user.MatKhau !== matKhau) {
-                return res.status(401).json({ success: false, message: "Mật khẩu không đúng!" });
+            const isMatch = await bcrypt.compare(matKhau, user.MatKhau);
+            if (!isMatch) {
+                // Hỗ trợ tạm thời cho các tài khoản cũ chưa mã hóa
+                if (user.MatKhau === matKhau) {
+                    // Tự động nâng cấp lên mật khẩu mã hóa
+                    const hashedPassword = await bcrypt.hash(matKhau, 10);
+                    await TaiKhoanModel.changePassword(user.ID_TaiKhoan, hashedPassword);
+                } else {
+                    return res.status(401).json({ success: false, message: "Mật khẩu không đúng!" });
+                }
             }
 
             // Lưu session
@@ -284,10 +295,14 @@ const authController = {
             }
             // Kiểm tra mật khẩu cũ
             const user = await TaiKhoanModel.findByEmail(req.session.user.Email);
-            if (user.MatKhau !== matKhauCu) {
+            const isMatch = await bcrypt.compare(matKhauCu, user.MatKhau);
+            
+            if (!isMatch && user.MatKhau !== matKhauCu) {
                 return res.status(400).json({ success: false, message: "Mật khẩu cũ không đúng!" });
             }
-            await TaiKhoanModel.changePassword(req.session.user.ID_TaiKhoan, matKhauMoi);
+
+            const hashedNewPassword = await bcrypt.hash(matKhauMoi, 10);
+            await TaiKhoanModel.changePassword(req.session.user.ID_TaiKhoan, hashedNewPassword);
             res.json({ success: true, message: "Đổi mật khẩu thành công!" });
         } catch (err) {
             res.status(500).json({ success: false, error: err.message });

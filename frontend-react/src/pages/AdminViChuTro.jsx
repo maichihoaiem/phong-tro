@@ -36,7 +36,7 @@ function AdminViChuTro() {
 	const totalHeld = landlords.reduce((sum, l) => sum + (l.SoDu || 0), 0);
 
 	return (
-		<div className="container mx-auto max-w-6xl px-4 py-8">
+		<div className="container mx-auto max-w-5xl px-4 pt-16 pb-8">
 			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
 				<i className="fas fa-piggy-bank" style={{ color: '#4F46E5' }}></i>
 				Quản lý <span style={{ color: '#4F46E5' }}>Ví Chủ Trọ</span>
@@ -58,7 +58,7 @@ function AdminViChuTro() {
 					<table className="w-full text-left border-collapse">
 						<thead>
 							<tr style={{ background: '#F5F3FF' }} className="text-indigo-700 text-sm border-b border-indigo-100">
-								<th className="p-4 font-semibold">ID</th>
+								<th className="p-4 font-semibold whitespace-nowrap">ID</th>
 								<th className="p-4 font-semibold">Tên Chủ Trọ</th>
 								<th className="p-4 font-semibold">SĐT / Email</th>
 								<th className="p-4 font-semibold text-right">Số Dư (VNĐ)</th>

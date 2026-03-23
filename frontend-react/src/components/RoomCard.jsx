@@ -217,11 +217,19 @@ const RoomCard = ({ room }) => {
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginTop: '10px', gap: '6px', fontSize: '0.75rem', color: '#64748B', fontWeight: 500 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <i className="fas fa-bolt" style={{ color: '#F59E0B' }}></i>
-                        <span>{room.GiaDien ? new Intl.NumberFormat('vi-VN').format(room.GiaDien) + 'đ' : 'Miễn phí'}</span>
+                        {(!room.GiaDien || room.GiaDien === 0 || room.GiaDien === '0' || String(room.GiaDien).toLowerCase().includes('miễn phí')) ? (
+                            <span style={{ color: '#10B981', fontWeight: 800 }}>Miễn phí</span>
+                        ) : (
+                            <span>{new Intl.NumberFormat('vi-VN').format(room.GiaDien)}đ</span>
+                        )}
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <i className="fas fa-tint" style={{ color: '#0EA5E9' }}></i>
-                        <span>{room.GiaNuoc ? new Intl.NumberFormat('vi-VN').format(room.GiaNuoc) + 'đ' : 'Miễn phí'}</span>
+                        {(!room.GiaNuoc || room.GiaNuoc === 0 || room.GiaNuoc === '0' || String(room.GiaNuoc).toLowerCase().includes('miễn phí')) ? (
+                            <span style={{ color: '#10B981', fontWeight: 800 }}>Miễn phí</span>
+                        ) : (
+                            <span>{new Intl.NumberFormat('vi-VN').format(room.GiaNuoc)}đ</span>
+                        )}
                     </div>
                 </div>
             </div>

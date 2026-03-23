@@ -21,6 +21,8 @@ function AdminQuanLyTaiKhoan() {
 	const [roomImages, setRoomImages] = useState([]);
 	const [loadingRoomImages, setLoadingRoomImages] = useState(false);
 	const [zoomedImage, setZoomedImage] = useState(null); // Để phóng to ảnh
+	const [showAllLandlords, setShowAllLandlords] = useState(false);
+	const [showAllTenants, setShowAllTenants] = useState(false);
 
 	// Modals
 	const [viewUser, setViewUser] = useState(null);
@@ -262,7 +264,7 @@ function AdminQuanLyTaiKhoan() {
 	}
 
 	return (
-		<div className="container mx-auto max-w-7xl px-4 py-10">
+		<div className="container mx-auto max-w-6xl px-4 pt-16 pb-10">
 			{/* Toast Notification */}
 			{toast && (
 				<div className={`fixed top-6 left-1/2 -translate-x-1/2 z-[200] px-6 py-4 rounded-2xl shadow-2xl font-bold text-sm flex items-center gap-3 animate-fade-up ${toast.type === 'error' ? 'bg-red-600 text-white' : 'bg-emerald-600 text-white'
@@ -273,7 +275,7 @@ function AdminQuanLyTaiKhoan() {
 			)}
 
 			{/* Header with Tabs */}
-			<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6">
+			<div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-4 gap-6">
 				<div>
 					<h1 className="text-3xl font-extrabold text-gray-900 mb-2 flex items-center gap-2">
 						<i className="fas fa-shield-halved" style={{ color: '#4F46E5' }}></i>
@@ -307,7 +309,7 @@ function AdminQuanLyTaiKhoan() {
 			{activeTab === 'accounts' ? (
 				<>
 					{/* Search Bar */}
-					<form onSubmit={handleSearch} className="mb-8">
+					<form onSubmit={handleSearch} className="mb-6">
 						<div className="flex gap-3 max-w-lg">
 							<div className="relative flex-1">
 								<i className="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"></i>
@@ -334,8 +336,19 @@ function AdminQuanLyTaiKhoan() {
 								</div>
 							</div>
 							<div className="space-y-3">
-								{chuTro.map(u => <UserCard key={u.ID_TaiKhoan} user={u} gradientFrom="#4F46E5" />)}
+								{chuTro.slice(0, showAllLandlords ? chuTro.length : 6).map(u => <UserCard key={u.ID_TaiKhoan} user={u} gradientFrom="#4F46E5" />)}
 							</div>
+							{chuTro.length > 6 && (
+								<div className="mt-4 text-center">
+									<button 
+										onClick={() => setShowAllLandlords(!showAllLandlords)}
+										className="px-6 py-2.5 rounded-xl bg-white border border-indigo-100 text-indigo-600 font-bold text-xs hover:bg-indigo-50 transition-all flex items-center gap-2 mx-auto shadow-sm"
+									>
+										<i className={`fas ${showAllLandlords ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+										{showAllLandlords ? 'Thu gọn' : `Xem tất cả ${chuTro.length} tài khoản`}
+									</button>
+								</div>
+							)}
 						</div>
 						{/* Người thuê Column */}
 						<div>
@@ -347,8 +360,19 @@ function AdminQuanLyTaiKhoan() {
 								</div>
 							</div>
 							<div className="space-y-3">
-								{nguoiThue.map(u => <UserCard key={u.ID_TaiKhoan} user={u} gradientFrom="#0EA5E9" />)}
+								{nguoiThue.slice(0, showAllTenants ? nguoiThue.length : 6).map(u => <UserCard key={u.ID_TaiKhoan} user={u} gradientFrom="#0EA5E9" />)}
 							</div>
+							{nguoiThue.length > 6 && (
+								<div className="mt-4 text-center">
+									<button 
+										onClick={() => setShowAllTenants(!showAllTenants)}
+										className="px-6 py-2.5 rounded-xl bg-white border border-sky-100 text-sky-600 font-bold text-xs hover:bg-sky-50 transition-all flex items-center gap-2 mx-auto shadow-sm"
+									>
+										<i className={`fas ${showAllTenants ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+										{showAllTenants ? 'Thu gọn' : `Xem tất cả ${nguoiThue.length} tài khoản`}
+									</button>
+								</div>
+							)}
 						</div>
 					</div>
 				</>
@@ -393,43 +417,49 @@ function AdminQuanLyTaiKhoan() {
 											<p className="text-xs font-bold text-gray-700 truncate">{report.TenChuTro}</p>
 										</div>
 										<div className="pt-2 flex gap-3">
-											{report.AnhPhong && (
-												<div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-gray-100 shadow-sm">
-													<img src={report.AnhPhong} className="w-full h-full object-cover" alt="Ảnh phòng" />
-												</div>
-											)}
 											<button 
 												onClick={() => handleViewRoom(report)}
-												className="flex-1 py-2 rounded-xl bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-wider hover:bg-blue-100 transition border border-blue-100 flex items-center justify-center gap-2"
+												className="flex-1 py-2.5 rounded-xl bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-wider hover:bg-blue-100 transition border border-blue-100 flex items-center justify-center gap-2"
 											>
-												<i className="fas fa-eye"></i> Xem phòng
+												<i className="fas fa-eye text-sm"></i> Xem phòng & bằng chứng
 											</button>
 										</div>
 									</div>
-									{report.HinhAnh && (
-										<div className="mb-4 rounded-xl overflow-hidden h-24 bg-gray-100 border border-gray-50 cursor-pointer" onClick={() => setSelectedReport(report)}>
-											<img src={report.HinhAnh} className="w-full h-full object-cover" alt="Bằng chứng" />
-										</div>
-									)}
-									{/* AI Suggestion */}
-									{report.TrangThai === 'Chờ duyệt' && (
-										<div className="mb-4">
-											{!aiAnalysis[report.ID_BaoCao] ? (
-												<button
-													onClick={() => handleAIAnalyze(report)}
-													disabled={aiLoading[report.ID_BaoCao]}
-													className="w-full py-2 rounded-xl bg-indigo-50 text-indigo-600 text-[9px] font-black uppercase tracking-widest hover:bg-indigo-100 transition flex items-center justify-center gap-2 border border-indigo-100"
-												>
-													{aiLoading[report.ID_BaoCao] ? <><i className="fas fa-spinner fa-spin"></i> Đang phân tích...</> : <><i className="fas fa-robot"></i> AI Gợi ý</>}
-												</button>
-											) : (
-												<div className={`p-3 rounded-xl border ${aiAnalysis[report.ID_BaoCao].decision === 'DUYỆT PHẠT' ? 'bg-red-50 border-red-100' : 'bg-gray-50 border-gray-200'}`}>
-													<p className="text-[10px] font-black text-gray-800 mb-1">AI Đề xuất: <span className={aiAnalysis[report.ID_BaoCao].decision === 'DUYỆT PHẠT' ? 'text-red-600' : 'text-gray-600'}>{aiAnalysis[report.ID_BaoCao].decision}</span></p>
-													<p className="text-[9px] text-gray-500 italic line-clamp-2">"{aiAnalysis[report.ID_BaoCao].reasoning}"</p>
+									{/* AI Suggestion - Luôn luôn hiển thị để Admin tham khảo */}
+									<div className="mb-4">
+										{!aiAnalysis[report.ID_BaoCao] ? (
+											<button
+												onClick={() => handleAIAnalyze(report)}
+												disabled={aiLoading[report.ID_BaoCao]}
+												className="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-50 to-blue-50 text-indigo-700 text-[10px] font-black uppercase tracking-widest hover:from-indigo-100 hover:to-blue-100 transition flex items-center justify-center gap-2 border border-indigo-200 shadow-sm"
+											>
+												{aiLoading[report.ID_BaoCao] ? <><i className="fas fa-spinner fa-spin"></i> Đang phân tích...</> : <><i className="fas fa-robot text-sm"></i> AI Gợi ý</>}
+											</button>
+										) : (
+											<div className={`p-4 rounded-2xl border ${aiAnalysis[report.ID_BaoCao].decision === 'DUYỆT PHẠT' ? 'bg-red-50 border-red-100' : 'bg-gray-50 border-gray-200'} shadow-sm relative animate-fadeIn`}>
+												<div className="flex items-center justify-between mb-2">
+													<div className="flex items-center gap-2">
+														<div className={`w-2 h-2 rounded-full animate-pulse ${aiAnalysis[report.ID_BaoCao].decision === 'DUYỆT PHẠT' ? 'bg-red-500' : 'bg-gray-400'}`}></div>
+														<p className="text-[11px] font-black text-gray-800 uppercase tracking-tight">AI Đề xuất: <span className={aiAnalysis[report.ID_BaoCao].decision === 'DUYỆT PHẠT' ? 'text-red-600' : 'text-gray-600'}>{aiAnalysis[report.ID_BaoCao].decision}</span></p>
+													</div>
+													<button 
+														onClick={() => setAiAnalysis(prev => { const n = {...prev}; delete n[report.ID_BaoCao]; return n; })}
+														className="text-[10px] text-indigo-500 hover:text-indigo-700 font-bold flex items-center gap-1 transition-colors"
+													>
+														<i className="fas fa-compress-alt"></i> Thu gọn
+													</button>
 												</div>
-											)}
-										</div>
-									)}
+												<p className="text-[10px] text-gray-500 italic leading-relaxed mb-3">"{aiAnalysis[report.ID_BaoCao].reasoning}"</p>
+												
+												{report.HinhAnh && (
+													<div className="p-2.5 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-2 animate-pulse">
+														<i className="fas fa-camera-retro text-amber-600 text-xs mt-0.5"></i>
+														<p className="text-[10px] text-amber-800 font-bold leading-tight">Admin hãy xem xét kỹ hình ảnh bằng chứng kèm theo qua nút "Xem phòng".</p>
+													</div>
+												)}
+											</div>
+										)}
+									</div>
 									{report.TrangThai === 'Chờ duyệt' && (
 										<div className="flex gap-2 mt-4">
 											<button onClick={() => handleReportAction(report.ID_BaoCao, 'reject')} className="flex-1 py-3 rounded-xl bg-gray-100 text-gray-500 text-[10px] font-black uppercase hover:bg-gray-200 transition">Bỏ qua</button>
@@ -475,99 +505,105 @@ function AdminQuanLyTaiKhoan() {
 
 			{/* Modal So sánh chi tiết phòng */}
 			{viewReportRoom && (
-				<div className="fixed inset-0 z-[150] flex items-center justify-center bg-black/60 backdrop-blur-md p-4" onClick={() => setViewReportRoom(null)}>
-					<div className="max-w-6xl w-full bg-white rounded-[40px] shadow-2xl overflow-hidden relative flex flex-col h-[90vh]" onClick={e => e.stopPropagation()}>
-						<div className="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+				<div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-md p-4" onClick={() => setViewReportRoom(null)}>
+					<div className="max-w-6xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden relative flex flex-col h-[82vh] animate-fadeIn" onClick={e => e.stopPropagation()}>
+						<div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
 							<div>
-								<h3 className="text-2xl font-black text-gray-800">{viewReportRoom.TenPhong}</h3>
-								<div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+								<h3 className="text-xl font-black text-gray-800 leading-tight">{viewReportRoom.TenPhong}</h3>
+								<div className="flex items-center gap-4 mt-0.5 text-[11px] text-gray-500 font-bold">
 									<span><i className="fas fa-money-bill-wave mr-1 text-green-500"></i> {Number(viewReportRoom.Gia).toLocaleString()}đ</span>
 									<span><i className="fas fa-expand-alt mr-1 text-blue-500"></i> {viewReportRoom.DienTich}m²</span>
-									<span className="truncate max-w-xs"><i className="fas fa-map-marker-alt mr-1 text-red-500"></i> {viewReportRoom.DiaChiChiTiet}</span>
+									<span className="truncate max-w-sm"><i className="fas fa-map-marker-alt mr-1 text-red-500"></i> {viewReportRoom.DiaChiChiTiet}</span>
 								</div>
 							</div>
-							<button onClick={() => setViewReportRoom(null)} className="w-12 h-12 rounded-2xl bg-white shadow-sm border border-gray-100 text-gray-400 flex items-center justify-center hover:text-red-500 transition-all">
-								<i className="fas fa-times text-xl"></i>
+							<button onClick={() => setViewReportRoom(null)} className="w-10 h-10 rounded-xl bg-white shadow-sm border border-gray-100 text-gray-400 flex items-center justify-center hover:text-red-500 transition-all">
+								<i className="fas fa-times text-lg"></i>
 							</button>
 						</div>
 
-						<div className="flex-1 overflow-y-auto p-8 bg-white grid grid-cols-1 lg:grid-cols-2 gap-10">
-							{/* Bên trái: Ảnh báo cáo */}
-							<div>
-								<div className="flex items-center justify-between mb-4">
-									<h4 className="text-sm font-black text-red-600 uppercase tracking-widest flex items-center gap-2">
-										<i className="fas fa-exclamation-triangle"></i> Ảnh từ báo cáo
-									</h4>
-									<span className="text-[10px] text-gray-400 font-bold italic">Bằng chứng người dùng gửi</span>
-								</div>
-								<div className="rounded-3xl overflow-hidden border-4 border-red-50 shadow-xl bg-gray-100 h-[400px]">
-									{viewReportRoom.HinhAnh ? (
-										<img src={viewReportRoom.HinhAnh} className="w-full h-full object-cover" />
-									) : (
-										<div className="w-full h-full flex flex-col items-center justify-center text-gray-300">
-											<i className="fas fa-image text-5xl mb-3"></i>
-											<p className="font-bold">Không có ảnh bằng chứng</p>
-										</div>
-									)}
-								</div>
-								<div className="mt-4 p-5 rounded-2xl bg-red-50 border border-red-100">
-									<p className="text-[10px] font-black text-red-800 uppercase mb-2">Nội dung khiếu nại:</p>
-									<p className="text-sm text-red-700 italic">"{viewReportRoom.MoTa || 'Không có mô tả chi tiết'}"</p>
-								</div>
-							</div>
-
-							{/* Bên phải: Ảnh gốc bài đăng */}
-							<div>
-								<div className="flex items-center justify-between mb-4">
-									<h4 className="text-sm font-black text-blue-600 uppercase tracking-widest flex items-center gap-2">
-										<i className="fas fa-images"></i> Ảnh gốc bài đăng
-									</h4>
-									<span className="text-[10px] text-gray-400 font-bold italic">Hình ảnh chủ nhà đăng tải</span>
-								</div>
-								<div className="grid grid-cols-2 gap-3 h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-									{loadingRoomImages ? (
-										<div className="col-span-2 h-full flex items-center justify-center text-blue-500">
-											<i className="fas fa-spinner fa-spin text-3xl"></i>
-										</div>
-									) : roomImages.length > 0 ? (
-										roomImages.map((img, idx) => (
-											<div 
-												key={idx} 
-												className="aspect-[4/3] rounded-2xl overflow-hidden border-2 border-blue-50 shadow-sm cursor-zoom-in hover:scale-[1.02] transition-transform duration-200"
-												onClick={() => setZoomedImage(img.DuongDanAnh)}
-											>
-												<img src={img.DuongDanAnh} className="w-full h-full object-cover" alt="Ảnh phòng" />
+						<div className="flex-1 overflow-y-auto p-5 custom-scrollbar">
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+								{/* Bên trái: Bằng chứng từ báo cáo */}
+								<div>
+									<div className="flex items-center justify-between mb-3">
+										<h4 className="text-xs font-black text-red-600 uppercase tracking-widest flex items-center gap-2">
+											<i className="fas fa-exclamation-triangle"></i> Ảnh từ báo cáo
+										</h4>
+										<span className="text-[9px] text-gray-400 font-bold italic opacity-70">Bằng chứng gửi lên</span>
+									</div>
+									<div 
+										className="rounded-2xl overflow-hidden border-2 border-red-50 shadow-md bg-gray-100 h-[280px] cursor-zoom-in hover:scale-[1.01] transition-transform duration-200"
+										onClick={() => viewReportRoom.HinhAnh && setZoomedImage(viewReportRoom.HinhAnh)}
+									>
+										{viewReportRoom.HinhAnh ? (
+											<img src={viewReportRoom.HinhAnh} className="w-full h-full object-cover" />
+										) : (
+											<div className="w-full h-full flex flex-col items-center justify-center text-gray-300">
+												<i className="fas fa-image text-4xl mb-2"></i>
+												<p className="font-bold text-xs uppercase tracking-tighter">Không có ảnh bằng chứng</p>
 											</div>
-										))
-									) : (
-										<div className="col-span-2 h-full flex flex-col items-center justify-center text-gray-300 border-2 border-dashed border-gray-100 rounded-3xl">
-											<i className="fas fa-images text-4xl mb-3"></i>
-											<p className="font-bold">Không tìm thấy ảnh bài đăng</p>
-										</div>
-									)}
+										)}
+									</div>
+									<div className="mt-3 p-3 rounded-xl bg-red-50 border border-red-100">
+										<p className="text-[9px] font-black text-red-800 uppercase mb-1 flex items-center gap-1.5"><i className="fas fa-comment-dots"></i> Lý do khiếu nại:</p>
+										<p className="text-xs text-red-700 italic font-medium leading-relaxed line-clamp-2">"{viewReportRoom.MoTa || 'Không có mô tả chi tiết'}"</p>
+									</div>
 								</div>
-								<div className="mt-4 p-5 rounded-2xl bg-blue-50 border border-blue-100">
-									<p className="text-[10px] font-black text-blue-800 uppercase mb-2">Thông tin chủ trọ:</p>
-									<p className="text-sm text-blue-700 font-bold">{viewReportRoom.TenChuTro}</p>
-									<p className="text-xs text-blue-600">ID Phòng: #{viewReportRoom.ID_Phong}</p>
+
+								{/* Bên phải: Ảnh gốc bài đăng */}
+								<div>
+									<div className="flex items-center justify-between mb-3">
+										<h4 className="text-xs font-black text-blue-600 uppercase tracking-widest flex items-center gap-2">
+											<i className="fas fa-images"></i> Ảnh gốc bài đăng
+										</h4>
+										<span className="text-[9px] text-gray-400 font-bold italic opacity-70">Ảnh chủ nhà đã đăng</span>
+									</div>
+									<div className="grid grid-cols-2 gap-2 h-[280px] overflow-y-auto pr-1 custom-scrollbar">
+										{loadingRoomImages ? (
+											<div className="col-span-2 h-full flex items-center justify-center text-blue-500">
+												<i className="fas fa-spinner fa-spin text-3xl"></i>
+											</div>
+										) : roomImages.length > 0 ? (
+											roomImages.map((img, idx) => (
+												<div 
+													key={idx} 
+													className="aspect-[4/3] rounded-2xl overflow-hidden border-2 border-blue-50 shadow-sm cursor-zoom-in hover:scale-[1.02] transition-transform duration-200"
+													onClick={() => setZoomedImage(img.DuongDanAnh)}
+												>
+													<img src={img.DuongDanAnh} className="w-full h-full object-cover" alt="Ảnh phòng" />
+												</div>
+											))
+										) : (
+											<div className="col-span-2 h-full flex flex-col items-center justify-center text-gray-300 border-2 border-dashed border-gray-100 rounded-3xl">
+												<i className="fas fa-images text-4xl mb-3"></i>
+												<p className="font-bold">Không tìm thấy ảnh bài đăng</p>
+											</div>
+										)}
+									</div>
+									<div className="mt-3 p-3 rounded-xl bg-blue-50 border border-blue-100">
+										<p className="text-[9px] font-black text-blue-800 uppercase mb-1 flex items-center gap-1.5"><i className="fas fa-id-card"></i> Thông tin chủ trọ:</p>
+										<p className="text-xs text-blue-700 font-bold">{viewReportRoom.TenChuTro} — <span className="opacity-70 font-medium">#{viewReportRoom.ID_Phong}</span></p>
+									</div>
 								</div>
 							</div>
 						</div>
 
-						<div className="p-8 bg-gray-50 border-t border-gray-100 flex gap-4">
-							<button 
-								onClick={() => handleReportAction(viewReportRoom.ID_BaoCao, 'reject')} 
-								className="flex-1 py-4 rounded-2xl bg-white border border-gray-200 text-gray-500 font-black text-xs uppercase tracking-widest hover:bg-gray-100 transition shadow-sm"
-							>
-								Bỏ qua báo cáo
-							</button>
-							<button 
-								onClick={() => handleReportAction(viewReportRoom.ID_BaoCao, 'approve')} 
-								className="flex-1 py-4 rounded-2xl bg-red-600 text-white font-black text-xs uppercase tracking-widest hover:bg-red-700 transition shadow-xl shadow-red-200"
-							>
-								Xác nhận Phạt
-							</button>
-						</div>
+						{viewReportRoom.TrangThai === 'Chờ duyệt' && (
+							<div className="p-5 bg-gray-50 border-t border-gray-100 flex gap-3">
+								<button 
+									onClick={() => handleReportAction(viewReportRoom.ID_BaoCao, 'reject')} 
+									className="flex-1 py-3.5 rounded-xl bg-white border border-gray-200 text-gray-500 font-black text-[10px] uppercase tracking-widest hover:bg-gray-100 transition shadow-sm"
+								>
+									Bỏ qua báo cáo
+								</button>
+								<button 
+									onClick={() => handleReportAction(viewReportRoom.ID_BaoCao, 'approve')} 
+									className="flex-1 py-3.5 rounded-xl bg-red-600 text-white font-black text-[10px] uppercase tracking-widest hover:bg-red-700 transition shadow-lg shadow-red-200"
+								>
+									Xác nhận Phạt
+								</button>
+							</div>
+						)}
 					</div>
 				</div>
 			)}
@@ -619,7 +655,7 @@ function AdminQuanLyTaiKhoan() {
 
 			{/* Zoomed Image Lightbox */}
 			{zoomedImage && (
-				<div className="fixed inset-0 z-[300] flex items-center justify-center bg-black/95 p-4" onClick={() => setZoomedImage(null)}>
+				<div className="fixed inset-0 z-[10001] flex items-center justify-center bg-black/95 p-4" onClick={() => setZoomedImage(null)}>
 					<div className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center pointer-events-none">
 						<img 
 							src={zoomedImage} 

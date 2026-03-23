@@ -123,7 +123,7 @@ function LandlordDashboard() {
 	}
 
 	return (
-		<div className="bg-[#F8FAFF] min-h-screen px-4 py-3 md:p-10">
+		<div className="bg-[#F8FAFF] min-h-screen px-4 py-3 md:px-10 md:pt-6 md:pb-10">
 			<div className="max-w-[1400px] mx-auto">
                 
 				{/* HEAD & TOP INFO */}

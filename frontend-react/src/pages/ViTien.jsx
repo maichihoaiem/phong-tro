@@ -64,7 +64,7 @@ function ViTien() {
 	if (loading) return <div className="text-center py-20"><i className="fas fa-spinner fa-spin text-3xl text-blue-600"></i></div>;
 
 	return (
-		<div className="bg-[#F8FAFF] min-h-screen px-4 pt-10 pb-8">
+		<div className="bg-[#F8FAFF] min-h-screen px-4 pt-6 pb-8">
 			<div className="container mx-auto max-w-5xl">
 				<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
 					<div>

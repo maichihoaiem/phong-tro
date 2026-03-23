@@ -87,11 +87,11 @@ function AdminHoanTien() {
 	}
 
 	return (
-		<div className="container mx-auto max-w-7xl px-4 py-10">
+		<div className="container mx-auto max-w-6xl px-4 pt-16 pb-10">
 			{/* Modal QR */}
 			{showQR && (
 				<div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setShowQR(null)}>
-					<div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl animate-fade-up" onClick={e => e.stopPropagation()}>
+					<div className="bg-white rounded-3xl p-5 max-w-sm w-full shadow-2xl animate-fade-up" onClick={e => e.stopPropagation()}>
 						<div className="flex justify-between items-center mb-6">
 							<h3 className="font-black text-xl text-gray-800">Mã QR Hoàn tiền</h3>
 							<button onClick={() => setShowQR(null)} className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition">
@@ -120,7 +120,7 @@ function AdminHoanTien() {
 				</div>
 			)}
 
-			<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+			<div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
 				<div>
 					<h1 className="text-3xl font-extrabold text-gray-900 mb-2 flex items-center gap-2">
 						<i className="fas fa-shield-alt" style={{ color: '#4F46E5' }}></i>
@@ -137,7 +137,7 @@ function AdminHoanTien() {
 						<button
 							key={f.key}
 							onClick={() => setFilter(f.key)}
-							className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${filter === f.key ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200' : 'text-gray-500 hover:bg-gray-50'}`}
+							className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${filter === f.key ? (f.key === 'Đã hoàn tiền' ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-200' : 'bg-indigo-600 text-white shadow-lg shadow-indigo-200') : 'text-gray-500 hover:bg-gray-50'}`}
 						>
 							{f.label}
 							<span className={`px-2 py-0.5 rounded-lg text-[10px] ${filter === f.key ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}`}>
@@ -169,7 +169,7 @@ function AdminHoanTien() {
 						<div key={req.ID_DatPhong} className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-50 overflow-hidden hover:scale-[1.02] transition-transform flex flex-col">
 							<div className={`p-1 text-center text-[10px] font-black uppercase tracking-widest ${
 								req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' ? 'bg-yellow-400 text-white' : 
-								'bg-indigo-600 text-white'
+								'bg-emerald-600 text-white'
 								}`}>
 								{req.TrangThaiThanhToan === 'Chờ hoàn tiền (Đã có STK)' ? 'Chờ hoàn tiền' : req.TrangThaiThanhToan}
 							</div>

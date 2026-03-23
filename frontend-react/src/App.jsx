@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './index.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -29,6 +29,68 @@ import AdminQuanLyBaiDang from './pages/AdminQuanLyBaiDang'
 import AdminQuanLyTaiKhoan from './pages/AdminQuanLyTaiKhoan'
 import ScrollToTop from './components/ScrollToTop'
 import AIChatbot from './components/AIChatbot'
+
+// Component bọc nội dung để sử dụng useLocation
+function AppContent({ user, handleLogout, handleLogin, handleUpdateUser }) {
+  const location = useLocation();
+  const noPaddingPages = ['/', '/gioi-thieu'];
+  const hasNoPadding = noPaddingPages.includes(location.pathname);
+
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', overflowX: 'hidden' }}>
+      <Header user={user} onLogout={handleLogout} />
+
+      <div className={`main-content ${hasNoPadding ? 'no-padding' : ''}`}>
+        <Routes>
+          <Route path="/" element={<TrangChu />} />
+          <Route path="/dang-nhap" element={<DangNhap onLogin={handleLogin} />} />
+          <Route path="/dang-ky" element={<DangKy onLogin={handleLogin} />} />
+          <Route path="/phong-tro/:id" element={<ChiTietPhong user={user} />} />
+          <Route path="/tim-phong" element={<TimPhong user={user} />} />
+          <Route path="/yeu-thich" element={<YeuThich />} />
+          <Route path="/dat-phong" element={<LichSuDatPhong />} />
+          <Route path="/tai-khoan" element={<TaiKhoan user={user} onUpdateUser={handleUpdateUser} />} />
+          <Route path="/gioi-thieu" element={<GioiThieu />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<ChiTietBlog />} />
+          <Route path="/quan-ly-phong" element={<QuanLyPhong />} />
+          <Route path="/dang-phong" element={<DangPhong user={user} />} />
+          <Route path="/sua-phong/:id" element={<SuaPhong user={user} />} />
+          <Route path="/yeu-cau-dat-phong" element={<YeuCauDatPhong />} />
+          <Route path="/quen-mat-khau" element={<QuenMatKhau />} />
+          <Route path="/admin/hoan-tien" element={<AdminHoanTien />} />
+          <Route path="/admin/rut-tien" element={<AdminRutTien />} />
+          <Route path="/admin/vi-chu-tro" element={<AdminViChuTro />} />
+          <Route path="/admin/thong-ke" element={<AdminThongKe />} />
+          <Route path="/admin/quan-ly-bai-dang" element={<AdminQuanLyBaiDang />} />
+          <Route path="/admin/quan-ly-tai-khoan" element={<AdminQuanLyTaiKhoan />} />
+          <Route path="/vi-tien" element={<ViTien />} />
+        </Routes>
+      </div>
+
+      {/* Nút quay lại đầu trang */}
+      <div
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        style={{
+          position: 'fixed', bottom: 24, right: 24,
+          width: 46, height: 46,
+          background: 'linear-gradient(135deg, #2563EB, #0EA5E9)',
+          borderRadius: '50%', display: 'flex', alignItems: 'center',
+          justifyContent: 'center', color: 'white', cursor: 'pointer',
+          boxShadow: '0 8px 24px rgba(37,99,235,0.4)',
+          zIndex: 50, transition: 'all 0.22s', fontSize: '0.85rem',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(37,99,235,0.55)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(37,99,235,0.4)'; }}
+      >
+        <i className="fas fa-arrow-up"></i>
+      </div>
+
+      <Footer />
+      <AIChatbot />
+    </div>
+  );
+}
 
 function App() {
   const [user, setUser] = useState(null);
@@ -84,59 +146,12 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'transparent', overflowX: 'hidden' }}>
-
-        <Header user={user} onLogout={handleLogout} />
-
-        <div style={{ flex: 1 }}>
-          <Routes>
-            <Route path="/" element={<TrangChu />} />
-            <Route path="/dang-nhap" element={<DangNhap onLogin={handleLogin} />} />
-            <Route path="/dang-ky" element={<DangKy onLogin={handleLogin} />} />
-            <Route path="/phong-tro/:id" element={<ChiTietPhong user={user} />} />
-            <Route path="/tim-phong" element={<TimPhong user={user} />} />
-            <Route path="/yeu-thich" element={<YeuThich />} />
-            <Route path="/dat-phong" element={<LichSuDatPhong />} />
-            <Route path="/tai-khoan" element={<TaiKhoan user={user} onUpdateUser={handleUpdateUser} />} />
-            <Route path="/gioi-thieu" element={<GioiThieu />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<ChiTietBlog />} />
-            <Route path="/quan-ly-phong" element={<QuanLyPhong />} />
-            <Route path="/dang-phong" element={<DangPhong user={user} />} />
-            <Route path="/sua-phong/:id" element={<SuaPhong user={user} />} />
-            <Route path="/yeu-cau-dat-phong" element={<YeuCauDatPhong />} />
-            <Route path="/quen-mat-khau" element={<QuenMatKhau />} />
-            <Route path="/admin/hoan-tien" element={<AdminHoanTien />} />
-            <Route path="/admin/rut-tien" element={<AdminRutTien />} />
-            <Route path="/admin/vi-chu-tro" element={<AdminViChuTro />} />
-            <Route path="/admin/thong-ke" element={<AdminThongKe />} />
-            <Route path="/admin/quan-ly-bai-dang" element={<AdminQuanLyBaiDang />} />
-            <Route path="/admin/quan-ly-tai-khoan" element={<AdminQuanLyTaiKhoan />} />
-            <Route path="/vi-tien" element={<ViTien />} />
-          </Routes>
-        </div>
-
-        {/* Nút quay lại đầu trang */}
-        <div
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          style={{
-            position: 'fixed', bottom: 24, right: 24,
-            width: 46, height: 46,
-            background: 'linear-gradient(135deg, #2563EB, #0EA5E9)',
-            borderRadius: '50%', display: 'flex', alignItems: 'center',
-            justifyContent: 'center', color: 'white', cursor: 'pointer',
-            boxShadow: '0 8px 24px rgba(37,99,235,0.4)',
-            zIndex: 50, transition: 'all 0.22s', fontSize: '0.85rem',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(37,99,235,0.55)'; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(37,99,235,0.4)'; }}
-        >
-          <i className="fas fa-arrow-up"></i>
-        </div>
-
-        <Footer />
-        <AIChatbot />
-    </div>
+      <AppContent 
+        user={user} 
+        handleLogout={handleLogout} 
+        handleLogin={handleLogin} 
+        handleUpdateUser={handleUpdateUser} 
+      />
     </BrowserRouter>
   )
 }

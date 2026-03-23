@@ -106,12 +106,12 @@ function AdminQuanLyBaiDang() {
 	}
 
 	return (
-		<div className="container mx-auto max-w-7xl px-4 py-8">
+		<div className="container mx-auto max-w-6xl px-4 pt-16 pb-8">
 			<h1 className="text-3xl font-extrabold text-gray-800 mb-2 flex items-center gap-2">
 				<i className="fas fa-list-check" style={{ color: '#4F46E5' }}></i>
 				Quản lý <span style={{ color: '#4F46E5' }}>Bài Đăng Phòng</span>
 			</h1>
-			<p className="text-gray-500 mb-6">Admin duyệt bài đăng trước khi hiển thị công khai trên web</p>
+			<p className="text-gray-500 mb-3">Admin duyệt bài đăng trước khi hiển thị công khai trên web</p>
 
 			{pendingCount > 0 && (
 				<div className="mb-5 rounded-xl border border-red-300 bg-red-50 px-4 py-3 animate-pulse">
@@ -122,7 +122,7 @@ function AdminQuanLyBaiDang() {
 				</div>
 			)}
 
-			<div className="flex gap-2 mb-5 overflow-x-auto pb-2 scrollbar-hide flex-nowrap">
+			<div className="flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide flex-nowrap">
 				{[
 					{ key: 'all', label: 'Tất cả' },
 					{ key: 'pending', label: 'Chờ duyệt' },
@@ -148,7 +148,7 @@ function AdminQuanLyBaiDang() {
 					<table className="w-full text-left border-collapse">
 						<thead>
 							<tr style={{ background: '#F5F3FF' }} className="text-indigo-700 text-sm border-b border-indigo-100">
-								<th className="p-4 font-semibold">Mã bài</th>
+								<th className="p-4 font-semibold whitespace-nowrap">Mã bài</th>
 								<th className="p-4 font-semibold">Tiêu đề</th>
 								<th className="p-4 font-semibold">Chủ trọ</th>
 								<th className="p-4 font-semibold">Giá</th>
